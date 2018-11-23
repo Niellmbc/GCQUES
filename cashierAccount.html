@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Super Admin</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link href="assets/css/mdb.min.css" rel="stylesheet">
+	<link href="assets/css/font-awesome.css" rel="stylesheet">
+
+	<link href="assets/css/stepper.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body class="fixed-sn">
+
+	<!--Main Navigation-->
+	<header>
+
+		<!-- Sidebar navigation -->
+		<div id="slide-out" class="side-nav fixed sidenavb">
+			<ul class="custom-scrollbar">
+				<li class="logo-sn d-block waves-effect">
+					<div class="text-center">
+						<a class="pl-0 text-white" href="#">Cashier #1 Account</a>
+					</div>
+				</li>	
+				<!-- Card -->
+				<div class="card card-image" style="background-image: url(assets/img/gcueslogo.png);">
+
+					<!-- Content -->
+					<div class="text-white flex-center d-flex align-items-center rgba-black-strong py-5 px-4">
+						<div>
+							<div class="col-xl-5 col-md-4 mb-3 text-center float-left">
+
+								<img src="assets/img/niel.jpg" class="img-fluid z-depth-1 rounded-circle"
+								alt="Responsive image">
+
+							</div>
+							<div class="float-right">
+								
+								<p>Raniel Lambaco</p>
+								<p>leinar1717@gmail.com</p>
+							</div>
+						</div>
+					</div>
+					<!-- Content -->
+				</div>
+				<!-- Card -->
+				<!-- Side navigation links -->
+				<li>
+					<ul class="collapsible collapsible-accordion">
+						<li><a class="collapsible-header waves-effect arrow-r" href="cashier.html"><i class="fa fa-home"></i> Home</i></a>
+						</li>
+						<li><a class="collapsible-header waves-effect arrow-r active" href="cashierAccount.html"><i class="fa fa-cog"></i> Account Settings</a>
+						</li>
+						<li><a class="collapsible-header waves-effect arrow-r " href="cashierLog.html"><i class="fa fa-book"></i> Activity Log</a>
+						</li>
+					</ul>
+				</li>
+				<!--/. Side navigation links -->
+			</ul>
+			<div class="sidenav-bg mask-strong"></div>
+		</div>
+		<!--/. Sidebar navigation -->
+
+		<!-- Navbar -->
+		<nav class="navbar fixed-top navbar-expand-lg scrolling-navbar double-nav navb">
+			<!-- SideNav slide-out button -->
+			<div class="float-left">
+				<a href="#" data-activates="slide-out" class="button-collapse black-text"><i class="fa fa-bars text-white"></i></a>
+			</div>
+			<!-- Breadcrumb-->
+			<div class="breadcrumb-dn mr-auto">
+				<p>Gordon College Cashier Queueing</p>
+			</div>
+
+			<!--Navbar links-->
+			<ul class="nav navbar-nav nav-flex-icons ml-auto">
+
+				
+
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fa fa-user "></i> <span class="clearfix d-none d-sm-inline-block ">Profile</span></a>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="userDropdown">
+					<a class="dropdown-item" href="#">Log Out</a>
+					<a class="dropdown-item" href="#">My account</a>
+				</div>
+			</li>
+
+		</ul>
+		<!--/Navbar links-->
+	</nav>
+	<!-- /.Navbar -->
+
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main>
+	<div class="container-fluid">
+		<!-- Section: Edit Account -->
+		<section class="section">
+			<!-- First row -->
+			<div class="row">
+				<!-- First column -->
+				<!-- Grid column -->
+				<div class="col-md-4 mb-4">
+
+					<!--Card-->
+					<div class="card profile-card">
+
+						<!--Avatar-->
+						<div class="avatar z-depth-1-half mb-4">
+							<img src="assets/img/niel.jpg" class="rounded-circle" alt="First sample avatar image" id="cImg">
+						</div>
+
+						<div class="card-body pt-0 mt-0 text-center">
+							<!--Name-->
+							<h3 class="mb-3 font-weight-bold"><strong>Anna Deynah</strong></h3>
+							<h6 class="font-weight-bold cyan-text mb-4">Administrator</h6>
+
+							<p class="text-muted"><small>Profile photo will be changed automatically</small></p>
+							<div class="row flex-center">
+								<form class="md-form">
+									<div class="file-field">
+										<div class="btn btn-rounded btn-info btn-sm float-left">
+											<span>Change Profile Photo</span>
+											<input type="file" id="uploadImg">
+										</div>
+
+									</div>
+								</form>
+								<button class="btn btn-danger btn-rounded btn-sm">Delete</button>
+							</div>
+						</div>
+
+					</div>
+					<!--Card-->
+
+				</div>
+				<!-- Grid column -->
+
+				<!-- /.First column -->
+				<!-- Second column -->
+				<div class="col-lg-8 mb-4">
+
+					<!--Card-->
+					<div class="card card-cascade narrower">
+
+						<!--Card image-->
+						<div class="view view-cascade gradient-card-header secondary-color lighten-3">
+							<h5 class="mb-0 font-weight-bold">Edit Account</h5>
+						</div>
+						<!--/Card image-->
+
+						<!-- Card content -->
+						<div class="card-body card-body-cascade text-center">
+							<!-- Edit Form -->
+							<form>
+								
+								<!--First row-->
+								<div class="row">
+									<!--First column-->
+									<div class="col-md-4">
+										<div class="md-form mb-0">
+											<input type="text" id="cLname" class="form-control validate">
+											<label for="form81" data-error="wrong" data-success="right">Last name</label>
+										</div>
+									</div>
+									<!--Second column-->
+									<div class="col-md-4">
+										<div class="md-form mb-0">
+											<input type="text" id="cFname" class="form-control validate">
+											<label for="form82" data-error="wrong" data-success="right">First name</label>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="md-form mb-0">
+											<input type="text" id="cMname" class="form-control validate">
+											<label for="form81" data-error="wrong" data-success="right">Middle name</label>
+										</div>
+									</div>
+								</div>
+								<!--/.First row-->
+								<!--Second row-->
+								<div class="row">
+									<!--First column-->
+									<div class="col-md-6">
+										<div class="md-form">
+										<input placeholder="Selected date" type="text" id="cBday" class="form-control datepicker">
+										<label for="date-picker-example"><i class="fa fa-calendar"></i> Birthday</label>
+									</div>
+									</div>
+									<div class="col-md-6">
+										<div class="md-form mb-0">
+											<input type="text" id="cStatus" class="form-control validate">
+											<label for="form76">Status</label>
+										</div>
+									</div>
+									
+								</div>
+								<!--/.Second row-->
+								<!--Second row-->
+								<div class="row">
+									<!--First column-->
+									<div class="col-md-4">
+										<div class="md-form mb-0">
+											<input type="text" id="cUname" class="form-control validate">
+											<label for="form76">Username</label>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="md-form mb-0">
+											<input type="Password" id="cPassword" class="form-control validate">
+											<label for="form76">Password</label>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="md-form mb-0">
+											<input type="Password" id="cConfirmPass" class="form-control validate">
+											<label for="form76">Confirm Password</label>
+										</div>
+									</div>
+
+									
+								</div>
+								<!--/.Second row-->
+								<!--Third row-->
+								
+								<!-- Fourth row -->
+								<div class="row">
+									<div class="col-md-12 text-center my-4">
+										<input type="submit" value="Update Account" class="btn btn-info btn-rounded" onclick="updateAccount()">
+									</div>
+								</div>
+								<!-- /.Fourth row -->
+							</form>
+							<!-- Edit Form -->
+						</div>
+						<!-- /.Card content -->
+
+					</div>
+					<!--/.Card-->
+				</div>
+				<!-- /.Second column -->
+			</div>
+			<!-- /.First row -->
+		</section>
+		<!-- /.Section: Edit Account -->
+	</div>
+</main>
+<!-- /Main Layout -->
+</body>
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<script type="text/javascript" src="js/queuelist.js"></script>
+<script>
+        // SideNav Initialization
+        $(".button-collapse").sideNav();
+         $('.datepicker').pickadate();
+        var container = document.querySelector('.custom-scrollbar');
+        Ps.initialize(container, {
+        	wheelSpeed: 2,
+        	wheelPropagation: true,
+        	minScrollbarLength: 20
+        });
+    </script>
+    </html>

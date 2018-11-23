@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Super Admin</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link href="assets/css/mdb.min.css" rel="stylesheet">
+	<link href="assets/css/font-awesome.css" rel="stylesheet">
+
+	<link href="assets/css/stepper.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body class="fixed-sn">
+
+	<!--Main Navigation-->
+	<header>
+
+		<!-- Sidebar navigation -->
+		<div id="slide-out" class="side-nav fixed sidenavb">
+			<ul class="custom-scrollbar">
+				<li class="logo-sn d-block waves-effect">
+					<div class="text-center">
+						<a class="pl-0 text-white" href="#">Super Admin Account</a>
+					</div>
+				</li>	
+				<!-- Card -->
+
+				<div class="card card-image" style="background-image: url(assets/img/gcueslogo.png);">
+
+					<!-- Content -->
+					<div class="text-white flex-center d-flex align-items-center rgba-black-strong py-5 px-4">
+						<div>
+							<div class="col-xl-5 col-md-4 mb-3 text-center float-left">
+
+								<img src="assets/img/niel.jpg" class="img-fluid z-depth-1 rounded-circle"
+								alt="Responsive image">
+
+							</div>
+							<div class="float-right">
+								
+								<p>Raniel Lambaco</p>
+								<p>leinar1717@gmail.com</p>
+							</div>
+						</div>
+					</div>
+					<!-- Content -->
+				</div>
+				<!-- Card -->
+				<!-- Side navigation links -->
+				<li>
+					<ul class="collapsible collapsible-accordion">
+						<li><a class="collapsible-header waves-effect arrow-r active" href="index.html"><i class="fa fa-tachometer"></i> Dashboards</a>
+						</li>
+						<li>
+							<a class="collapsible-header waves-effect arrow-r" href="AddUser.html"><i class="fa fa-user"></i>Users</a>
+						</li>
+						<li>
+							<a class="collapsible-header waves-effect arrow-r" href="adminAccount.html"><i class="fa fa-cog"></i>Account Settings</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				<!--/. Side navigation links -->
+			</ul>
+			<div class="sidenav-bg mask-strong"></div>
+		</div>
+		<!--/. Sidebar navigation -->
+
+		<!-- Navbar -->
+		<nav class="navbar fixed-top navbar-expand-lg scrolling-navbar double-nav navb">
+			<!-- SideNav slide-out button -->
+			<div class="float-left">
+				<a href="#" data-activates="slide-out" class="button-collapse black-text"><i class="fa fa-bars text-white"></i></a>
+			</div>
+			<!-- Breadcrumb-->
+			<div class="breadcrumb-dn">
+				<p>Gordon College Cashier Queueing</p>
+			</div>
+
+			<!--Navbar links-->
+			<ul class="nav navbar-nav nav-flex-icons ml-auto">
+
+				<!-- Dropdown -->
+				<li class="nav-item dropdown notifications-nav">
+					<a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">
+					<span class="badge red">3</span> <i class="fa fa-bell"></i>
+					<span class="d-none d-md-inline-block">Notifications</span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink">
+					<a class="dropdown-item" href="#">
+						<i class="fa fa-money mr-2" aria-hidden="true"></i>
+						<span>New order received</span>
+						<span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 13 min</span>
+					</a>
+					<a class="dropdown-item" href="#">
+						<i class="fa fa-money mr-2" aria-hidden="true"></i>
+						<span>New order received</span>
+						<span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 33 min</span>
+					</a>
+					<a class="dropdown-item" href="#">
+						<i class="fa fa-line-chart mr-2" aria-hidden="true"></i>
+						<span>Your campaign is about to end</span>
+						<span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 53 min</span>
+					</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fa fa-user "></i> <span class="clearfix d-none d-sm-inline-block ">Profile</span></a>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="userDropdown">
+					<a class="dropdown-item" href="#">Log Out</a>
+					<a class="dropdown-item" href="#">My account</a>
+				</div>
+			</li>
+
+		</ul>
+		<!--/Navbar links-->
+	</nav>
+	<!-- /.Navbar -->
+
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main>
+	<div class="container-fluid">
+		<!-- Admin Cards -->
+		<section class="section">
+
+			<!--Grid row-->
+			<div class="row">
+
+				<!--Grid column-->
+				<div class="col-xl-3 col-md-6 mb-4">
+
+					<!--Card-->
+					<div class="card card-cascade cascading-admin-card">
+
+						<!--Card Data-->
+						<div class="admin-up">
+							<i class="fa fa-money primary-color"></i>
+							<div class="data">
+								<p>Enrolment</p>
+								<h4 id="cEnrollment"></h4>
+							</div>
+						</div>
+						<!--/.Card Data-->
+
+						<!--Card content-->
+						<div class="card-body">
+							<div class="progress">
+								<div class="progress-bar primary-color" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<!--Text-->
+							<p class="card-text">Better than last week (25%)</p>
+						</div>
+						<!--/.Card content-->
+
+					</div>
+					<!--/.Card-->
+
+				</div>
+				<!--Grid column-->
+
+				<!--Grid column-->
+				<div class="col-xl-3 col-md-6 mb-4">
+
+					<!--Card-->
+					<div class="card card-cascade cascading-admin-card">
+
+						<!--Card Data-->
+						<div class="admin-up">
+							<i class="fa fa-line-chart warning-color"></i>
+							<div class="data">
+								<p>Other Transac</p>
+								<h4 id="cOther"></h4>
+							</div>
+						</div>
+						<!--/.Card Data-->
+
+						<!--Card content-->
+						<div class="card-body">
+							<div class="progress">
+								<div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<!--Text-->
+							<p class="card-text">Worse than last week (25%)</p>
+						</div>
+						<!--/.Card content-->
+
+					</div>
+					<!--/.Card-->
+
+				</div>
+				<!--Grid column-->
+
+				<!--Grid column-->
+				<div class="col-xl-3 col-md-6 mb-4">
+
+					<!--Card-->
+					<div class="card card-cascade cascading-admin-card">
+
+						<!--Card Data-->
+						<div class="admin-up">
+							<i class="fa fa-pie-chart light-blue lighten-1"></i>
+							<div class="data">
+								<p>Bank Accounts</p>
+								<h4 id="cBank"></h4>
+							</div>
+						</div>
+						<!--/.Card Data-->
+
+						<!--Card content-->
+						<div class="card-body">
+							<div class="progress">
+								<div class="progress-bar primary-color" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<!--Text-->
+							<p class="card-text">Better than last week (75%)</p>
+						</div>
+						<!--/.Card content-->
+
+					</div>
+					<!--/.Card-->
+
+				</div>
+				<!--Grid column-->
+
+				<!--Grid column-->
+				<div class="col-xl-3 col-md-6 mb-4">
+
+					<!--Card-->
+					<div class="card card-cascade cascading-admin-card">
+
+						<!--Card Data-->
+						<div class="admin-up">
+							<i class="fa fa-bar-chart red accent-2"></i>
+							<div class="data">
+								<p>Doc. Request</p>
+								<h4 id="cDreq"></h4>
+							</div>
+						</div>
+						<!--/.Card Data-->
+
+						<!--Card content-->
+						<div class="card-body">
+							<div class="progress">
+								<div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<!--Text-->
+							<p class="card-text">Better than last week (25%)</p>
+						</div>
+						<!--/.Card content-->
+
+					</div>
+					<!--/.Card-->
+
+				</div>
+				<!--Grid column-->
+				<!--Grid column-->
+				<div class="col-xl-6 col-md-6 mb-4">
+
+					<!--Card-->
+					<div class="card card-cascade cascading-admin-card">
+
+						<!--Card Data-->
+						<div class="admin-up">
+							<i class="fa fa-bar-chart red accent-2"></i>
+							<div class="data">
+								<p>Doc. Releasing</p>
+								<h4 id="cDrel"></h4>
+							</div>
+						</div>
+						<!--/.Card Data-->
+
+						<!--Card content-->
+						<div class="card-body">
+							<div class="progress">
+								<div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<!--Text-->
+							<p class="card-text">Better than last week (25%)</p>
+						</div>
+						<!--/.Card content-->
+
+					</div>
+					<!--/.Card-->
+
+				</div>
+				<!--Grid column-->
+				<!--Grid column-->
+				<div class="col-xl-6 col-md-6 mb-4">
+
+					<!--Card-->
+					<div class="card card-cascade cascading-admin-card">
+
+						<!--Card Data-->
+						<div class="admin-up">
+							<i class="fa fa-bar-chart red accent-2"></i>
+							<div class="data">
+								<p>Encoding</p>
+								<h4 id="cEncode"></h4>
+							</div>
+						</div>
+						<!--/.Card Data-->
+
+						<!--Card content-->
+						<div class="card-body">
+							<div class="progress">
+								<div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<!--Text-->
+							<p class="card-text">Better than last week (25%)</p>
+						</div>
+						<!--/.Card content-->
+
+					</div>
+					<!--/.Card-->
+
+				</div>
+				<!--Grid column-->
+
+			</div>
+			<!--Grid row-->
+		</section>
+		<hr>
+		<!-- /Admin Cards -->
+
+		<!--Section: Chart types-->
+		<section>
+
+			<!--Grid row-->
+			<div class="row">
+
+				<!--Grid column-->
+				<div class="col-lg-4 mb-4">
+
+					<!--Card-->
+					<div class="card card-cascade narrower">
+
+						<!--Card image-->
+						<div class="view view-cascade gradient-card-header blue">
+							<h5 class="mb-0">Monthly</h5>
+						</div>
+						<!--/Card image-->
+
+						<!--Card content-->
+						<div class="card-body card-body-cascade text-center">
+
+							<canvas id="monthly" height="200px"></canvas>
+
+						</div>
+						<!--/.Card content-->
+
+					</div>
+					<!--/.Card-->
+
+				</div>
+				<!--Grid column-->
+				<!--Grid column-->
+				<div class="col-lg-4 mb-4">
+
+					<!--Card-->
+					<div class="card card-cascade narrower">
+
+						<!--Card image-->
+						<div class="view view-cascade gradient-card-header blue">
+							<h5 class="mb-0">Weekly</h5>
+						</div>
+						<!--/Card image-->
+
+						<!--Card content-->
+						<div class="card-body card-body-cascade text-center">
+
+							<canvas id="weekly" height="200px"></canvas>
+
+						</div>
+						<!--/.Card content-->
+
+					</div>
+					<!--/.Card-->
+
+				</div>
+				<!--Grid column-->
+				<!--Grid column-->
+				<div class="col-lg-4 mb-4">
+
+					<!--Card-->
+					<div class="card card-cascade narrower">
+
+						<!--Card image-->
+						<div class="view view-cascade gradient-card-header blue">
+							<h5 class="mb-0">Daily</h5>
+						</div>
+						<!--/Card image-->
+
+						<!--Card content-->
+						<div class="card-body card-body-cascade text-center">
+							
+							<canvas id="daily" height="200px"></canvas>
+
+						</div>
+						<!--/.Card content-->
+
+					</div>
+					<!--/.Card-->
+
+				</div>
+				<!--Grid column-->
+
+
+			</div>
+			<!--Grid row-->
+			<!--Grid row-->
+			<div class="row mb-4">
+
+				
+				
+			</div>
+			<!--Grid row-->
+
+			
+		</section>
+
+
+
+	</div>
+</main>
+<!-- /Main Layout -->
+
+</body>
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<script type="text/javascript" src="js/Chart.min.js"></script>
+<script type="text/javascript" src="js/Chart.bundle.min.js"></script>
+<script type="text/javascript" src="js/cashier.js"></script>
+
+<script>
+        // SideNav Initialization
+        $(".button-collapse").sideNav();
+
+        var container = document.querySelector('.custom-scrollbar');
+        Ps.initialize(container, {
+        	wheelSpeed: 2,
+        	wheelPropagation: true,
+        	minScrollbarLength: 20
+        });
+    </script>
+    <script>
+    	var ctx = document.getElementById("monthly").getContext('2d');
+    	var myChart = new Chart(ctx, {
+    		type: 'bar',
+    		data: {
+    			labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    			datasets: [{
+    				label: '# of Votes',
+    				data: [12, 19, 3, 5, 2, 3],
+    				backgroundColor: [
+    				'rgba(255, 99, 132, 0.2)',
+    				'rgba(54, 162, 235, 0.2)',
+    				'rgba(255, 206, 86, 0.2)',
+    				'rgba(75, 192, 192, 0.2)',
+    				'rgba(153, 102, 255, 0.2)',
+    				'rgba(255, 159, 64, 0.2)'
+    				],
+    				borderColor: [
+    				'rgba(255,99,132,1)',
+    				'rgba(54, 162, 235, 1)',
+    				'rgba(255, 206, 86, 1)',
+    				'rgba(75, 192, 192, 1)',
+    				'rgba(153, 102, 255, 1)',
+    				'rgba(255, 159, 64, 1)'
+    				],
+    				borderWidth: 1
+    			}]
+    		},
+    		options: {
+    			scales: {
+    				yAxes: [{
+    					ticks: {
+    						beginAtZero:true
+    					}
+    				}]
+    			}
+    		}
+    	});
+    </script>
+     <script>
+    	var ctx = document.getElementById("weekly").getContext('2d');
+    	var myChart = new Chart(ctx, {
+    		type: 'bar',
+    		data: {
+    			labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    			datasets: [{
+    				label: '# of Votes',
+    				data: [12, 19, 3, 5, 2, 3],
+    				backgroundColor: [
+    				'rgba(255, 99, 132, 0.2)',
+    				'rgba(54, 162, 235, 0.2)',
+    				'rgba(255, 206, 86, 0.2)',
+    				'rgba(75, 192, 192, 0.2)',
+    				'rgba(153, 102, 255, 0.2)',
+    				'rgba(255, 159, 64, 0.2)'
+    				],
+    				borderColor: [
+    				'rgba(255,99,132,1)',
+    				'rgba(54, 162, 235, 1)',
+    				'rgba(255, 206, 86, 1)',
+    				'rgba(75, 192, 192, 1)',
+    				'rgba(153, 102, 255, 1)',
+    				'rgba(255, 159, 64, 1)'
+    				],
+    				borderWidth: 1
+    			}]
+    		},
+    		options: {
+    			scales: {
+    				yAxes: [{
+    					ticks: {
+    						beginAtZero:true
+    					}
+    				}]
+    			}
+    		}
+    	});
+    </script>
+     <script>
+    	var ctx = document.getElementById("daily").getContext('2d');
+    	var myChart = new Chart(ctx, {
+    		type: 'bar',
+    		data: {
+    			labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    			datasets: [{
+    				label: '# of Votes',
+    				data: [12, 19, 3, 5, 2, 3],
+    				backgroundColor: [
+    				'rgba(255, 99, 132, 0.2)',
+    				'rgba(54, 162, 235, 0.2)',
+    				'rgba(255, 206, 86, 0.2)',
+    				'rgba(75, 192, 192, 0.2)',
+    				'rgba(153, 102, 255, 0.2)',
+    				'rgba(255, 159, 64, 0.2)'
+    				],
+    				borderColor: [
+    				'rgba(255,99,132,1)',
+    				'rgba(54, 162, 235, 1)',
+    				'rgba(255, 206, 86, 1)',
+    				'rgba(75, 192, 192, 1)',
+    				'rgba(153, 102, 255, 1)',
+    				'rgba(255, 159, 64, 1)'
+    				],
+    				borderWidth: 1
+    			}]
+    		},
+    		options: {
+    			scales: {
+    				yAxes: [{
+    					ticks: {
+    						beginAtZero:true
+    					}
+    				}]
+    			}
+    		}
+    	});
+    </script>
+    <script>
+    	let countEnrollment=()=>{
+	fetch(url+'/count/tbl_transaction/fldTransType/Enrolment').then(res=>res.json()).then(function(res){
+		document.getElementById('cEnrollment').innerHTML = res[0].totalcount;
+	});
+}
+countEnrollment();
+let countBankAccount=()=>{
+	fetch(url+'/count/tbl_transaction/fldTransType/Bank Account').then(res=>res.json()).then(function(res){
+		document.getElementById('cBank').innerHTML = res[0].totalcount;
+	});
+}
+countBankAccount();
+let countDreq=()=>{
+	let dreqInTrans=0;
+	let dreqInReg=0;
+	fetch(url+'/count/tbl_transaction/fldTransType/Document Request').then(res=>res.json()).then(function(res){
+		dreqInTrans = res[0].totalcount;
+
+	});
+	fetch(url+'/count/tbl_registrar/fldType/Document Request').then(res=>res.json()).then(function(res){
+		dreqInReg = res[0].totalcount;
+	});
+	document.getElementById('cDreq').innerHTML = parseInt(dreqInReg + dreqInTrans);
+}
+countDreq();
+let countOther=()=>{
+	let otherInTrans=0;
+	let otherInReg=0;
+	fetch(url+'/count/tbl_transaction/fldTransType/Other Transaction').then(res=>res.json()).then(function(res){
+		otherInTrans = res[0].totalcount;
+
+	});
+	fetch(url+'/count/tbl_registrar/fldType/Other Transaction').then(res=>res.json()).then(function(res){
+		otherInReg = res[0].totalcount;
+	});
+	document.getElementById('cOther').innerHTML = parseInt(otherInReg + otherInTrans);
+}
+countOther();
+let countEncoding=()=>{
+	fetch(url+'/count/tbl_registrar/fldType/Encoding').then(res=>res.json()).then(function(res){
+		document.getElementById('cEncode').innerHTML = res[0].totalcount;
+	});
+}
+countEncoding();
+let countDrel=()=>{
+	fetch(url+'/count/tbl_registrar/fldType/Document Releasing').then(res=>res.json()).then(function(res){
+		document.getElementById('cDrel').innerHTML = res[0].totalcount;
+	});
+}
+countDrel();
+    </script>
+    </html>
