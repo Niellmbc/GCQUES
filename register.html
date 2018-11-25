@@ -39,7 +39,7 @@
       <!-- Left -->
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home
+          <a class="nav-link" href="landing.html">Home
             <span class="sr-only">(current)</span>
           </a>
         </li>
@@ -54,11 +54,7 @@
 
       <!-- Right -->
       <ul class="navbar-nav nav-flex-icons">
-        <li class="nav-item mr-2">
-          <a class="nav-link border border-light rounded" data-toggle="modal" data-target="#modalConfirmDelete">
-            <i class="fa fa-sign-in mr-2"></i>Login
-          </a>
-        </li>
+
         <li class="nav-item" >
           <a class="nav-link border border-light rounded" data-toggle="modal" data-target="#modalConfirmDelete">
             <i class="fa fa-user-plus mr-2"></i>Sign-Up
@@ -243,7 +239,7 @@
             <div class="col-lg-4 col-md-6">
 
               <div class="md-form form-sm mb-0">
-                <input type="text" id="rPass" class="form-control form-control-sm">
+                <input type="password" id="rPass" class="form-control form-control-sm">
                 <label for="form8" class=""><i class="fa fa-lock"></i> Password</label>
               </div>
 
@@ -253,7 +249,7 @@
             <div class="col-lg-4 col-md-6">
 
               <div class="md-form form-sm mb-0">
-                <input type="text" id="rConfirmPass" class="form-control form-control-sm">
+                <input type="password" id="rConfirmPass" class="form-control form-control-sm">
                 <label for="form8" class=""><i class="fa fa-lock"></i> Confirm Password</label>
               </div>
 
@@ -306,7 +302,7 @@
         <!-- Grid row -->
         <div class="row">
           <div class="col-md-6 offset-md-2">
-            <button class="btn btn-outline-primary btn-block mt-3 text-center center" onclick="newUser();newTrans()">Submit 
+            <button class="btn btn-outline-primary btn-block mt-3 text-center center" data-toggle='modal' data-target='#fluidModalRightInfo' onclick="sendtoModal()">Submit 
               <i class="fa fa-paper-plane-o ml-1"></i>
             </button>
           </div>
@@ -330,7 +326,228 @@
 </div>
 </main>
 <!-- /Main Layout -->
+<!-- Fluid Modal Right Info -->
+<div class="modal fade right" id="fluidModalRightInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-full-height modal-right modal-notify modal-success" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading lead">Please Check Details</p>
 
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">×</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
+          <p>Complete Details</p>
+        </div>
+        <!-- Grid row -->
+        <div class="row">
+          <div class="text-center">
+            <p>Complete Details If you are a New Student</p>
+          </div>
+
+          <!-- Grid column -->
+          <div class="col-lg-12">
+
+            <div class="md-form form-sm mb-0">
+              <input type="text" id="rFname1" class="form-control form-control-sm" value=" ">
+              <label for="form12" class=""><i class="fa fa-address-card"></i> Firstname</label>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-lg-12">
+
+            <div class="md-form form-sm mb-0">
+              <input type="text" id="rLname1" class="form-control form-control-sm" value=" ">
+              <label for="form3" class=""><i class="fa fa-address-card"></i> Lastname</label>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+          <!-- Grid column -->
+          <div class="col-lg-12">
+
+            <div class="md-form form-sm mb-0">
+              <input type="text" id="rMname1" class="form-control form-control-sm" value=" ">
+              <label for="form3" class=""><i class="fa fa-address-card"></i> Middle Name</label>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+
+
+        </div>
+        <!-- Grid row -->
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-12">
+
+            <div class="md-form form-sm mb-0">
+              <input type="text" id="rEmail1" class="form-control form-control-sm" value=" ">
+              <label for="form5" class=""><i class="fa fa-google-plus"></i> Email</label>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-12">
+
+            <div class="md-form form-sm mb-0">
+              <input type="text" id="rContact1" class="form-control form-control-sm" value=" ">
+              <label for="form5" class=""><i class="fa fa-phone"></i> Contact No</label>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+          <!-- Grid column -->
+          <div class="col-md-12">
+
+           <div class="md-form">
+            <input placeholder="Selected date" type="text" id="rBday1" class="form-control datepicker" value=" ">
+            <label for="date-picker-example"><i class="fa fa-calendar"></i> Birthday</label>
+          </div>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+      <!-- Grid row -->
+      <div class="row">
+       <!-- Grid column -->
+       <div class="col-lg-12 col-md-6">
+
+        <div class="md-form form-sm mb-0">
+          <input type="text" id="rStreet1" class="form-control form-control-sm" value=" ">
+          <label for="form9" class=""><i class="fa fa-address-book"></i> HouseNo. / Street</label>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+      <!-- Grid column -->
+      <div class="col-lg-12 col-md-6">
+
+        <div class="md-form form-sm mb-0">
+          <input type="text" id="rBrgy1" class="form-control form-control-sm" value=" ">
+          <label for="form9" class=""><i class="fa fa-address-book"></i> Barangay</label>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-lg-12 col-md-12">
+
+        <div class="md-form form-sm mb-0">
+          <input type="text" id="rCity1" class="form-control form-control-sm" value=" ">
+          <label for="form7" class=""><i class="fa fa-address-book"></i> City</label>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-lg-12 col-md-6">
+
+        <div class="md-form form-sm mb-0">
+          <input type="text" id="rCountry1" class="form-control form-control-sm" value=" ">
+          <label for="form8" class=""><i class="fa fa-address-book"></i> Country</label>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+
+
+
+    </div>
+    <!-- Grid row -->
+    <!-- Grid row -->
+    <div class="row">
+      <!-- Grid column -->
+      <div class="col-lg-12 col-md-6">
+
+        <div class="md-form form-sm mb-0">
+          <input type="text" id="rUname1" class="form-control form-control-sm" value=" ">
+          <label for="form8" class=""><i class="fa fa-user"></i> Username</label>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+      <!-- Grid column -->
+      <div class="col-lg-12 col-md-6">
+
+        <div class="md-form form-sm mb-0">
+          <input type="password" id="rPass1" class="form-control form-control-sm" value=" ">
+          <label for="form8" class=""><i class="fa fa-lock"></i> Password</label>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+
+    <!-- /Grid row -->
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-12 about-text">
+
+        <h4 class="text-muted text-left my-4"><strong>Choose Transaction</strong></h4>
+
+        <!--Basic textarea-->
+        <div class="row">
+          <div class="col-md-12">
+           <div class="md-form form-sm mb-0">
+            <input type="text" id="rStudentID1" class="form-control form-control-sm" value=" ">
+            <label for="form8" class=""><i class="fa fa-student-card"></i>Student Number *If You Have</label>
+          </div>
+        </div>
+        <div class="col-md-12">
+         <div class="md-form form-sm mb-0">
+          <input type="text" id="rOffice1" class="form-control form-control-sm" value=" ">
+          <label for="form8" class=""><i class="fa fa-home"></i>Office</label>
+        </div>
+      </div>
+      <div class="col-md-12">
+       <div class="md-form form-sm mb-0">
+        <input type="text" id="rTrans1" class="form-control form-control-sm" value=" ">
+        <label for="form8" class=""><i class="fa fa-address-book"></i>Transaction</label>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<!--Footer-->
+<div class="modal-footer justify-content-center">
+  <a type="button" class="btn btn-default waves-effect waves-light" onclick="newUser();newTrans()">Submit
+    <i class="fa fa-paper-plane-o ml-1 text-white"></i>
+  </a>
+  <a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal" >Cancel</a>
+</div>
+</div>
+<!--/.Content-->
+</div>
+</div>
+<!-- /Fluid Modal Right Info -->
 </body>
 
 <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
@@ -359,26 +576,86 @@
 
               </script>
               <script>
-                let newUser=()=>{
-                  let street = document.getElementById('rStreet').value;
-                  let brgy = document.getElementById('rBrgy').value;
-                  let city = document.getElementById('rCity').value;
-                  let country = document.getElementById('rCountry').value;
-                  let address = street+','+brgy+','+city+','+country;
-                  let data ={
-                    email:document.getElementById('rEmail').value,
-                    lname:document.getElementById('rLname').value,
-                    fname:document.getElementById('rFname').value,
-                    mname:document.getElementById('rMname').value,
-                    bday:document.getElementById('rBday').value,
-                    contact:document.getElementById('rContact').value,
-                    address:address,
-                    img:' ',
-                    uname:document.getElementById('rUname').value,  
-                    pass:document.getElementById('rPass').value,
-                    role:'New Student'
-                  }
-                  c.addData(data,'tbl_user');
+                let data ={
+                  email:"",
+                  lname:"",
+                  fname:"",
+                  mname:"",
+                  bday:"",
+                  contact:"",
+                  street:"",
+                  brgy:"",
+                  city:"",
+                  country:"",
+                  img:'',
+                  uname:"",  
+                  pass:"",
+                  role:'New Student',
+                  office:"",
+                  transaction:"",
+                  studentid:""
                 }
-              </script>
-              </html>
+                var trans = document.getElementById("rTrans");
+                var office = document.getElementById("rOffice");
+                var studentid = document.getElementById('rStudentID');
+                let sendtoModal =()=>{
+                 data.street = document.getElementById('rStreet').value;
+                 data.brgy = document.getElementById('rBrgy').value;
+                 data.city = document.getElementById('rCity').value;
+                 data.country = document.getElementById('rCountry').value;
+                 data.fname = document.getElementById('rFname').value;
+                 data.lname = document.getElementById('rLname').value;
+                 data.mname = document.getElementById('rMname').value;
+                 data.email = document.getElementById('rEmail').value;
+                 data.bday = document.getElementById('rBday').value;
+                 data.contact = document.getElementById('rContact').value;
+                 data.uname = document.getElementById('rUname').value;
+                 data.pass = document.getElementById('rPass').value;
+                 data.office = office.options[office.selectedIndex].value;
+                 data.transaction =trans.options[trans.selectedIndex].value;
+                 data.studentid = document.getElementById('rStudentID').value;
+
+                 document.getElementById('rStreet1').value=data.street;
+                 document.getElementById('rBrgy1').value=data.brgy;
+                 document.getElementById('rCity1').value=data.city;
+                 document.getElementById('rCountry1').value=data.country;
+                 document.getElementById('rFname1').value=data.fname;
+                 document.getElementById('rLname1').value=data.lname;
+                 document.getElementById('rMname1').value=data.mname ;
+                 document.getElementById('rEmail1').value=data.email;
+                 document.getElementById('rBday1').value=data.bday;
+                 document.getElementById('rContact1').value=data.contact;
+                 document.getElementById('rUname1').value=data.uname;
+                 document.getElementById('rPass1').value=data.pass;
+                 document.getElementById('rOffice1').value=data.office;
+                 document.getElementById('rTrans1').value=data.transaction;
+                 document.getElementById('rStudentID1').value=data.studentid;
+
+               }
+               let newUser=()=>{
+                let street = document.getElementById('rStreet1').value;
+                let brgy = document.getElementById('rBrgy1').value;
+                let city = document.getElementById('rCity1').value;
+                let country = document.getElementById('rCountry1').value;
+                let address = street+','+brgy+','+city+','+country;
+                let data ={
+                  email:document.getElementById('rEmail1').value,
+                  lname:document.getElementById('rLname1').value,
+                  fname:document.getElementById('rFname1').value,
+                  mname:document.getElementById('rMname1').value,
+                  bday:document.getElementById('rBday1').value,
+                  contact:document.getElementById('rContact1').value,
+                  address:address,
+                  img:' ',
+                  uname:document.getElementById('rUname1').value,  
+                  pass:document.getElementById('rPass1').value,
+                  role:'New Student'
+                }
+                if(data.fname == "" || data.lname == "" || data.mname =="" || data.bday==""){
+                }else{
+                c.addData(data,'tbl_user');
+                toastr.success('You have been Registered Successfully');
+                }
+              }
+            </script>
+            </html>
