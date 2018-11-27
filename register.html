@@ -17,7 +17,7 @@
   
 </head>
 
-<body class="homepage-v3">
+<body>
   <!-- Navbar -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark navb scrolling-navbar">
     <div class="container">
@@ -38,7 +38,7 @@
 
       <!-- Left -->
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="landing.html">Home
             <span class="sr-only">(current)</span>
           </a>
@@ -54,8 +54,13 @@
 
       <!-- Right -->
       <ul class="navbar-nav nav-flex-icons">
+        <li class="nav-item mr-2">
+          <a class="nav-link border border-light rounded" href="login.html">
+            <i class="fa fa-user-plus mr-2"></i>Login
+          </a>
+        </li>
 
-        <li class="nav-item" >
+        <li class="nav-item active">
           <a class="nav-link border border-light rounded" data-toggle="modal" data-target="#modalConfirmDelete">
             <i class="fa fa-user-plus mr-2"></i>Sign-Up
           </a>
@@ -79,19 +84,15 @@
       <div class="row text-center">
 
         <!-- Grid column -->
-        <div class="col-md-12 mb-12">
+        <div class="col-md-12 flex-center">
+          <div class="col-md-10 mb-12">
 
-          <!--Card-->
-          <div class="card card-cascade cascading-admin-card user-card">
+            <!--Card-->
+            <div class="card card-cascade cascading-admin-card user-card">
 
-            <!--Card Data-->
-            <div class="admin-up d-flex justify-content-start">
-              <i class="fa fa-users info-color py-4"></i>
-              <div class="data">
-                <h5 class="font-weight-bold dark-grey-text">Register Account - <span class="text-muted">Complete your profile</span></h5>
-              </div>
-            </div>
-            <!--/.Card Data-->
+             <h5 class="card-header secondary-color white-text text-center py-4">
+              <strong>Register Account</strong>
+            </h5>
 
             <!--Card content-->
             <div class="card-body card-body-cascade">
@@ -316,7 +317,7 @@
 
   </div>
   <!-- Grid column -->
-
+</div>
 
 </div>
 <!--Grid row-->
@@ -516,7 +517,7 @@
           <div class="col-md-12">
            <div class="md-form form-sm mb-0">
             <input type="text" id="rStudentID1" class="form-control form-control-sm" value=" ">
-            <label for="form8" class=""><i class="fa fa-student-card"></i>Student Number *If You Have</label>
+            <label for="form8" class=""><i class="fa fa-student-card"></i>Student Number *Optional</label>
           </div>
         </div>
         <div class="col-md-12">
@@ -538,7 +539,7 @@
 
 <!--Footer-->
 <div class="modal-footer justify-content-center">
-  <a type="button" class="btn btn-default waves-effect waves-light" onclick="newUser();newTrans()">Submit
+  <a type="button" class="btn btn-default waves-effect waves-light" onclick="newUser();newTrans()" data-dismiss="modal">Submit
     <i class="fa fa-paper-plane-o ml-1 text-white"></i>
   </a>
   <a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal" >Cancel</a>
@@ -653,8 +654,8 @@
                 }
                 if(data.fname == "" || data.lname == "" || data.mname =="" || data.bday==""){
                 }else{
-                c.addData(data,'tbl_user');
-                toastr.success('You have been Registered Successfully');
+                  c.addData(data,'tbl_user');
+                  toastr.success('You have been Registered Successfully');
                 }
               }
             </script>

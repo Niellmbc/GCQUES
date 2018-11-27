@@ -15,73 +15,47 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
-<body class="fixed-sn">
+<body class="">
 	
-	<!-- Navbar -->
-	<nav class="navbar fixed-top navbar-expand-lg navbar-dark navb scrolling-navbar">
-		<div class="container">
+	
 
-			<!-- Brand -->
-			<a class="navbar-brand" href="#">
-				<img src="assets/img/gcueslogo.png" height="45" class="ml-3 d-inline-block align-top wow slideInRight" alt="">
-			</a>
+	<!--/.Navbar-->
+	<main class="mt-0">
 
-			<!-- Collapse -->
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+		<div class="container-fluid">
+			<section class="section mb-1">
+				
+			</section>
+			<div class="row">
+				<div class="col-md-8">
+					<h1>Finance Department</h1>
+				</div>
+				<div class="col-md-4" style="margin-left:-32px;">	
+					<nav class="breadcrumb btn-outline-teal flex-center">
+						<h4 class="breadcrumb-item flex-center-center" id="time" style="font-size: 35px;padding:-10px -10px -10px -10px"></h4>
+					</nav>
 
-		<!-- Links -->
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-			<!-- Left -->
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Home
-						<span class="sr-only">(current)</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#" target="_blank">About GQUES</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#" target="_blank">Download Now!</a>
-				</li>
-
-			</ul>
-
-			<!-- Right -->
-			<ul class="navbar-nav nav-flex-icons">
-				<li class="nav-item" >
-					<a class="nav-link border border-light rounded mr-2" data-toggle="modal" data-target="#modalConfirmDelete">
-						<i class="fa fa-sign-in mr-2"></i>Login
-					</a>
-				</li>
-				<li class="nav-item" >
-					<a class="nav-link border border-light rounded" href="register.html">
-						<i class="fa fa-user-plus mr-2"></i>Register
-					</a>
-				</li>
-			</ul>
-
-		</div>
-
-	</div>
-</nav>
-<!-- Navbar -->
-
-<!--/.Navbar-->
-<main class="mt-0">
-	<div class="container-fluid">
-		<section class="section mb-1">
+				</div>
+			</div>
 			
-			<span class="badge badge-default">Waiting</span>
-			<span class="badge badge-warning">Warning Late</span>
-			<span class="badge badge-danger">Late</span>
-		</section>
-		<h1 class="red-text flex-center">Now Serving!!!</h1>
-		<div class="row mt-0" id="queueServing">
+
+			<div class="row mt-0" >
+				<div class="col-md-8">
+					<div class="col-md-12">	
+						<marquee><h1 class="red-text flex-center">Now Serving!!!</h1></marquee>
+						<div class="row"  id="queueServing">
+						</div>
+					</div>	
+				</div>
+				<div class="col-md-4" style="margin-left:-35px">
+					<h1 class="teal-text text-center">Waiting List</h1>
+					<div class="card">
+						<ul class="list-group z-depth-1" id="queueServingTrans">
+							
+						</ul>
+					</div>
+				</div>
+			</div>	
 		</div>
 	</div>
 
@@ -101,7 +75,7 @@ aria-hidden="true">
 				<li class="nav-item">
 					<a class="nav-link active" data-toggle="tab" href="#panel1" role="tab"><i class="fa fa-user mr-1"></i> Login</a>
 				</li>
-				
+
 			</ul>
 
 			<!-- Tab panels -->
@@ -167,88 +141,95 @@ aria-hidden="true">
         });
     </script>
     <script>
-    	let tables = {
-    		cashier: [],
-    		user:[]
-    	}
-    	let tbl_user = ()=>{
-    		fetch(url+'/tbl_user').then(res=>res.json()).then(function(res){
-    			tables.user = res;
-    			
+    	function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+function Starttime(){
 
-    		});	
-    	}
-    	tbl_user();
-    	let tbl_cashier = ()=>{
-    		fetch(url+'/tbl_cashier').then(res=>res.json()).then(function(res){
-    			tables.cashier = res;
-    			
-    		});	
-    	}
-    	tbl_cashier();
-    	
-    	console.log(tables);
-    	let loginAccount =()=>{
-    		let uname = document.getElementById('uname').value;
-    		let pass = document.getElementById('pass').value;
-    		for(let i=0;i<tables.user.length;i++){
-    			if(uname == tables.user[i].fldUsername && pass ==tables.user[i].fldPassword){
-    				if(tables.user[i].fldRole=='Administrator'){
-    					localStorage.setItem('adminID',tables.user[i].fldUserID)
-    					window.location.assign('index.html');
-    				}else if(tables.user[i].fldRole=='Registrar'){
-    					localStorage.setItem('regID',tables.user[i].fldUserID)
-    					window.location.assign('registrar.html');
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	var today = new Date();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	var s = today.getSeconds();
+	var aorp = "";
+	m = checkTime(m);
+	s = checkTime(s);
+	if (h > 12) {
+		h = h-12;
+		if(h == 0){
+			h = 1;
+		}
+		aorp = "PM"; 
+	} else { 
+		aorp = "AM"; 
+	}
+	var time = h + ":" + m + ":" + s + " " + aorp;
+    // var t = setTimeout(startTime, 500);
 
-    				}else{
-    					toast.danger('Account Doesnt Exist, Please Check Username/Password');
-    				}
-    			}
-    		}
-    		for(let i=0;i<tables.cashier.length;i++){
-    			if(uname == tables.cashier[i].fldUsername && pass == tables.cashier[i].fldPassword){
-    				if(tables.cashier[i].fldRemarks=='Available'){
-    					let status = {
-    						fldStatus: 'Online'
-    					}
-    					localStorage.setItem('cID',tables.cashier[i].fldCashierNo);
-    					let id = localStorage.cID;
-    					c.updateData(id,'tbl_cashier','fldCashierNo',status);
-    					window.location.assign('cashier.html');
-    				}else{
-    					toast.danger('Account Doesnt Exist, Please Check Username/Password');
-    				}
-    			}
-    		}
-    	}
+    if(dd<10) {
+    	dd = '0'+dd
+    } 
+    if(mm<10) {
+    	mm = '0'+mm
+    } 
+    today = mm + '/' + dd + '/' + yyyy;
+    document.getElementById('time').innerHTML=today+' '+time;
+    
 
-    	let queueServing=()=>{
-    		fetch(url+'/queueServing').then(res=>res.json()).then(function(res){
-    			let ls="";
-    			for(let i=0;i<res.length;i++){
-    				ls+='<div class="col-md-6 col-md-4 mt-1">';
-    				ls+='<div class="card card-image" style="background-image: url(assets/img/gcueslogo.png);">';
-    				ls+='<div class="text-white flex-center d-flex align-items-center rgba-black-strong py-5 px-4">';
-    				ls+='<div>';
-    				ls+='<h6 class="orange-text text-center"><i class="fa fa-id-badge"></i><strong> CASHIER '+res[i].fldCashierNo+'</strong></h6>';
-    				ls+='<h3 class="card-title pt-4 pb-3 font-weight-bold"><strong>QUEUE:#'+res[i].fldQueueNo+'</strong></h3>';
-    				ls+='</div>';
-    				ls+='</div>';
-    				ls+='<div class="rounded-bottom secondary-color text-center pt-3">';
-    				ls+'<ul class="list-unstyled list-inline font-small">';
-    				ls+'<li class="list-inline-item pr-2 white-text">'+res[i].fldDate+'</li>';
-    				ls+='<li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fa fa-clock-o pr-1"></i>Estimated Time Arrival:'+res[i].fldArrival+'</a></li>';
-    				ls+='</ul>';
-    				ls+='</div>';
-    				ls+='</div>';
-    				ls+='</div>';
-    			}
-    			$('#queueServing').html(ls);
-    		});
-    	}
-    	setInterval(
-    		queueServing(),3000
-    	);
+}
+window.setInterval(Starttime,500)
 
-    </script>
-    </html>
+let queueServing=()=>{
+	fetch(url+'/queueServing').then(res=>res.json()).then(function(res){
+		let ls="";
+		let a= res.length;
+		let s = 0;
+		if(a<=1){
+			s=12;
+		}else if(a==2){
+			s=6;
+		}else{
+			s = a /12;
+		}
+		for(let i=0;i<res.length;i++){
+			ls+='<div class="col-md-'+s+' col-md-4 mt-1" style="margin-right:-25px;">';
+			ls+='<div class="card card-image" style="background-image: url(assets/img/gcueslogo.png);">';
+			ls+='<div class="text-white flex-center d-flex align-items-center rgba-black-strong py-5 px-4">';
+			ls+='<div>';
+			ls+='<h6 class="orange-text text-center"><i class="fa fa-id-badge"></i><strong  style="font-size:25px;"> CASHIER #'+res[i].fldCashierNo+'</strong></h6>';
+			ls+='<h1 class="card-title pt-4 pb-3 font-weight-bold text-center qnum"><strong>'+res[i].fldQueueNo+'</strong></h1>';
+			ls+='</div>';
+			ls+='</div>';
+
+			ls+='</div>';
+			ls+='</div>';
+		}
+		$('#queueServing').html(ls);
+	});
+}
+let queueServingTrans=()=>{
+	fetch(url+'/tbl_transaction').then(res=>res.json()).then(function(res){
+		let ls="";
+		
+		for(let i=0;i<res.length;i++){
+			if(res[i].fldRemarks=='In Line'){
+
+				ls+='<li class="list-group-item d-flex justify-content-between align-items-center">';
+				ls+='<a class="dark-grey-text font-small" style="font-size: 30px;"><i class="fa fa-id-badge dark-grey-text mr-2" aria-hidden="true"></i> Q #: '+res[i].fldQueueNo+' - Cashier:'+res[i].fldCashierNo+'</a>';
+				ls+='<span class="badge badge-default">Waiting</span>';
+				ls+='</li>';
+			}
+		}
+		$('#queueServingTrans').html(ls);
+	});
+}
+
+window.setInterval(queueServingTrans,1000);
+window.setInterval(queueServing,1000);
+
+</script>
+</html>

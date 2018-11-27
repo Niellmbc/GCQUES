@@ -1,47 +1,69 @@
-'use strict';
+
 let url="http://localhost/GQUESAPI";
 let lastqueue;
 let lastqueueInReg;
 let lastqueueInTransFin;
 let LeastTransOfCashier;
-let lastcashier;
 let totalcashier;
 let lastTimeArrival;
 let totalTransaction;
+let getOnlineCashier =[];
+let a=0;
+let lastcashiersatrans;
+let getOnlineCashiers =()=>{
+	fetch(url+'/tbl_cashier/fldStatus/Online').then(res=>res.json()).then(function(res){
+		for(let i=0;i<res.length;i++){
+			getOnlineCashier[i]=res[i].fldCashierID;
+		}
+		console.log(getOnlineCashier)
+		
+	});
+}
+window.setInterval(getOnlineCashiers,1000);
+let getlastcashierSaTrans =()=>{
+	fetch(url+'/tbl_transaction?ORDERBY=fldTransID%20DESC').then(res=>res.json()).then(function(res){
+		lastcashiersatrans = res[0].fldCashierNo;
+	});
+	console.log(lastcashiersatrans);
+}
 
+window.setInterval(getlastcashierSaTrans,1000);
 let getCashier = ()=>{
 	fetch(url+'/tbl_cashier').then(res=>res.json()).then(function(res){
 		let ls="";
 		for(let i=0;i<res.length;i++){
-			ls+="<tr>";
-			ls+="<td>"+res[i].fldLname+', '+res[i].fldFname+', '+res[i].fldMname+"</td>";
-			ls+="<td>"+res[i].fldCashierID+"</td>";
-			ls+="<td>"+res[i].fldUsername+"</td>";
-			ls+='<td><a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResult" onclick="getCashierID('+res[i].fldCashierID+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive"><i class="fa fa-archive"></i></a></td>';
-			if(res[i].fldStatus=='Offline'){
-				ls+='<td><span class="badge badge-pill red">'+res[i].fldStatus+'</span></td>';
-			}else{
-				ls+='<td><span class="badge badge-pill green">'+res[i].fldStatus+'</span></td>';
-			}
-		} 
+			if(res[i].fldRemarks=='Available'){
+
+				ls+="<tr>";
+				ls+="<td>"+res[i].fldLname+', '+res[i].fldFname+', '+res[i].fldMname+"</td>";
+				ls+="<td>"+res[i].fldCashierID+"</td>";
+				ls+="<td>"+res[i].fldUsername+"</td>";
+				ls+='<td><a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResult" onclick="getCashierID('+res[i].fldCashierID+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveCashier('+res[i].fldCashierID+')"><i class="fa fa-archive"></i></a></td>';
+				if(res[i].fldStatus=='Offline'){
+					ls+='<td><span class="badge badge-pill red">'+res[i].fldStatus+'</span></td>';
+				}else{
+					ls+='<td><span class="badge badge-pill green">'+res[i].fldStatus+'</span></td>';
+				}
+			} 
+		}
 		$('#cashierlist').html(ls);
 	});
-
-
 }
 let studentList=()=>{
 	fetch(url+'/tbl_student').then(res=>res.json()).then(function(res){
 		let ls="";
 		for(let i=0;i<res.length;i++){
+			
 			ls+="<tr>";
 			ls+="<td>"+res[i].fldStudentNo+"</td>";
 			ls+="<td>"+res[i].fldLname+"</td>";
 			ls+="<td>"+res[i].fldFname+"</td>";
 			ls+="<td>"+res[i].fldMname+"</td>";
-			ls+="<td>"+res[i].fldUsername+"</td>";
-			ls+='<td><a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResultStud" onclick="getStudentID('+res[i].fldStudentID+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive"><i class="fa fa-archive"></i></a></td>';
+			ls+="<td>"+res[i].fldDateAdded+"</td>";
+			ls+='<td><a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResultStud" onclick="getStudentID('+res[i].fldStudentNo+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveStudent('+res[i].fldStudentID+')"><i class="fa fa-archive"></i></a></td>';
 		} 
 		$('#studentList').html(ls);
+		
 	});
 }
 studentList();
@@ -71,11 +93,11 @@ let getLastqueue=()=>{
 			lastqueue = res[0].fldQueueNo;
 			lastTimeArrival = res[0].fldArrival;
 		}
-		console.log(lastqueue);
+		
 
 	});
 }
-getLastqueue();
+window.setInterval(getLastqueue,1000);
 let getLastqInTransFin = () =>{
 	fetch(url+'/lastqInTransFin').then(res=>res.json()).then(function(res){
 		if(res.length == 0){
@@ -85,7 +107,7 @@ let getLastqInTransFin = () =>{
 		}
 	});
 }
-getLastqInTransFin();
+window.setInterval(getLastqInTransFin,1000);
 let getLastqueueInReg=()=>{
 	fetch(url+'/tbl_registrar?ORDERBY=fldRegID DESC').then(res=>res.json()).then(function(res){
 		if(res.length==0){
@@ -95,8 +117,7 @@ let getLastqueueInReg=()=>{
 		}
 	});
 }
-getLastqueueInReg();
-
+window.setInterval(getLastqueueInReg,1000);
 let getLastCashier=()=>{
 	fetch(url+'/tbl_cashier?ORDERBY=fldCashierID DESC').then(res=>res.json()).then(function(res){
 		let lastcashierInDB = res[0].fldCashierID;
@@ -113,17 +134,7 @@ let countCashiers= ()=>{
 
 	});
 }
-countCashiers();
-let lastcashierinput =()=>{
-	fetch(url+'/tbl_transaction?ORDERBY=fldTransID%20DESC').then(res=>res.json()).then(function(res){
-		if(res.length==0){
-			lastcashier = 0;
-		}
-		lastcashier = res[0].fldCashierNo;
-		console.log(lastcashier);
-	});
-}
-lastcashierinput()
+window.setInterval(countCashiers,1000);
 let numberOfTransOfCashier=()=>{
 	fetch(url+'/tbl_transaction/fldCashierNo/fldCashierNo/trans').then(res=>res.json()).then(function(res){
 		
@@ -131,18 +142,17 @@ let numberOfTransOfCashier=()=>{
 			LeastTransOfCashier=0;
 		}else{
 			LeastTransOfCashier = res[0].fldCashierNo;
-			console.log(LeastTransOfCashier)
+			
 		}
 	});
 }
-numberOfTransOfCashier();
+window.setInterval(numberOfTransOfCashier,1000);
 let totalTrans = () =>{
 	fetch(url+'/countTrans').then(res=>res.json()).then(function(res){
 		totalTransaction = parseInt(res[0].totaltrans);
-		
 	});
 }
-totalTrans();
+window.setInterval(totalTrans,1000);
 
 
 const MyCashier = class gques{
@@ -206,8 +216,8 @@ let getCashierID = (id)=>{
 }
 let getStudentID = (studid)=>{
 	localStorage.setItem('studentID',studid);
-	fetch(url+'/tbl_student/fldStudentID/'+studid).then(res=>res.json()).then(function(res){
-		document.getElementById('sIDs').value=res[0].fldStudentID;
+	fetch(url+'/tbl_student/fldStudentNo/'+studid).then(res=>res.json()).then(function(res){
+		document.getElementById('sIDs').value=res[0].fldStudentNo;
 		document.getElementById('sLnames').value=res[0].fldLname;
 		document.getElementById('sFnames').value=res[0].fldFname;
 		document.getElementById('sMnames').value=res[0].fldMname;
@@ -232,7 +242,7 @@ let updateCashier=()=>{
 let updateStudents=()=>{
 	let id=localStorage.studentID;
 	let data ={
-		fldStudentID:document.getElementById('sIDs').value,
+		fldStudentNo:document.getElementById('sIDs').value,
 		fldLname:document.getElementById('sLnames').value,
 		fldFname:document.getElementById('sFnames').value,
 		fldMname:document.getElementById('sMnames').value,
@@ -242,30 +252,62 @@ let updateStudents=()=>{
 	c.updateData(id,'tbl_student','fldStudentID',data);
 }
 
+// let checkCashier = ()=>{
+// 	if(totalTransaction >= 16){
+// 		LeastTransOfCashier;
+// 		return LeastTransOfCashier;
+// 	}
+// 	else if(lastcashier==0){
+// 		if(lastcashier == totalcashier){
+// 			lastcashier=1;
+// 			lastcashier;
+// 		}else{
+// 			lastcashier++;
+// 			return lastcashier;
+// 		}
+
+// 	}else{
+// 		if(lastcashier == totalcashier){
+// 			lastcashier =1;
+// 			return lastcashier;
+// 		}else{
+// 			lastcashier++;
+// 			return lastcashier;
+// 		}
+// 	}
+// }
 let checkCashier = ()=>{
 	if(totalTransaction >= 16){
-		LeastTransOfCashier;
 		return LeastTransOfCashier;
-	}
-	else if(lastcashier==0){
-		if(lastcashier == totalcashier){
-			lastcashier=1;
-			lastcashier;
-		}else{
-			lastcashier++;
-			return lastcashier;
-		}
-		
 	}else{
-		if(lastcashier == totalcashier){
-			lastcashier =1;
-			return lastcashier;
+		if(getOnlineCashier.length-1<=a){
+			a=0;
+			return getOnlineCashier[a];
 		}else{
-			lastcashier++;
-			return lastcashier;
+			a++;
+			return getOnlineCashier[a];
 		}
 	}
+
 }
+// let checkCashier = ()=>{
+// 	if(totalTransaction >= 16){
+// 		return LeastTransOfCashier;
+// 	}else{
+// 		if(totalTransaction==0){
+// 			return getOnlineCashier[0];
+// 		}else{
+// 			for(let i=0;i<getOnlineCashier.length-1;i++){
+// 				if(getOnlineCashier[i]==lastcashiersatrans){
+// 					return getOnlineCashier[i+1];
+// 				}else{
+// 					return getOnlineCashier[0];
+// 				}
+// 			}
+// 		}
+// 	}
+	
+// }
 function checkTime(i) {
     if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
     return i;
@@ -276,7 +318,6 @@ function gotoReg(){
 let newTrans=()=>{
 	lastqueueInTransFin++; 
 	lastqueueInReg++;
-
 	let goToC = checkCashier();
 	var today = new Date();
 	var dd = today.getDate();
@@ -348,14 +389,80 @@ let newTrans=()=>{
 	if(document.getElementById('rOffice1').value=='Finance'){
 		c.addData(dataTrans,'tbl_transaction');
 		toastr.success('Your Queue #: <h4>'+lastqueueInTransFin+'</h4><br>'+'Please Procceed to <h4>Cashier #:'+goToC+'</h4>');
-
+		document.getOnlineCashiers('rStudentID').value = " ";
+		document.getOnlineCashiers('rOffice').value = " ";
+		document.getOnlineCashiers('rTrans').value = " ";
+		
 	}else if(document.getElementById('rOffice1').value=='Registrar'){
 		c.addData(dataReg,'tbl_registrar');
 		toastr.success('Your Queue #: <h2>'+lastqueueInReg+'</h2><br>'+'Please Procceed to Registrar');
+		window.location.assign('register.html');
 	}
+	// console.log(goToC);
+	// console.log(goToC);
 
 	
 }
+let logOutAccount =()=>{
+	let status = {
+		fldStatus: 'Offline'
+	}
+	let id = localStorage.cID;
+	c.updateData(id,'tbl_cashier','fldCashierNo',status);
+	window.location.assign('login.html');
+}
+let logOutAdmin=()=>{
+	localStorage.setItem('adminID','')
+	window.location.assign('login.html');
+}
+let archiveCashier = (id)=>{
+	let cRem = {
+		fldRemarks:'Not Available'
+	}
+	c.updateData(id,'tbl_cashier','fldCashierNo',cRem);
+}
+let archiveStudent = (id)=>{
+	let cRem = {
+		fldRemarks:'Not Available'
+	}
+	c.updateData(id,'tbl_student','fldStudentID',cRem);
+}
+
+/*
+let arr = [];
+let cashierOnline = [];
+
+pullCasher = () =>{
+	cashierOnline = [1, 2, 4, 5];	
+}
+
+pushStack = () =>{
+	if(noOftransaction == 0){
+		babatongCashier = cashierOnline[0]
+	}else{
+		if(transaction <= cashierOnline.length){
+			for(let i = 0; i < cashierOnline.length;i++){
+
+				for(let j = 0; j < i; j++){
+					if((lastcashier+j) == cashierOnline[i]){
+						return cashierOnline[i];
+					}				
+				}
+
+			}
+
+		} else {
+			for(let i = 0; i < cashierOnline.length; i++){
+				for(let j = 0; k)
+			}
+		}
+	}
 
 
+}
 
+pullTransact = () =>{
+	fetch(LAHAT NG TRANSACTION == limitby=cashierOnline.length-1&DESC){
+		return
+	}
+}*/

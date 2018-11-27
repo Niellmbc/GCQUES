@@ -17,111 +17,59 @@
 
 <body class="">
 	
+	
 
 	<!--/.Navbar-->
 	<main class="mt-0">
+
 		<div class="container-fluid">
-
-			<div class="row mt-0">
-				<!-- First Card -->
-				<div class="col-md-12 mb-4" data-toggle="modal" data-target="#modalConfirmDelete">
-					<!-- Card -->
-					<div class="card card-image " style="background-image: url(assets/img/gcueslogo.png);">
-
-
-						<!-- Content -->
-						<div class="text-white flex-center d-flex align-items-center rgba-black-strong py-5 px-4">
-							<div>
-								<h6 class="orange-text text-center"><i class="fa fa-id-badge"></i><strong> REGISTRAR </strong></h6>
-								<h1 class="card-title pt-4 pb-3 font-weight-bold">Now Serving</h1>
-								<h1 class="card-title pt-4 pb-3 font-weight-bold text-center queticket"><strong>#20001</strong></h1>
-								<hr>
-
-							</div>
-						</div>
-						<!-- Content -->
-						<div class="rounded-bottom secondary-color text-center pt-3">
-							<div class="table-responsive text-nowrap">
-								<!--Table-->
-								<table class="table table-striped table-hover" id="dtBasicExample">
-
-									<!--Table head-->
-									<thead class="secondary-color">
-										<tr>
-
-											<th>QueueTicket</th>
-										
-
-										</tr>
-									</thead>
-									<!--Table head-->
-
-									<!--Table body-->
-									<tbody>
-										<tr>
-											<td>#10001</td>
-										</tr>
-										<tr>
-											<td>#10001</td>
-										</tr>
-										<tr>
-											<td>#10001</td>
-										</tr>
-										<tr>
-											<td>#10001</td>
-										</tr>
-										<tr>
-											<td>#10001</td>
-										</tr>
-										<tr>
-											<td>#10001</td>
-										</tr>
-										<tr>
-											<td>#10001</td>
-										</tr>
-										<tr>
-											<td>#10001</td>
-										</tr>
-										
-									
-									</tbody>
-									<!--Table body-->
-
-
-								</table>
-								<!--Table-->
-							</div>
-						</div>
-
-					</div>
-					<!-- Card -->
+			<section class="section mb-1">
+				
+			</section>
+			<div class="row">
+				<div class="col-md-8">
+					<h1>Office of the Registrar</h1>
 				</div>
-				<!-- /First Card -->
+				<div class="col-md-4" style="margin-left:-32px;">	
+					<nav class="breadcrumb btn-outline-teal flex-center">
+						<h4 class="breadcrumb-item flex-center-center" id="time" style="font-size: 35px;padding:-10px -10px -10px -10px"></h4>
+					</nav>
 
-
-
-
-
+				</div>
 			</div>
+			
 
+			<div class="row mt-0" >
+				<div class="col-md-8">
+					<div class="col-md-12">	
+						<marquee><h1 class="red-text flex-center">Now Serving!!!</h1></marquee>
+						<div class="row"  id="queueServing">
+							
+						</div>
+					</div>	
+				</div>
+				<div class="col-md-4" style="margin-left:-35px">
+					<h1 class="teal-text text-center">Waiting List</h1>
+					<div class="card">
+						<ul class="list-group z-depth-1" id="queueServingReg">
+							
+						</ul>
+					</div>
+				</div>
+			</div>	
 		</div>
+	</div>
 
-	</main>
+</main>
+
+
 </body>
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/popper.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
-<script type="text/javascript" src="js/voicemo.js"></script>
-<script> 
-	function callme(queue,cashier){
+<script src="js/cashier.js"></script>
 
-		for(var i=0;i<2;i++){
-			responsiveVoice.speak("QUEUE NUMBER "+queue+"! PLEASE PROCEED TO CASHIER "+cashier+"");
-			
-		}
-	}
-</script>
 <script>
         // SideNav Initialization
         $(".button-collapse").sideNav();
@@ -133,4 +81,86 @@
         	minScrollbarLength: 20
         });
     </script>
-    </html>
+    <script>
+    	function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+function Starttime(){
+
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	var today = new Date();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	var s = today.getSeconds();
+	var aorp = "";
+	m = checkTime(m);
+	s = checkTime(s);
+	if (h > 12) {
+		h = h-12;
+		if(h == 0){
+			h = 1;
+		}
+		aorp = "PM"; 
+	} else { 
+		aorp = "AM"; 
+	}
+	var time = h + ":" + m + ":" + s + " " + aorp;
+    // var t = setTimeout(startTime, 500);
+
+    if(dd<10) {
+    	dd = '0'+dd
+    } 
+    if(mm<10) {
+    	mm = '0'+mm
+    } 
+    today = mm + '/' + dd + '/' + yyyy;
+    document.getElementById('time').innerHTML=today+' '+time;
+    
+
+}
+window.setInterval(Starttime,500)
+
+let queueServing=()=>{
+	fetch(url+'/queueReg/tbl_registrar').then(res=>res.json()).then(function(res){
+		let ls="";
+		
+		for(let i=0;i<res.length;i++){
+			ls+='<div class="col-md-12 col-md-4 mt-1" style="margin-right:-25px;">';
+			ls+='<div class="card card-image" style="background-image: url(assets/img/gcueslogo.png);">';
+			ls+='<div class="text-white flex-center d-flex align-items-center rgba-black-strong py-5 px-4">';
+			ls+='<div>';
+			ls+='<h6 class="orange-text text-center"><i class="fa fa-id-badge"></i><strong> Type Of Transaction: '+res[i].fldType+'</strong></h6>';
+			ls+='<h1 class="card-title pt-4 pb-3 font-weight-bold text-center qnum"><strong>'+res[i].fldQueueNo+'</strong></h1>';
+			ls+='</div>';
+			ls+='</div>';
+
+			ls+='</div>';
+			ls+='</div>';
+		}
+		$('#queueServing').html(ls);
+	});
+}
+let queueServingReg=()=>{
+	fetch(url+'/tbl_registrar').then(res=>res.json()).then(function(res){
+		let ls="";
+		
+		for(let i=1;i<res.length;i++){
+			if(res[i].fldRemarks=='In Line'){
+
+				ls+='<li class="list-group-item d-flex justify-content-between align-items-center">';
+				ls+='<a class="dark-grey-text font-small" style="font-size: 30px;"><i class="fa fa-id-badge dark-grey-text mr-2" aria-hidden="true"></i> Q #: '+res[i].fldQueueNo+' - '+res[i].fldType+'</a>';
+				ls+='<span class="badge badge-default">Waiting</span>';
+				ls+='</li>';
+			}
+		}
+		$('#queueServingReg').html(ls);
+	});
+}
+window.setInterval(queueServing,1000);
+window.setInterval(queueServingReg,1000);
+</script>
+</html>

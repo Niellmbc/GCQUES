@@ -1,4 +1,4 @@
-'use strict';
+
 let url="http://localhost/GQUESAPI";
 let lastqueue;
 let lastqueueInReg;
@@ -378,6 +378,6 @@ let logOutAccount =()=>{
 	}
 	let id = localStorage.cID;
 	c.updateData(id,'tbl_cashier','fldCashierNo',status);
-	window.location.assign('landing.html');
+	window.location.assign('login.html');
 }
 

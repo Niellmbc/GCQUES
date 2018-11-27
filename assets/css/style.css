@@ -3,12 +3,10 @@ body {
     overflow-x: hidden;
     font-family: 'Montserrat', sans-serif;
     background-color:#eee;
-
-
 }
 .navb{
-   background-color: #009688!important;
-   color:#fff!important;
+ background-color: #009688!important;
+ color:#fff!important;
 
 }
 .secondary-color{
@@ -26,30 +24,41 @@ body {
 /*.sidenavb{
     background-color: #4db6ac!important;
     color: #fff!important;
-}*/
-a,
-a span {
-display: inline-block;
-}
-a span {
-transition: .5s;
-}
-a:hover span {
--webkit-transform: rotateX(360deg);
-transform: rotateX(360deg);
-}
-hr {
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-}
-.tr-color-selected{
-background-color: hsla(196, 77%, 55%, 0.3) !important;
-transition: all .2s ease-in;
-}
-#dtBasicExample{
-    background-color: white;
-}
-.queueticket{
-    font-size: 30px;
-}
+    }*/
+    a,
+    a span {
+        display: inline-block;
+    }
+    a span {
+        transition: .5s;
+    }
+    a:hover span {
+        -webkit-transform: rotateX(360deg);
+        transform: rotateX(360deg);
+    }
+    hr {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+    .tr-color-selected{
+        background-color: hsla(196, 77%, 55%, 0.3) !important;
+        transition: all .2s ease-in;
+    }
+    #dtBasicExample{
+        background-color: white;
+    }
+    .queueticket{
+        font-size: 30px;
+    }
+    .bg-login{
+        background-image: url('../img/gcbg.png');
+        background-attachment: fixed; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+        background-size: cover;
+       
+    }
+    .qnum{
+        font-size: 100px;
+    }

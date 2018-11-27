@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Login</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link href="assets/css/mdb.min.css" rel="stylesheet">
+	<link href="assets/css/font-awesome.css" rel="stylesheet">
+	<link href="assets/css/style.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	  <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/themes/google/google.css">
+
+</head>
+
+<body class="fixed-sn ">
+	
+ <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark navb scrolling-navbar">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">
+        <img src="assets/img/gcueslogo.png" height="45" class="ml-3 d-inline-block align-top wow slideInRight" alt="">
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <!-- Left -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="landing.html">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" target="_blank">About GCQUES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" target="_blank">Download Now!</a>
+        </li>
+
+      </ul>
+
+      <!-- Right -->
+      <ul class="navbar-nav nav-flex-icons">
+      	<li class="nav-item active mr-2">
+          <a class="nav-link border border-light rounded" >
+            <i class="fa fa-user-plus mr-2"></i>Login
+          </a>
+        </li>
+
+        <li class="nav-item" >
+          <a class="nav-link border border-light rounded" href="register.html">
+            <i class="fa fa-user-plus mr-2"></i>Sign-Up
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+</nav>
+<!-- Navbar -->
+	<!--/.Navbar-->
+	<main class="mt-0">
+
+		<div class="container-fluid">
+			<div class="col-md-12 flex-center mt-5">
+				<div class="col-md-5">
+					<!-- Material form login -->
+					<div class="card">
+
+						<h5 class="card-header secondary-color white-text text-center py-4">
+							<strong>Sign Your Account</strong>
+						</h5>
+						<!--Card content-->
+						<div class="card-body px-lg-5 pt-0">
+
+							<!-- Form -->
+							
+								<div class="md-form">
+									<input type="text" id="uname" class="form-control">
+									<label for="materialLoginFormEmail">Username</label>
+								</div>
+
+								<!-- Password -->
+								<div class="md-form">
+									<input type="password" id="pass" class="form-control">
+									<label for="materialLoginFormPassword">Password</label>
+								</div>
+
+								
+
+								<!-- Sign in button -->
+								<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"  onclick="loginAccount()">Sign in</button>
+							
+
+						</div>
+
+					</div>
+					<!-- Material form login -->
+				</div>	
+			</div>
+		</div>
+
+	</main>
+</body>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<script src="js/cashier.js"></script>
+<script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
+<script>
+        // SideNav Initialization
+        $(".button-collapse").sideNav();
+
+        var container = document.querySelector('.custom-scrollbar');
+        Ps.initialize(container, {
+        	wheelSpeed: 2,
+        	wheelPropagation: true,
+        	minScrollbarLength: 20
+        });
+    </script>
+    <script>
+    	let tables = {
+    		cashier: [],
+    		user:[]
+    	}
+    	let tbl_user = ()=>{
+    		fetch(url+'/tbl_user').then(res=>res.json()).then(function(res){
+    			tables.user = res;
+    			
+
+    		});	
+    	}
+    	tbl_user();
+    	let tbl_cashier = ()=>{
+    		fetch(url+'/tbl_cashier').then(res=>res.json()).then(function(res){
+    			tables.cashier = res;
+    			
+    		});	
+    	}
+    	tbl_cashier();
+    	
+    	console.log(tables);
+    	let loginAccount =()=>{
+    		let uname = document.getElementById('uname').value;
+    		let pass = document.getElementById('pass').value;
+    		console.log(uname);
+    		for(let i=0;i<tables.user.length;i++){
+    			if(uname == tables.user[i].fldUsername && pass ==tables.user[i].fldPassword){
+    				if(tables.user[i].fldRole=='Administrator'){
+    					localStorage.setItem('adminID',tables.user[i].fldUserID);
+    					 swal({
+                                title: "Welcome",
+                                text: "Login Successful "+ tables.user[i].fldRole,
+                                type: "success",
+                                timer: 1000,
+                                showConfirmButton: false
+                            },
+                            function(){
+                               window.location.assign('admin.html');
+                            });
+    					
+    				}else if(tables.user[i].fldRole=='Registrar'){
+    					localStorage.setItem('regID',tables.user[i].fldUserID)
+    					swal({
+                                title: "Welcome",
+                                text: "Login Successful "+ tables.user[i].fldRole,
+                                type: "success",
+                                timer: 1000,
+                                showConfirmButton: false
+                            },
+                            function(){
+                               window.location.assign('registrar.html');
+                            });
+    					
+
+    				}else{
+    					  swal({
+                                    title: "Login Failed",
+                                    text: "Invalid Credentials",
+                                    type: "error",
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                });
+    				}
+    			}
+    		}
+    		for(let i=0;i<tables.cashier.length;i++){
+    			if(uname == tables.cashier[i].fldUsername && pass == tables.cashier[i].fldPassword){
+    				if(tables.cashier[i].fldRemarks=='Available'){
+    					let status = {
+    						fldStatus: 'Online'
+    					}
+    					localStorage.setItem('cID',tables.cashier[i].fldCashierNo);
+    					let id = localStorage.cID;
+    					c.updateData(id,'tbl_cashier','fldCashierNo',status);
+    					swal({
+                                title: "Welcome",
+                                text: "Login Successful "+ tables.cashier[i].fldUsername,
+                                type: "success",
+                                timer: 1000,
+                                showConfirmButton: false
+                            },
+                            function(){
+                             	window.location.assign('cashier.html');
+                            });
+    					
+    				
+    				}else{
+    					swal({
+                                    title: "Login Failed",
+                                    text: "Invalid Credentials",
+                                    type: "error",
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                });
+    				}
+    			}
+    		}
+    	}
+
+    	
+
+    </script>
+    </html>

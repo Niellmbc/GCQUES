@@ -122,7 +122,7 @@
 				<!-- Side navigation links -->
 				<li>
 					<ul class="collapsible collapsible-accordion">
-						<li><a class="collapsible-header waves-effect arrow-r " href="index.html"><i class="fa fa-tachometer"></i> Dashboards</a>
+						<li><a class="collapsible-header waves-effect arrow-r " href="admin.html"><i class="fa fa-tachometer"></i> Dashboards</a>
 						</li>
 						<li>
 							<a class="collapsible-header waves-effect arrow-r active" href="AddUser.html"><i class="fa fa-user"></i>Users</a>
@@ -161,7 +161,7 @@
 						<i class="fa fa-user "></i> <span class="clearfix d-none d-sm-inline-block ">Profile</span></a>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="userDropdown">
-						<a class="dropdown-item" href="#">Log Out</a>
+						<a class="dropdown-item"  onclick="logOutAdmin()">Log Out</a>
 						<a class="dropdown-item" href="AdminAccount.html">My account</a>
 					</div>
 				</li>
@@ -236,7 +236,7 @@
 														<th>Last Name</th>
 														<th>First Name</th>
 														<th>Middle Name</th>
-														<th>Username</th>
+														<th>Date Added</th>
 														<th>Actions</th>
 													</tr>
 												</thead>
@@ -439,10 +439,6 @@
 				<div class="md-form mb-5">
 					<input type="text" id="sMnames" class="form-control" value=" " >
 					<label data-error="wrong" data-success="right" for="inputAge">Middle Name</label>
-				</div>
-				<div class="md-form mb-5">
-					<input type="text" id="sUname" class="form-control" value=" " >
-					<label data-error="wrong" data-success="right" for="inputAge">Username</label>
 				</div>
 				<div class="md-form mb-5">
 					<input type="text" id="sPass" class="form-control" value="" >

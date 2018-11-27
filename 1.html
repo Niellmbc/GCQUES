@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body id="demo">
+
+</body>
+<script>
+	var txt = "";
+	let getOnlineCashier =[];
+	let a=0;
+	let lastcashier=0;
+	fetch('http://localhost/GQUESAPI/tbl_cashier/fldStatus/Online').then(res=>res.json()).then(function(res){
+		for(let i=0;i<res.length;i++){
+			getOnlineCashier.push(res[i].fldCashierID);
+		}
+	
+	});
+	function trys(){
+		
+		if(a>=getOnlineCashier.length-1){
+			a=0;
+		}else{
+			a++;
+		}
+		lastcashier = getOnlineCashier[a];
+	console.log(lastcashier);
+	}
+
+// for(var i=0;i<getOnlineCashier.length){
+
+// }
+	
+</script>
+</html>

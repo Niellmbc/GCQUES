@@ -55,7 +55,7 @@
 				<!-- Side navigation links -->
 				<li>
 					<ul class="collapsible collapsible-accordion">
-						<li><a class="collapsible-header waves-effect arrow-r active" href="index.html"><i class="fa fa-tachometer"></i> Dashboards</a>
+						<li><a class="collapsible-header waves-effect arrow-r active" href="admin.html"><i class="fa fa-tachometer"></i> Dashboards</a>
 						</li>
 						<li>
 							<a class="collapsible-header waves-effect arrow-r" href="AddUser.html"><i class="fa fa-user"></i>Users</a>
@@ -88,50 +88,52 @@
 			<ul class="nav navbar-nav nav-flex-icons ml-auto">
 
 				
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-user "></i> <span class="clearfix d-none d-sm-inline-block ">Profile</span></a>
-				</a>
-				<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">Log Out</a>
-					<a class="dropdown-item" href="adminAccount.html">My account</a>
-				</div>
-			</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-user "></i> <span class="clearfix d-none d-sm-inline-block ">Profile</span></a>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="userDropdown">
+						<a class="dropdown-item" onclick="logOutAdmin()">Log Out</a>
+						<a class="dropdown-item" href="adminAccount.html">My account</a>
+					</div>
+				</li>
 
-		</ul>
-		<!--/Navbar links-->
-	</nav>
-	<!-- /.Navbar -->
+			</ul>
+			<!--/Navbar links-->
+		</nav>
+		<!-- /.Navbar -->
 
-</header>
-<!--Main Navigation-->
+	</header>
+	<!--Main Navigation-->
 
-<!--Main layout-->
-<main>
-	<div class="container-fluid">
-		<!-- Admin Cards -->
-		<section class="section">
+	<!--Main layout-->
+	<main>
+		
+		<div class="container-fluid">
+		
+			<!-- Admin Cards -->
+			<section class="section">
 
-			<!--Grid row-->
-			<div class="row">
+				<!--Grid row-->
+				<div class="row">
 
-				<!--Grid column-->
-				<div class="col-xl-3 col-md-6 mb-4">
+					<!--Grid column-->
+					<div class="col-xl-3 col-md-6 mb-4">
 
-					<!--Card-->
-					<div class="card card-cascade cascading-admin-card">
+						<!--Card-->
+						<div class="card card-cascade cascading-admin-card">
 
-						<!--Card Data-->
-						<div class="admin-up">
-							<i class="fa fa-money primary-color"></i>
-							<div class="data">
-								<p>Enrolment</p>
-								<h4 id="cEnrollment"></h4>
+							<!--Card Data-->
+							<div class="admin-up">
+								<i class="fa fa-money primary-color"></i>
+								<div class="data">
+									<p>Enrolment</p>
+									<h4 id="cEnrollment"></h4>
+								</div>
 							</div>
-						</div>
-						<!--/.Card Data-->
+							<!--/.Card Data-->
 
-						<!--Card content-->
+							<!--Card content-->
 						<!-- <div class="card-body">
 							<div class="progress">
 								<div class="progress-bar primary-color" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -255,7 +257,7 @@
 						</div>
 						<!--/.Card Data-->
 
-					
+						
 
 					</div>
 					<!--/.Card-->
@@ -431,7 +433,7 @@
     		}
     	});
     </script>
-     <script>
+    <script>
     	var ctx = document.getElementById("weekly").getContext('2d');
     	var myChart = new Chart(ctx, {
     		type: 'bar',
@@ -470,7 +472,7 @@
     		}
     	});
     </script>
-     <script>
+    <script>
     	var ctx = document.getElementById("daily").getContext('2d');
     	var myChart = new Chart(ctx, {
     		type: 'bar',
@@ -511,54 +513,54 @@
     </script>
     <script>
     	let countEnrollment=()=>{
-	fetch(url+'/count/tbl_transaction/fldTransType/Enrolment').then(res=>res.json()).then(function(res){
-		document.getElementById('cEnrollment').innerHTML = res[0].totalcount;
-	});
-}
-countEnrollment();
-let countBankAccount=()=>{
-	fetch(url+'/count/tbl_transaction/fldTransType/Bank Account').then(res=>res.json()).then(function(res){
-		document.getElementById('cBank').innerHTML = res[0].totalcount;
-	});
-}
-countBankAccount();
-let countDreq=()=>{
-	let dreqInTrans=0;
-	let dreqInReg=0;
-	fetch(url+'/count/tbl_transaction/fldTransType/Document Request').then(res=>res.json()).then(function(res){
-		dreqInTrans = res[0].totalcount;
+    		fetch(url+'/count/tbl_transaction/fldTransType/Enrolment').then(res=>res.json()).then(function(res){
+    			document.getElementById('cEnrollment').innerHTML = res[0].totalcount;
+    		});
+    	}
+    	countEnrollment();
+    	let countBankAccount=()=>{
+    		fetch(url+'/count/tbl_transaction/fldTransType/Bank Account').then(res=>res.json()).then(function(res){
+    			document.getElementById('cBank').innerHTML = res[0].totalcount;
+    		});
+    	}
+    	countBankAccount();
+    	let countDreq=()=>{
+    		let dreqInTrans=0;
+    		let dreqInReg=0;
+    		fetch(url+'/count/tbl_transaction/fldTransType/Document Request').then(res=>res.json()).then(function(res){
+    			dreqInTrans = res[0].totalcount;
 
-	});
-	fetch(url+'/count/tbl_registrar/fldType/Document Request').then(res=>res.json()).then(function(res){
-		dreqInReg = res[0].totalcount;
-	});
-	document.getElementById('cDreq').innerHTML = parseInt(dreqInReg + dreqInTrans);
-}
-countDreq();
-let countOther=()=>{
-	let otherInTrans=0;
-	let otherInReg=0;
-	fetch(url+'/count/tbl_transaction/fldTransType/Other Transaction').then(res=>res.json()).then(function(res){
-		otherInTrans = res[0].totalcount;
+    		});
+    		fetch(url+'/count/tbl_registrar/fldType/Document Request').then(res=>res.json()).then(function(res){
+    			dreqInReg = res[0].totalcount;
+    		});
+    		document.getElementById('cDreq').innerHTML = parseInt(dreqInReg + dreqInTrans);
+    	}
+    	countDreq();
+    	let countOther=()=>{
+    		let otherInTrans=0;
+    		let otherInReg=0;
+    		fetch(url+'/count/tbl_transaction/fldTransType/Other Transaction').then(res=>res.json()).then(function(res){
+    			otherInTrans = res[0].totalcount;
 
-	});
-	fetch(url+'/count/tbl_registrar/fldType/Other Transaction').then(res=>res.json()).then(function(res){
-		otherInReg = res[0].totalcount;
-	});
-	document.getElementById('cOther').innerHTML = parseInt(otherInReg + otherInTrans);
-}
-countOther();
-let countEncoding=()=>{
-	fetch(url+'/count/tbl_registrar/fldType/Encoding').then(res=>res.json()).then(function(res){
-		document.getElementById('cEncode').innerHTML = res[0].totalcount;
-	});
-}
-countEncoding();
-let countDrel=()=>{
-	fetch(url+'/count/tbl_registrar/fldType/Document Releasing').then(res=>res.json()).then(function(res){
-		document.getElementById('cDrel').innerHTML = res[0].totalcount;
-	});
-}
-countDrel();
+    		});
+    		fetch(url+'/count/tbl_registrar/fldType/Other Transaction').then(res=>res.json()).then(function(res){
+    			otherInReg = res[0].totalcount;
+    		});
+    		document.getElementById('cOther').innerHTML = parseInt(otherInReg + otherInTrans);
+    	}
+    	countOther();
+    	let countEncoding=()=>{
+    		fetch(url+'/count/tbl_registrar/fldType/Encoding').then(res=>res.json()).then(function(res){
+    			document.getElementById('cEncode').innerHTML = res[0].totalcount;
+    		});
+    	}
+    	countEncoding();
+    	let countDrel=()=>{
+    		fetch(url+'/count/tbl_registrar/fldType/Document Releasing').then(res=>res.json()).then(function(res){
+    			document.getElementById('cDrel').innerHTML = res[0].totalcount;
+    		});
+    	}
+    	countDrel();
     </script>
     </html>
