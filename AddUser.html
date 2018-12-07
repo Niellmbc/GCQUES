@@ -105,14 +105,13 @@
 						<div>
 							<div class="col-xl-5 col-md-4 mb-3 text-center float-left">
 
-								<img src="assets/img/niel.jpg" class="img-fluid z-depth-1 rounded-circle"
+								<img src="" id="profPic" class="img-fluid z-depth-1 rounded-circle"
 								alt="Responsive image">
 
 							</div>
 							<div class="float-right">
-								
-								<p>Raniel Lambaco</p>
-								<p>leinar1717@gmail.com</p>
+								<p id="pName" style="font-size: 14px;"></p>
+								<p id="pEmail" style="font-size: 14px;"></p>
 							</div>
 						</div>
 					</div>
@@ -128,7 +127,13 @@
 							<a class="collapsible-header waves-effect arrow-r active" href="AddUser.html"><i class="fa fa-user"></i>Users</a>
 						</li>
 						<li>
+							<a class="collapsible-header waves-effect arrow-r" href="adminTransactions.html"><i class="fa fa-folder"></i>Transactions</a>
+						</li>
+						<li>
 							<a class="collapsible-header waves-effect arrow-r" href="AdminAccount.html"><i class="fa fa-cog"></i>Account Settings</a>
+						</li>
+						<li>
+							<a class="collapsible-header waves-effect arrow-r" href="allLogs.html"><i class="fa fa-book"></i>Activity Logs</a>
 						</li>
 						
 
@@ -284,11 +289,11 @@
 														<label data-error="wrong" data-success="right" for="inputDate">Birthday</label>
 													</div>
 													<div class="md-form mb-5">
-														<input type="text" id="cUsername" class="form-control" value=" ">
+														<input type="text" id="cUsername" class="form-control">
 														<label data-error="wrong" data-success="right" for="inputDate">Username</label>
 													</div>
 													<div class="md-form mb-5">
-														<input type="text" id="cPassword" class="form-control" value=" ">
+														<input type="text" id="cPassword" class="form-control">
 														<label data-error="wrong" data-success="right" for="inputDate">Password</label>
 													</div>
 
@@ -516,5 +521,13 @@
             });
     	});  
 
+    </script>
+    <script>
+    	let id= localStorage.adminID;
+    	fetch(url+'/tbl_user/fldUserID/'+id).then(res=>res.json()).then(function(res){
+    		document.getElementById('pName').innerHTML=res[0].fldFname+' '+res[0].fldMname+' '+res[0].fldLname;
+    		document.getElementById('pEmail').innerHTML=res[0].fldEmail;
+    		document.getElementById('profPic').src=res[0].fldImg;
+    	});
     </script>
     </html>

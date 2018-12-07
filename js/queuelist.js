@@ -1,5 +1,5 @@
 
-let url="http://localhost/GQUESAPI";
+let url="http://NIELLAMBACO/GQUESAPI";
 let lastqueue;
 let lastqueueInReg;
 let LeastTransOfCashier;
@@ -7,9 +7,21 @@ let lastcashier;
 let totalcashier;
 let lastTimeArrival;
 let totalTransaction;
+let getOnlineCashier =[];
+let a=0;
+let lastcashiersatrans;
+let getOnlineCashiers =()=>{
+	fetch(url+'/tbl_cashier/fldStatus/Online').then(res=>res.json()).then(function(res){
+		for(let i=0;i<res.length;i++){
+			getOnlineCashier[i]=res[i].fldCashierID;
+		}
+		console.log(getOnlineCashier);
+		
+	});
+}
+window.setInterval(getOnlineCashiers,1000);
 let getLastqueue=()=>{
 	fetch(url+'/tbl_transaction?ORDERBY=fldTransID DESC').then(res=>res.json()).then(function(res){
-		
 		if(res.length==0){
 			var today = new Date();
 			var dd = today.getDate();
@@ -165,7 +177,7 @@ let QueueList=()=>{
 		$('#queuelist').html(ls);
 	});
 }
-QueueList();
+window.setInterval(QueueList,1000);
 let showTrans=(id)=>{
 	localStorage.setItem('TransID',id);
 	fetch(url+'/tbl_transaction/fldTransID/'+id).then(res=>res.json()).then(function(res){
@@ -197,6 +209,7 @@ let doneTrans=()=>{
 			fldOffice:res[0].fldOffice,
 			fldTransType:res[0].fldTransType,
 			fldDate:res[0].fldDate,
+			fldDay:res[0].fldDay,
 			fldRemarks:'Done'
 		}
 		console.log(log);
@@ -220,6 +233,7 @@ let noShowTrans=()=>{
 			fldOffice:res[0].fldOffice,
 			fldTransType:res[0].fldTransType,
 			fldDate:res[0].fldDate,
+			fldDay:res[0].fldDay,
 			fldRemarks:'No Show'
 		}
 		console.log(log);
@@ -230,7 +244,8 @@ let noShowTrans=()=>{
 	});
 }
 let showLog =()=>{
-	fetch(url+'/tbl_log/fldCashierNo/'+1).then(res=>res.json()).then(function(res){
+	let id= localStorage.cID;
+	fetch(url+'/tbl_log/fldCashierNo/'+id).then(res=>res.json()).then(function(res){
 		let ls ="";
 		for(let i=0;i<res.length;i++){
 			ls+="<tr>";
@@ -246,31 +261,63 @@ let showLog =()=>{
 	});
 }
 showLog();
+let showLogReg =()=>{
+	let id= localStorage.cID;
+	fetch(url+'/tbl_log/fldOffice/Registrar').then(res=>res.json()).then(function(res){
+		let ls ="";
+		for(let i=0;i<res.length;i++){
+			ls+="<tr>";
+			ls+="<td>"+res[i].fldStudentNo+"</td>";
+			ls+="<td>"+res[i].fldQueueNo+"</td>";
+			ls+="<td>"+res[i].fldOffice+"</td>";
+			ls+="<td>"+res[i].fldTransType+"</td>";
+			ls+="<td>"+res[i].fldDate+"</td>";
+			ls+="<td>"+res[i].fldRemarks+"</td>";
+			ls+="</tr>";
+		}
+		$('#logReg').html(ls);
+	});
+}
+showLogReg();
 
+// let checkCashier = ()=>{
+// 	if(totalTransaction >= 21){
+// 		LeastTransOfCashier;
+// 		return LeastTransOfCashier;
+// 	}
+// 	else if(lastcashier==0){
+// 		if(lastcashier == totalcashier){
+// 			lastcashier=1;
+// 			lastcashier;
+// 		}else{
+// 			lastcashier++;
+// 			return lastcashier;
+// 		}
+
+// 	}else{
+// 		if(lastcashier == totalcashier){
+// 			lastcashier =1;
+// 			return lastcashier;
+// 		}else{
+// 			lastcashier++;
+// 			return lastcashier;
+// 		}
+// 	}
+
+// }
 let checkCashier = ()=>{
-	if(totalTransaction >= 21){
-		LeastTransOfCashier;
+	if(totalTransaction >= 16){
 		return LeastTransOfCashier;
-	}
-	else if(lastcashier==0){
-		if(lastcashier == totalcashier){
-			lastcashier=1;
-			lastcashier;
-		}else{
-			lastcashier++;
-			return lastcashier;
-		}
-		
 	}else{
-		if(lastcashier == totalcashier){
-			lastcashier =1;
-			return lastcashier;
+		if(getOnlineCashier.length-1<=a){
+			a=0;
+			return getOnlineCashier[a];
 		}else{
-			lastcashier++;
-			return lastcashier;
+			a++;
+			return getOnlineCashier[a];
 		}
 	}
-	
+
 }
 function checkTime(i) {
     if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
@@ -283,10 +330,13 @@ function gotoReg(){
 let moveTransInFin=(id)=>{
 	lastqueue++; 
 	lastqueueInReg++;
+	var month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 	let goToC = checkCashier();
 	var today = new Date();
 	var dd = today.getDate();
+	var dd1 = today.getDate();
 	var mm = today.getMonth()+1; //January is 0!
+	var monthName = month[today.getMonth()];
 	var yyyy = today.getFullYear();
 	var today = new Date();
 	var h = today.getHours();
@@ -338,10 +388,11 @@ let moveTransInFin=(id)=>{
 		let dataTrans = {
 			studentID:res[0].fldStudentNo,
 			cashierNo:goToC,
-			queueNo:'REG-'+res[0].fldQueueNo,
+			queueNo:'R-'+res[0].fldQueueNo,
 			office:res[0].fldOffice,
 			type:res[0].fldType,
 			date:today+" "+time,
+			day:dd1+" "+monthName+", "+yyyy,
 			arrival:timearrival,
 			remarks:'In Line'
 		}
@@ -351,7 +402,6 @@ let moveTransInFin=(id)=>{
 	
 	
 }
-
 let doneTransInReg=(id)=>{
 	fetch(url+'/tbl_registrar/fldRegID/'+id).then(res=>res.json()).then(function(res){
 		let data={
@@ -360,10 +410,11 @@ let doneTransInReg=(id)=>{
 		let log = {
 			fldStudentNo:res[0].fldStudentNo,
 			fldCashierNo:'reg-1',
-			fldQueueNo:'REG-'+res[0].fldQueueNo,
+			fldQueueNo:'R-'+res[0].fldQueueNo,
 			fldOffice:res[0].fldOffice,
 			fldType:res[0].fldType,
 			fldDate:res[0].fldDate,
+			fldDay:res[0].fldDay,
 			fldRemarks:'Done'
 		}
 		console.log(log);
@@ -371,6 +422,27 @@ let doneTransInReg=(id)=>{
 		c.addData(log,'tbl_log');
 		moveTransInFin(id);
 	});
+}
+let noShowTransInReg=(id)=>{
+	fetch(url+'/tbl_registrar/fldRegID/'+id).then(res=>res.json()).then(function(res){
+		let log = {
+			fldStudentNo:res[0].fldStudentNo,
+			fldCashierNo:'reg-1',
+			fldQueueNo:'REG-'+res[0].fldQueueNo,
+			fldOffice:res[0].fldOffice,
+			fldType:res[0].fldType,
+			fldDate:res[0].fldDate,
+			fldDay:res[0].fldDay,
+			fldRemarks:'No Show'
+		}
+		let data={
+			fldRemarks:"No Show"
+		}
+		// c.updateData(id,'tbl_registrar','fldRegID',data);
+		// c.addData(log,'tbl_log');
+		console.log(log)
+	});
+
 }
 let logOutAccount =()=>{
 	let status = {

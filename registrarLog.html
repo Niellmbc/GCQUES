@@ -37,14 +37,13 @@
 						<div>
 							<div class="col-xl-5 col-md-4 mb-3 text-center float-left">
 
-								<img src="assets/img/niel.jpg" class="img-fluid z-depth-1 rounded-circle"
+								<img src="" id="profPic" class="img-fluid z-depth-1 rounded-circle"
 								alt="Responsive image">
 
 							</div>
 							<div class="float-right">
-								
-								<p>Raniel Lambaco</p>
-								<p class="grey-text">leinar1717@gmail.com</p>
+								<p id="pName" style="font-size: 14px;"></p>
+								<p id="pEmail" style="font-size: 14px;"></p>
 							</div>
 						</div>
 					</div>
@@ -126,7 +125,7 @@
 					<!--Table head-->
 
 					<!--Table body-->
-					<tbody id="log">
+					<tbody id="logReg">
 					</tbody>
 					<!--Table body-->
 
@@ -158,5 +157,13 @@
         	wheelPropagation: true,
         	minScrollbarLength: 20
         });
+    </script>
+    <script>
+    	let id= localStorage.regID;
+fetch(url+'/tbl_user/fldUserID/'+id).then(res=>res.json()).then(function(res){
+	document.getElementById('pName').innerHTML=res[0].fldFname+' '+res[0].fldMname+' '+res[0].fldLname;
+	document.getElementById('pEmail').innerHTML=res[0].fldEmail;
+	document.getElementById('profPic').src=res[0].fldImg;
+});
     </script>
     </html>

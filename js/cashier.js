@@ -1,5 +1,5 @@
 
-let url="http://localhost/GQUESAPI";
+let url="http://NIELLAMBACO/GQUESAPI";
 let lastqueue;
 let lastqueueInReg;
 let lastqueueInTransFin;
@@ -15,8 +15,6 @@ let getOnlineCashiers =()=>{
 		for(let i=0;i<res.length;i++){
 			getOnlineCashier[i]=res[i].fldCashierID;
 		}
-		console.log(getOnlineCashier)
-		
 	});
 }
 window.setInterval(getOnlineCashiers,1000);
@@ -24,7 +22,7 @@ let getlastcashierSaTrans =()=>{
 	fetch(url+'/tbl_transaction?ORDERBY=fldTransID%20DESC').then(res=>res.json()).then(function(res){
 		lastcashiersatrans = res[0].fldCashierNo;
 	});
-	console.log(lastcashiersatrans);
+	
 }
 
 window.setInterval(getlastcashierSaTrans,1000);
@@ -53,14 +51,16 @@ let studentList=()=>{
 	fetch(url+'/tbl_student').then(res=>res.json()).then(function(res){
 		let ls="";
 		for(let i=0;i<res.length;i++){
-			
-			ls+="<tr>";
-			ls+="<td>"+res[i].fldStudentNo+"</td>";
-			ls+="<td>"+res[i].fldLname+"</td>";
-			ls+="<td>"+res[i].fldFname+"</td>";
-			ls+="<td>"+res[i].fldMname+"</td>";
-			ls+="<td>"+res[i].fldDateAdded+"</td>";
-			ls+='<td><a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResultStud" onclick="getStudentID('+res[i].fldStudentNo+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveStudent('+res[i].fldStudentID+')"><i class="fa fa-archive"></i></a></td>';
+			if(res[i].fldRemarks=='Available'){
+
+				ls+="<tr>";
+				ls+="<td>"+res[i].fldStudentNo+"</td>";
+				ls+="<td>"+res[i].fldLname+"</td>";
+				ls+="<td>"+res[i].fldFname+"</td>";
+				ls+="<td>"+res[i].fldMname+"</td>";
+				ls+="<td>"+res[i].fldDateAdded+"</td>";
+				ls+='<td><a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResultStud" onclick="getStudentID('+res[i].fldStudentNo+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveStudent('+res[i].fldStudentID+')"><i class="fa fa-archive"></i></a></td>';
+			}
 		} 
 		$('#studentList').html(ls);
 		
@@ -120,8 +120,13 @@ let getLastqueueInReg=()=>{
 window.setInterval(getLastqueueInReg,1000);
 let getLastCashier=()=>{
 	fetch(url+'/tbl_cashier?ORDERBY=fldCashierID DESC').then(res=>res.json()).then(function(res){
-		let lastcashierInDB = res[0].fldCashierID;
-		lastcashierInDB++
+		let lastcashierInDB;
+		if(res==0){
+			lastcashierInDB=1;
+		}else{	
+			lastcashierInDB = res[0].fldCashierID;
+			lastcashierInDB++
+		}
 		document.getElementById('cID').value=lastcashierInDB;
 		
 	});
@@ -151,6 +156,7 @@ let totalTrans = () =>{
 	fetch(url+'/countTrans').then(res=>res.json()).then(function(res){
 		totalTransaction = parseInt(res[0].totaltrans);
 	});
+	
 }
 window.setInterval(totalTrans,1000);
 
@@ -252,43 +258,24 @@ let updateStudents=()=>{
 	c.updateData(id,'tbl_student','fldStudentID',data);
 }
 
-// let checkCashier = ()=>{
-// 	if(totalTransaction >= 16){
-// 		LeastTransOfCashier;
-// 		return LeastTransOfCashier;
-// 	}
-// 	else if(lastcashier==0){
-// 		if(lastcashier == totalcashier){
-// 			lastcashier=1;
-// 			lastcashier;
-// 		}else{
-// 			lastcashier++;
-// 			return lastcashier;
-// 		}
 
-// 	}else{
-// 		if(lastcashier == totalcashier){
-// 			lastcashier =1;
-// 			return lastcashier;
-// 		}else{
-// 			lastcashier++;
-// 			return lastcashier;
-// 		}
-// 	}
-// }
 let checkCashier = ()=>{
-	if(totalTransaction >= 16){
+	if(totalTransaction >= 20){
 		return LeastTransOfCashier;
+	}else if(totalTransaction==0){
+		return getOnlineCashier[0];
 	}else{
-		if(getOnlineCashier.length-1<=a){
-			a=0;
-			return getOnlineCashier[a];
-		}else{
-			a++;
-			return getOnlineCashier[a];
+		for(let i=0;i<getOnlineCashier.length;i++){
+			if(getOnlineCashier[i]==lastcashiersatrans){
+				return getOnlineCashier[i+1];
+			}else{
+				if(getOnlineCashier[getOnlineCashier.length-1] == lastcashiersatrans){
+					return getOnlineCashier[0];
+				}
+			}
 		}
 	}
-
+	
 }
 // let checkCashier = ()=>{
 // 	if(totalTransaction >= 16){
@@ -306,7 +293,7 @@ let checkCashier = ()=>{
 // 			}
 // 		}
 // 	}
-	
+
 // }
 function checkTime(i) {
     if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
@@ -315,13 +302,19 @@ function checkTime(i) {
 function gotoReg(){
 	window.location.assign('register.html');
 }
+let refreshRegister = ()=>{
+window.location.assign('register.html');
+}
 let newTrans=()=>{
 	lastqueueInTransFin++; 
 	lastqueueInReg++;
+	var month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 	let goToC = checkCashier();
 	var today = new Date();
 	var dd = today.getDate();
+	var dd1 = today.getDate();
 	var mm = today.getMonth()+1; //January is 0!
+	var monthName = month[today.getMonth()];
 	var yyyy = today.getFullYear();
 	var today = new Date();
 	var h = today.getHours();
@@ -341,7 +334,6 @@ let newTrans=()=>{
 	}
 	var time = h + ":" + m + ":" + s + " " + aorp;
     // var t = setTimeout(startTime, 500);
-
     if(dd<10) {
     	dd = '0'+dd
     } 
@@ -375,6 +367,7 @@ let newTrans=()=>{
 		office:document.getElementById('rOffice1').value,
 		type:document.getElementById('rTrans1').value,
 		date:today+" "+time,
+		day:dd1+" "+monthName+", "+yyyy,
 		arrival:timearrival,
 		remarks:'In Line'
 	}
@@ -384,24 +377,25 @@ let newTrans=()=>{
 		office:document.getElementById('rOffice1').value,
 		type:document.getElementById('rTrans1').value,
 		date:today+" "+time,
+		day:dd1+" "+monthName+", "+yyyy,
 		remarks:'In Line'
 	}
 	if(document.getElementById('rOffice1').value=='Finance'){
 		c.addData(dataTrans,'tbl_transaction');
 		toastr.success('Your Queue #: <h4>'+lastqueueInTransFin+'</h4><br>'+'Please Procceed to <h4>Cashier #:'+goToC+'</h4>');
-		document.getOnlineCashiers('rStudentID').value = " ";
-		document.getOnlineCashiers('rOffice').value = " ";
-		document.getOnlineCashiers('rTrans').value = " ";
-		
+		window.setTimeout(function(){
+		window.location.assign('register.html');
+		},3000);
+
 	}else if(document.getElementById('rOffice1').value=='Registrar'){
 		c.addData(dataReg,'tbl_registrar');
 		toastr.success('Your Queue #: <h2>'+lastqueueInReg+'</h2><br>'+'Please Procceed to Registrar');
-		window.location.assign('register.html');
+
 	}
 	// console.log(goToC);
 	// console.log(goToC);
 
-	
+
 }
 let logOutAccount =()=>{
 	let status = {
@@ -442,7 +436,6 @@ pushStack = () =>{
 	}else{
 		if(transaction <= cashierOnline.length){
 			for(let i = 0; i < cashierOnline.length;i++){
-
 				for(let j = 0; j < i; j++){
 					if((lastcashier+j) == cashierOnline[i]){
 						return cashierOnline[i];

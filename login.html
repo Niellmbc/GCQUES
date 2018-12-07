@@ -14,7 +14,7 @@
 	<link href="assets/css/style.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	  <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/themes/google/google.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css">
 
 </head>
 
@@ -151,16 +151,17 @@
     	let tbl_cashier = ()=>{
     		fetch(url+'/tbl_cashier').then(res=>res.json()).then(function(res){
     			tables.cashier = res;
+    			console.log(res)
     			
     		});	
     	}
     	tbl_cashier();
     	
-    	console.log(tables);
+    	console.log(tables.cashier);
     	let loginAccount =()=>{
     		let uname = document.getElementById('uname').value;
     		let pass = document.getElementById('pass').value;
-    		console.log(uname);
+    		console.log(pass);
     		for(let i=0;i<tables.user.length;i++){
     			if(uname == tables.user[i].fldUsername && pass ==tables.user[i].fldPassword){
     				if(tables.user[i].fldRole=='Administrator'){
@@ -175,7 +176,6 @@
                             function(){
                                window.location.assign('admin.html');
                             });
-    					
     				}else if(tables.user[i].fldRole=='Registrar'){
     					localStorage.setItem('regID',tables.user[i].fldUserID)
     					swal({

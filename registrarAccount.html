@@ -11,9 +11,11 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link href="assets/css/mdb.min.css" rel="stylesheet">
 	<link href="assets/css/font-awesome.css" rel="stylesheet">
-
 	<link href="assets/css/stepper.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/themes/google/google.css">
+</head>
 </head>
 
 <body class="fixed-sn">
@@ -37,14 +39,14 @@
 						<div>
 							<div class="col-xl-5 col-md-4 mb-3 text-center float-left">
 
-								<img src="assets/img/niel.jpg" class="img-fluid z-depth-1 rounded-circle"
-								alt="Responsive image">
+								<div class="avatar z-depth-1-half mb-4">
+									<img src="" id="profPic" class="img-fluid rounded-circle" alt="First sample avatar image">
+								</div>
 
 							</div>
 							<div class="float-right">
-								
-								<p>Raniel Lambaco</p>
-								<p>leinar1717@gmail.com</p>
+								<p id="pName" style="font-size: 14px;"></p>
+								<p id="pEmail" style="font-size: 14px;"></p>
 							</div>
 						</div>
 					</div>
@@ -89,7 +91,7 @@
 						<i class="fa fa-user "></i> <span class="clearfix d-none d-sm-inline-block ">Profile</span></a>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="userDropdown">
-						<a class="dropdown-item" href="#">Log Out</a>
+						<a class="dropdown-item" onclick="logOutReg()">Log Out</a>
 						<a class="dropdown-item" href="#">My account</a>
 					</div>
 				</li>
@@ -118,13 +120,13 @@
 
 							<!--Avatar-->
 							<div class="avatar z-depth-1-half mb-4">
-								<img src="assets/img/niel.jpg" class="rounded-circle " alt="First sample avatar image">
+								<img src="" id="imgPs" class="rounded-circle " alt="First sample avatar image">
 							</div>
 
 							<div class="card-body pt-0 mt-0 text-center">
 								<!--Name-->
-								<h3 class="mb-3 font-weight-bold"><strong>Anna Deynah</strong></h3>
-								<h6 class="font-weight-bold cyan-text mb-4">Administrator</h6>
+								<h3 class="mb-3 font-weight-bold"><strong id="names"></strong></h3>
+								<h6 class="font-weight-bold cyan-text mb-4" id="rRole"></h6>
 
 								<p class="text-muted"><small>Profile photo will be changed automatically</small></p>
 								<div class="row flex-center">
@@ -132,12 +134,11 @@
 										<div class="file-field">
 											<div class="btn btn-rounded btn-info btn-sm float-left">
 												<span>Change Profile Photo</span>
-												<input type="file">
+												<input type="file" id="profileP">
 											</div>
 
 										</div>
 									</form>
-									<button class="btn btn-danger btn-rounded btn-sm">Delete</button>
 								</div>
 							</div>
 
@@ -168,9 +169,8 @@
 
 									<!-- Grid column -->
 									<div class="col-lg-4">
-
 										<div class="md-form form-sm mb-0">
-											<input type="text" id="rFname" class="form-control form-control-sm">
+											<input type="text" id="rFname" class="form-control form-control-sm" value=" ">
 											<label for="form12" class=""><i class="fa fa-address-card"></i> Firstname</label>
 										</div>
 
@@ -181,7 +181,7 @@
 									<div class="col-lg-4">
 
 										<div class="md-form form-sm mb-0">
-											<input type="text" id="rLname" class="form-control form-control-sm">
+											<input type="text" id="rLname" class="form-control form-control-sm" value=" ">
 											<label for="form3" class=""><i class="fa fa-address-card"></i> Lastname</label>
 										</div>
 
@@ -191,7 +191,7 @@
 									<div class="col-lg-4">
 
 										<div class="md-form form-sm mb-0">
-											<input type="text" id="rMname" class="form-control form-control-sm">
+											<input type="text" id="rMname" class="form-control form-control-sm" value=" ">
 											<label for="form3" class=""><i class="fa fa-address-card"></i> Middle Name</label>
 										</div>
 
@@ -210,7 +210,7 @@
 									<div class="col-md-4">
 
 										<div class="md-form form-sm mb-0">
-											<input type="text" id="rEmail" class="form-control form-control-sm">
+											<input type="text" id="rEmail" class="form-control form-control-sm" value=" ">
 											<label for="form5" class=""><i class="fa fa-google-plus"></i> Email</label>
 										</div>
 
@@ -221,7 +221,7 @@
 									<div class="col-md-4">
 
 										<div class="md-form form-sm mb-0">
-											<input type="text" id="rContact" class="form-control form-control-sm">
+											<input type="text" id="rContact" class="form-control form-control-sm" value=" ">
 											<label for="form5" class=""><i class="fa fa-phone"></i> Contact No</label>
 										</div>
 
@@ -231,7 +231,7 @@
 									<div class="col-md-4">
 
 										<div class="md-form">
-											<input placeholder="Selected date" type="text" id="rBday" class="form-control datepicker">
+											<input placeholder="Selected date" type="text" id="rBday" class="form-control datepicker" value=" ">
 											<label for="date-picker-example"><i class="fa fa-calendar"></i> Birthday</label>
 										</div>
 
@@ -244,47 +244,16 @@
 								<!-- Grid row -->
 								<div class="row">
 									<!-- Grid column -->
-									<div class="col-lg-3 col-md-6">
+									<div class="col-lg-12 col-md-6">
 
 										<div class="md-form form-sm mb-0">
-											<input type="text" id="rStreet" class="form-control form-control-sm">
-											<label for="form9" class=""><i class="fa fa-address-book"></i> HouseNo. / Street</label>
-										</div>
-
-									</div>
-									<!-- Grid column -->
-									<!-- Grid column -->
-									<div class="col-lg-3 col-md-6">
-
-										<div class="md-form form-sm mb-0">
-											<input type="text" id="rBrgy" class="form-control form-control-sm">
-											<label for="form9" class=""><i class="fa fa-address-book"></i> Barangay</label>
+											<input type="text" id="rAddress" class="form-control form-control-sm" value=" ">
+											<label for="form9" class=""><i class="fa fa-address-book"></i> Address</label>
 										</div>
 
 									</div>
 									<!-- Grid column -->
 
-									<!-- Grid column -->
-									<div class="col-lg-3 col-md-12">
-
-										<div class="md-form form-sm mb-0">
-											<input type="text" id="rCity" class="form-control form-control-sm">
-											<label for="form7" class=""><i class="fa fa-address-book"></i> City</label>
-										</div>
-
-									</div>
-									<!-- Grid column -->
-
-									<!-- Grid column -->
-									<div class="col-lg-3 col-md-6">
-
-										<div class="md-form form-sm mb-0">
-											<input type="text" id="rCountry" class="form-control form-control-sm">
-											<label for="form8" class=""><i class="fa fa-address-book"></i> Country</label>
-										</div>
-
-									</div>
-									<!-- Grid column -->
 
 
 
@@ -296,7 +265,7 @@
 									<div class="col-lg-4 col-md-6">
 
 										<div class="md-form form-sm mb-0">
-											<input type="text" id="rUname" class="form-control form-control-sm">
+											<input type="text" id="rUname" class="form-control form-control-sm" value=" ">
 											<label for="form8" class=""><i class="fa fa-user"></i> Username</label>
 										</div>
 
@@ -325,7 +294,7 @@
 								</div>
 
 								<!-- /Grid row -->
-								<button class="btn btn-outline-primary btn-block buttonAdd" onclick="UpdateRegistrar()">Update Details
+								<button class="btn btn-outline-primary btn-block buttonAdd" onclick="updateReg()">Update Details
 									<i class="fa fa-paper-plane-o ml-1"></i>
 								</button>
 							</div>
@@ -347,7 +316,9 @@
 <script type="text/javascript" src="js/popper.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
-<script type="text/javascript" src="js/queuelist.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/registrar.js"></script>
+<script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
 <script>
         // SideNav Initialization
         $(".button-collapse").sideNav();
@@ -359,19 +330,5 @@
         	minScrollbarLength: 20
         });
     </script>
-    <script>
-    	let cashierAccount=()=>{
-    		localStorage.setItem('cashierNo',1);
-    		let cID = localStorage.cashierNo;
-    		fetch(url+'/tbl_cashier/fldCashierNo/'+cID).then(res=>res.json()).then(function(res){
-    			document.getElementById('cLname').value= res[0].fldLname;
-    			document.getElementById('cFname').value= res[0].fldFname;
-    			document.getElementById('cMname').value= res[0].fldMname;
-    			document.getElementById('cBday').value= res[0].fldBday;
-    			document.getElementById('cStatus').value= res[0].fldStatus;
-    			document.getElementById('cUname').value= res[0].fldUsername;	
-    		});
-    	}
-    	cashierAccount();
-    </script>
+
     </html>

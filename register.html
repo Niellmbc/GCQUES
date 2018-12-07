@@ -91,236 +91,79 @@
             <div class="card card-cascade cascading-admin-card user-card">
 
              <h5 class="card-header secondary-color white-text text-center py-4">
-              <strong>Register Account</strong>
+              <strong>Choose Transaction</strong>
             </h5>
 
             <!--Card content-->
             <div class="card-body card-body-cascade">
-
               <!-- Grid row -->
               <div class="row">
 
                 <!-- Grid column -->
-                <div class="col-lg-4">
+                <div class="col-md-12 about-text">
 
-                  <div class="md-form form-sm mb-0">
-                    <input type="text" id="rFname" class="form-control form-control-sm">
-                    <label for="form12" class=""><i class="fa fa-address-card"></i> Firstname</label>
+                  <!--Basic textarea-->
+                  <div class="row">
+
+                    <div class="col-md-3">
+                     <div class="md-form form-sm mb-0">
+                      <input type="number" id="rStudentID" class="form-control form-control-sm" onkeyup="checkStudents()">
+                      <label for="form8" class=""><i class="fa fa-student-card"></i>Student Number *Optional</label>
+                    </div>
                   </div>
-
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-lg-4">
-
-                  <div class="md-form form-sm mb-0">
-                    <input type="text" id="rLname" class="form-control form-control-sm">
-                    <label for="form3" class=""><i class="fa fa-address-card"></i> Lastname</label>
+                  <div class="col-md-3">
+                    <select class="browser-default custom-select" id="rOffice" onclick="appendValue();">
+                      <option value="" disabled selected>Choose Office</option>
+                      <option value="Finance">Finance</option>
+                      <option value="Registrar">Registrar</option>
+                    </select>
                   </div>
-
-                </div>
-                <!-- Grid column -->
-                <!-- Grid column -->
-                <div class="col-lg-4">
-
-                  <div class="md-form form-sm mb-0">
-                    <input type="text" id="rMname" class="form-control form-control-sm">
-                    <label for="form3" class=""><i class="fa fa-address-card"></i> Middle Name</label>
+                  <div class="col-md-3">
+                    <select class="browser-default custom-select" id="rTrans">
+                      <option value="" disabled selected>Choose Transaction</option>
+                      <option value="Enrolment">Enrolment</option>
+                      <option value="Encoding">Encoding</option>
+                      <option value="Document Request">Document Request</option>
+                      <option value="Document Realising">Document Realising</option>
+                      <option value="Bank Account">Bank Account</option>
+                      <option value="Other Transaction">Other Transaction</option>
+                    </select>
                   </div>
-
-                </div>
-                <!-- Grid column -->
-
-
-
-              </div>
-              <!-- Grid row -->
-
-              <!-- Grid row -->
-              <div class="row">
-
-                <!-- Grid column -->
-                <div class="col-md-4">
-
-                  <div class="md-form form-sm mb-0">
-                    <input type="text" id="rEmail" class="form-control form-control-sm">
-                    <label for="form5" class=""><i class="fa fa-google-plus"></i> Email</label>
+                  <div class="col-md-3">
+                    <select class="browser-default custom-select" id="rTypeStud">
+                      <option value="" disabled selected>Type of Student</option>
+                      <option value="New Student">New Student</option>
+                      <option value="Old Student">Old Student</option>
+                    </select>
                   </div>
-
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-4">
-
-                  <div class="md-form form-sm mb-0">
-                    <input type="text" id="rContact" class="form-control form-control-sm">
-                    <label for="form5" class=""><i class="fa fa-phone"></i> Contact No</label>
-                  </div>
-
-                </div>
-                <!-- Grid column -->
-                <!-- Grid column -->
-                <div class="col-md-4">
-
-                 <div class="md-form">
-                  <input placeholder="Selected date" type="text" id="rBday" class="form-control datepicker">
-                  <label for="date-picker-example"><i class="fa fa-calendar"></i> Birthday</label>
                 </div>
 
               </div>
               <!-- Grid column -->
 
-            </div>
-            <!-- Grid row -->
 
+            </div>
             <!-- Grid row -->
             <div class="row">
-             <!-- Grid column -->
-             <div class="col-lg-3 col-md-6">
-
-              <div class="md-form form-sm mb-0">
-                <input type="text" id="rStreet" class="form-control form-control-sm">
-                <label for="form9" class=""><i class="fa fa-address-book"></i> HouseNo. / Street</label>
-              </div>
-
-            </div>
-            <!-- Grid column -->
-            <!-- Grid column -->
-            <div class="col-lg-3 col-md-6">
-
-              <div class="md-form form-sm mb-0">
-                <input type="text" id="rBrgy" class="form-control form-control-sm">
-                <label for="form9" class=""><i class="fa fa-address-book"></i> Barangay</label>
-              </div>
-
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-lg-3 col-md-12">
-
-              <div class="md-form form-sm mb-0">
-                <input type="text" id="rCity" class="form-control form-control-sm">
-                <label for="form7" class=""><i class="fa fa-address-book"></i> City</label>
-              </div>
-
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-lg-3 col-md-6">
-
-              <div class="md-form form-sm mb-0">
-                <input type="text" id="rCountry" class="form-control form-control-sm">
-                <label for="form8" class=""><i class="fa fa-address-book"></i> Country</label>
-              </div>
-
-            </div>
-            <!-- Grid column -->
-
-
-
-          </div>
-          <!-- Grid row -->
-          <!-- Grid row -->
-          <div class="row">
-            <!-- Grid column -->
-            <div class="col-lg-4 col-md-6">
-
-              <div class="md-form form-sm mb-0">
-                <input type="text" id="rUname" class="form-control form-control-sm">
-                <label for="form8" class=""><i class="fa fa-user"></i> Username</label>
-              </div>
-
-            </div>
-            <!-- Grid column -->
-            <!-- Grid column -->
-            <div class="col-lg-4 col-md-6">
-
-              <div class="md-form form-sm mb-0">
-                <input type="password" id="rPass" class="form-control form-control-sm">
-                <label for="form8" class=""><i class="fa fa-lock"></i> Password</label>
-              </div>
-
-            </div>
-            <!-- Grid column -->
-            <!-- Grid column -->
-            <div class="col-lg-4 col-md-6">
-
-              <div class="md-form form-sm mb-0">
-                <input type="password" id="rConfirmPass" class="form-control form-control-sm">
-                <label for="form8" class=""><i class="fa fa-lock"></i> Confirm Password</label>
-              </div>
-
-            </div>
-            <!-- Grid column -->
-          </div>
-
-          <!-- /Grid row -->
-
-          <!-- Grid row -->
-          <div class="row">
-
-            <!-- Grid column -->
-            <div class="col-md-12 about-text">
-
-              <h4 class="text-muted text-left my-4"><strong>Choose Transaction</strong></h4>
-
-              <!--Basic textarea-->
-              <div class="row">
-                <div class="col-md-4">
-                 <div class="md-form form-sm mb-0">
-                  <input type="number" id="rStudentID" class="form-control form-control-sm" >
-                  <label for="form8" class=""><i class="fa fa-student-card"></i>Student Number *If You Have</label>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <select class="browser-default custom-select" id="rOffice">
-                  <option value="" disabled selected>Choose Office</option>
-                  <option value="Finance">Finance</option>
-                  <option value="Registrar">Registrar</option>
-                  
-                </select>
-              </div>
-              <div class="col-md-4">
-                <select class="browser-default custom-select" id="rTrans">
-                  <option value="" disabled selected>Choose Transaction</option>
-                  <option value="Enrolment">Enrolment</option>
-                  <option value="Encoding">Encoding</option>
-                  <option value="Bank Account">Bank Account</option>
-                  <option value="Other Transaction">Other Transaction</option>
-                </select>
+              <div class="col-md-6 offset-md-2">
+                <button class="btn btn-outline-primary btn-block mt-3 text-center center" data-toggle='modal' data-target='#fluidModalRightInfo' onclick="sendtoModal()">Submit 
+                  <i class="fa fa-paper-plane-o ml-1"></i>
+                </button>
               </div>
             </div>
 
           </div>
-          <!-- Grid column -->
-
+          <!--/.Card content-->
 
         </div>
-        <!-- Grid row -->
-        <div class="row">
-          <div class="col-md-6 offset-md-2">
-            <button class="btn btn-outline-primary btn-block mt-3 text-center center" data-toggle='modal' data-target='#fluidModalRightInfo' onclick="sendtoModal()">Submit 
-              <i class="fa fa-paper-plane-o ml-1"></i>
-            </button>
-          </div>
-        </div>
+        <!--/.Card-->
 
       </div>
-      <!--/.Card content-->
-
+      <!-- Grid column -->
     </div>
-    <!--/.Card-->
 
   </div>
-  <!-- Grid column -->
-</div>
-
-</div>
-<!--Grid row-->
+  <!--Grid row-->
 
 </section>
 <!--Section: Team v.1-->
@@ -345,205 +188,52 @@
       <div class="modal-body">
         <div class="text-center">
           <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
-          <p>Complete Details</p>
+          <p>Breakdown Details</p>
         </div>
-        <!-- Grid row -->
-        <div class="row">
-          <div class="text-center">
-            <p>Complete Details If you are a New Student</p>
-          </div>
-
-          <!-- Grid column -->
-          <div class="col-lg-12">
-
-            <div class="md-form form-sm mb-0">
-              <input type="text" id="rFname1" class="form-control form-control-sm" value=" ">
-              <label for="form12" class=""><i class="fa fa-address-card"></i> Firstname</label>
-            </div>
-
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-lg-12">
-
-            <div class="md-form form-sm mb-0">
-              <input type="text" id="rLname1" class="form-control form-control-sm" value=" ">
-              <label for="form3" class=""><i class="fa fa-address-card"></i> Lastname</label>
-            </div>
-
-          </div>
-          <!-- Grid column -->
-          <!-- Grid column -->
-          <div class="col-lg-12">
-
-            <div class="md-form form-sm mb-0">
-              <input type="text" id="rMname1" class="form-control form-control-sm" value=" ">
-              <label for="form3" class=""><i class="fa fa-address-card"></i> Middle Name</label>
-            </div>
-
-          </div>
-          <!-- Grid column -->
-
-
-
-        </div>
-        <!-- Grid row -->
 
         <!-- Grid row -->
         <div class="row">
 
           <!-- Grid column -->
-          <div class="col-md-12">
-
-            <div class="md-form form-sm mb-0">
-              <input type="text" id="rEmail1" class="form-control form-control-sm" value=" ">
-              <label for="form5" class=""><i class="fa fa-google-plus"></i> Email</label>
+          <div class="col-md-12 about-text">
+            <!--Basic textarea-->
+            <div class="row">
+              <div class="col-md-12">
+               <div class="md-form form-sm mb-0">
+                <input type="text" id="rStudentID1" class="form-control form-control-sm" value=" ">
+                <label for="form8" class=""><i class="fa fa-student-card"></i>Student Number *Optional</label>
+              </div>
             </div>
-
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-12">
-
-            <div class="md-form form-sm mb-0">
-              <input type="text" id="rContact1" class="form-control form-control-sm" value=" ">
-              <label for="form5" class=""><i class="fa fa-phone"></i> Contact No</label>
+            <div class="col-md-12">
+             <div class="md-form form-sm mb-0">
+              <input type="text" id="rOffice1" class="form-control form-control-sm" value=" ">
+              <label for="form8" class=""><i class="fa fa-home"></i>Office</label>
             </div>
-
           </div>
-          <!-- Grid column -->
-          <!-- Grid column -->
-          <div class="col-md-12">
-
-           <div class="md-form">
-            <input placeholder="Selected date" type="text" id="rBday1" class="form-control datepicker" value=" ">
-            <label for="date-picker-example"><i class="fa fa-calendar"></i> Birthday</label>
-          </div>
-
-        </div>
-        <!-- Grid column -->
-
-      </div>
-      <!-- Grid row -->
-
-      <!-- Grid row -->
-      <div class="row">
-       <!-- Grid column -->
-       <div class="col-lg-12 col-md-6">
-
-        <div class="md-form form-sm mb-0">
-          <input type="text" id="rStreet1" class="form-control form-control-sm" value=" ">
-          <label for="form9" class=""><i class="fa fa-address-book"></i> HouseNo. / Street</label>
-        </div>
-
-      </div>
-      <!-- Grid column -->
-      <!-- Grid column -->
-      <div class="col-lg-12 col-md-6">
-
-        <div class="md-form form-sm mb-0">
-          <input type="text" id="rBrgy1" class="form-control form-control-sm" value=" ">
-          <label for="form9" class=""><i class="fa fa-address-book"></i> Barangay</label>
-        </div>
-
-      </div>
-      <!-- Grid column -->
-
-      <!-- Grid column -->
-      <div class="col-lg-12 col-md-12">
-
-        <div class="md-form form-sm mb-0">
-          <input type="text" id="rCity1" class="form-control form-control-sm" value=" ">
-          <label for="form7" class=""><i class="fa fa-address-book"></i> City</label>
-        </div>
-
-      </div>
-      <!-- Grid column -->
-
-      <!-- Grid column -->
-      <div class="col-lg-12 col-md-6">
-
-        <div class="md-form form-sm mb-0">
-          <input type="text" id="rCountry1" class="form-control form-control-sm" value=" ">
-          <label for="form8" class=""><i class="fa fa-address-book"></i> Country</label>
-        </div>
-
-      </div>
-      <!-- Grid column -->
-
-
-
-    </div>
-    <!-- Grid row -->
-    <!-- Grid row -->
-    <div class="row">
-      <!-- Grid column -->
-      <div class="col-lg-12 col-md-6">
-
-        <div class="md-form form-sm mb-0">
-          <input type="text" id="rUname1" class="form-control form-control-sm" value=" ">
-          <label for="form8" class=""><i class="fa fa-user"></i> Username</label>
-        </div>
-
-      </div>
-      <!-- Grid column -->
-      <!-- Grid column -->
-      <div class="col-lg-12 col-md-6">
-
-        <div class="md-form form-sm mb-0">
-          <input type="password" id="rPass1" class="form-control form-control-sm" value=" ">
-          <label for="form8" class=""><i class="fa fa-lock"></i> Password</label>
-        </div>
-
-      </div>
-      <!-- Grid column -->
-
-    </div>
-
-    <!-- /Grid row -->
-
-    <!-- Grid row -->
-    <div class="row">
-
-      <!-- Grid column -->
-      <div class="col-md-12 about-text">
-
-        <h4 class="text-muted text-left my-4"><strong>Choose Transaction</strong></h4>
-
-        <!--Basic textarea-->
-        <div class="row">
           <div class="col-md-12">
            <div class="md-form form-sm mb-0">
-            <input type="text" id="rStudentID1" class="form-control form-control-sm" value=" ">
-            <label for="form8" class=""><i class="fa fa-student-card"></i>Student Number *Optional</label>
+            <input type="text" id="rTrans1" class="form-control form-control-sm" value=" ">
+            <label for="form8" class=""><i class="fa fa-address-book"></i>Transaction</label>
           </div>
         </div>
         <div class="col-md-12">
          <div class="md-form form-sm mb-0">
-          <input type="text" id="rOffice1" class="form-control form-control-sm" value=" ">
-          <label for="form8" class=""><i class="fa fa-home"></i>Office</label>
+          <input type="text" id="rTypeStud1" class="form-control form-control-sm" value=" ">
+          <label for="form8" class=""><i class="fa fa-address-book"></i>Type of Student</label>
         </div>
       </div>
-      <div class="col-md-12">
-       <div class="md-form form-sm mb-0">
-        <input type="text" id="rTrans1" class="form-control form-control-sm" value=" ">
-        <label for="form8" class=""><i class="fa fa-address-book"></i>Transaction</label>
-      </div>
     </div>
+
+
   </div>
 
-
-</div>
-
-<!--Footer-->
-<div class="modal-footer justify-content-center">
-  <a type="button" class="btn btn-default waves-effect waves-light" onclick="newUser();newTrans()" data-dismiss="modal">Submit
-    <i class="fa fa-paper-plane-o ml-1 text-white"></i>
-  </a>
-  <a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal" >Cancel</a>
-</div>
+  <!--Footer-->
+  <div class="modal-footer justify-content-center">
+    <a type="button" class="btn btn-default waves-effect waves-light" onclick="newTrans()" data-dismiss="modal">Submit
+      <i class="fa fa-paper-plane-o ml-1 text-white"></i>
+    </a>
+    <a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal" >Cancel</a>
+  </div>
 </div>
 <!--/.Content-->
 </div>
@@ -577,85 +267,107 @@
 
               </script>
               <script>
+                let students =[];
+                fetch(url+'/tbl_student').then(res=>res.json()).then(function(res){
+                  students = res;
+                  console.log(students);
+                });
                 let data ={
-                  email:"",
-                  lname:"",
-                  fname:"",
-                  mname:"",
-                  bday:"",
-                  contact:"",
-                  street:"",
-                  brgy:"",
-                  city:"",
-                  country:"",
-                  img:'',
-                  uname:"",  
-                  pass:"",
-                  role:'New Student',
+                  // email:"",
+                  // lname:"",
+                  // fname:"",
+                  // mname:"",
+                  // bday:"",
+                  // contact:"",
+                  // street:"",
+                  // brgy:"",
+                  // city:"",
+                  // country:"",
+                  // img:'',
+                  // uname:"",  
+                  // pass:"",
+                  // role:'New Student',
                   office:"",
                   transaction:"",
-                  studentid:""
+                  studentid:"",
+                  studtype:"",
                 }
                 var trans = document.getElementById("rTrans");
                 var office = document.getElementById("rOffice");
                 var studentid = document.getElementById('rStudentID');
+                var studenttype = document.getElementById('rTypeStud');
                 let sendtoModal =()=>{
-                 data.street = document.getElementById('rStreet').value;
-                 data.brgy = document.getElementById('rBrgy').value;
-                 data.city = document.getElementById('rCity').value;
-                 data.country = document.getElementById('rCountry').value;
-                 data.fname = document.getElementById('rFname').value;
-                 data.lname = document.getElementById('rLname').value;
-                 data.mname = document.getElementById('rMname').value;
-                 data.email = document.getElementById('rEmail').value;
-                 data.bday = document.getElementById('rBday').value;
-                 data.contact = document.getElementById('rContact').value;
-                 data.uname = document.getElementById('rUname').value;
-                 data.pass = document.getElementById('rPass').value;
                  data.office = office.options[office.selectedIndex].value;
+                 data.studenttype = studenttype.options[studenttype.selectedIndex].value;
                  data.transaction =trans.options[trans.selectedIndex].value;
                  data.studentid = document.getElementById('rStudentID').value;
-
-                 document.getElementById('rStreet1').value=data.street;
-                 document.getElementById('rBrgy1').value=data.brgy;
-                 document.getElementById('rCity1').value=data.city;
-                 document.getElementById('rCountry1').value=data.country;
-                 document.getElementById('rFname1').value=data.fname;
-                 document.getElementById('rLname1').value=data.lname;
-                 document.getElementById('rMname1').value=data.mname ;
-                 document.getElementById('rEmail1').value=data.email;
-                 document.getElementById('rBday1').value=data.bday;
-                 document.getElementById('rContact1').value=data.contact;
-                 document.getElementById('rUname1').value=data.uname;
-                 document.getElementById('rPass1').value=data.pass;
                  document.getElementById('rOffice1').value=data.office;
                  document.getElementById('rTrans1').value=data.transaction;
+                 document.getElementById('rTypeStud1').value=data.studenttype;
                  document.getElementById('rStudentID1').value=data.studentid;
 
                }
-               let newUser=()=>{
-                let street = document.getElementById('rStreet1').value;
-                let brgy = document.getElementById('rBrgy1').value;
-                let city = document.getElementById('rCity1').value;
-                let country = document.getElementById('rCountry1').value;
-                let address = street+','+brgy+','+city+','+country;
-                let data ={
-                  email:document.getElementById('rEmail1').value,
-                  lname:document.getElementById('rLname1').value,
-                  fname:document.getElementById('rFname1').value,
-                  mname:document.getElementById('rMname1').value,
-                  bday:document.getElementById('rBday1').value,
-                  contact:document.getElementById('rContact1').value,
-                  address:address,
-                  img:' ',
-                  uname:document.getElementById('rUname1').value,  
-                  pass:document.getElementById('rPass1').value,
-                  role:'New Student'
+
+             </script>
+             <script>
+              let appendValue = ()=>{ 
+                let chosenOffice = office.options[office.selectedIndex].value;
+                if(chosenOffice=='Finance'){
+                  $('#rTrans').empty();
+                  var option1 = document.createElement('option');
+                  var option2 = document.createElement('option');
+                  var option3 = document.createElement('option');
+                  var option4 = document.createElement('option');
+                  option1.text ="Bank Account";
+                  option1.value="Bank Account";
+                  option2.text ="Other Transaction";
+                  option2.value="Other Transaction";
+                  option3.text ="Document Request";
+                  option3.value="Document Request";
+                  option4.text ="Enrolment";
+                  option4.value="Enrolment";
+                  trans.add(option1);
+                  trans.add(option2);
+                  trans.add(option3);
+                  trans.add(option4);
+                }else if(chosenOffice=='Registrar'){
+                  $('#rTrans').empty();
+                  var option1 = document.createElement('option');
+                  var option2 = document.createElement('option');
+                  var option3 = document.createElement('option');
+                  var option4 = document.createElement('option');
+                  option1.text ="Document Realising";
+                  option1.value="Document Realising";
+                  option2.text ="Other Transaction";
+                  option2.value="Other Transaction";
+                  option3.text ="Document Request";
+                  option3.value="Document Request";
+                  option4.text ="Enrolment";
+                  option4.value="Enrolment";
+                  trans.add(option1);
+                  trans.add(option2);
+                  trans.add(option3);
+                  trans.add(option4);
                 }
-                if(data.fname == "" || data.lname == "" || data.mname =="" || data.bday==""){
-                }else{
-                  c.addData(data,'tbl_user');
-                  toastr.success('You have been Registered Successfully');
+              }
+
+              let checkStudents=()=>{
+                var studentid1 = document.getElementById('rStudentID').value;
+                for(let i=0;i<students.length;i++){
+                  if(students[i].fldStudentNo==studentid1){
+                    $('#rTypeStud').empty();
+                    var option1= document.createElement('option');
+                    option1.text ="Old Student";
+                    option1.value="Old Student";
+                    studenttype.add(option1);
+                    // console.log('Old Student')
+                  }else if(studentid1==0){
+                    $('#rTypeStud').empty();
+                    var option1 = document.createElement('option');
+                    option1.text ="New Student";
+                    option1.value="New Student";
+                    studenttype.add(option1);
+                  }
                 }
               }
             </script>

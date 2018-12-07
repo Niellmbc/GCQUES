@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,9 +12,11 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link href="assets/css/mdb.min.css" rel="stylesheet">
 	<link href="assets/css/font-awesome.css" rel="stylesheet">
-
 	<link href="assets/css/stepper.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css">
 </head>
 
 <body class="fixed-sn">
@@ -37,14 +40,13 @@
 						<div>
 							<div class="col-xl-5 col-md-4 mb-3 text-center float-left">
 
-								<img src="assets/img/niel.jpg" class="img-fluid z-depth-1 rounded-circle"
+								<img src="" id="profPic" class="img-fluid z-depth-1 rounded-circle"
 								alt="Responsive image">
 
 							</div>
 							<div class="float-right">
-								
-								<p>Raniel Lambaco</p>
-								<p>leinar1717@gmail.com</p>
+								<p id="pName" style="font-size: 14px;"></p>
+								<p id="pEmail" style="font-size: 14px;"></p>
 							</div>
 						</div>
 					</div>
@@ -89,7 +91,7 @@
 						<i class="fa fa-user "></i> <span class="clearfix d-none d-sm-inline-block ">Profile</span></a>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="userDropdown">
-						<a class="dropdown-item" href="landing.html">Log Out</a>
+						<a class="dropdown-item" onclick="logOutReg()">Log Out</a>
 						<a class="dropdown-item" href="#">My account</a>
 					</div>
 				</li>
@@ -105,27 +107,27 @@
 
 		<div class="container-fluid">
 			<div id="mdb-preloader" class="flex-center">
-		<div id="preloader-markup">
-			<!--Big blue-->
-			<div class="preloader-wrapper big active crazy">
-				<div class="spinner-layer spinner-blue-only">
-					<div class="circle-clipper left">
-						<div class="circle"></div>
+				<div id="preloader-markup">
+					<!--Big blue-->
+					<div class="preloader-wrapper big active crazy">
+						<div class="spinner-layer spinner-blue-only">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div>
+							<div class="gap-patch">
+								<div class="circle"></div>
+							</div>
+							<div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
 					</div>
-					<div class="gap-patch">
-						<div class="circle"></div>
-					</div>
-					<div class="circle-clipper right">
-						<div class="circle"></div>
-					</div>
+
 				</div>
 			</div>
-
-		</div>
-	</div>
 			<!-- Sample Queue List -->
 			<!--Section: Overlay cards-->
-			<section class="mb-5">
+			<section class="mb-5 wow bounceInUp">
 
 				<h3 id="" class="font-weight-bold dark-grey-text mb-4"><i class="fa fa-xbox"></i> <strong>Queue Numbers In line</strong> <span class="badge badge-pill green float-right">Online</span></h3>
 				<hr>	
@@ -170,7 +172,7 @@
 
 
 	<!--Modal: modalConfirmDelete-->
-	<div class="modal fade" id="modalID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	<div class="modal fade" id="seeResult" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-md modal-notify modal-success" role="document">
 		<!--Content-->
@@ -228,6 +230,8 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
 <script type="text/javascript" src="js/queuelist.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
 
 <script>
         // SideNav Initialization
@@ -252,13 +256,35 @@
     					ls+="<td>"+res[i].fldQueueNo+"</td>";
     					ls+="<td>"+res[i].fldType+"</td>";
     					ls+="<td>"+res[i].fldDate+"</td>";
-    					ls+='<td><a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResult" onclick="doneTransInReg('+res[i].fldRegID+')"><i class="fa fa-check"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive"><i class="fa fa-times"></i></a></td>';
+    					ls+='<td><a class="blue-text" data-placement="top" onclick="doneTransInReg('+res[i].fldRegID+')"><i class="fa fa-check"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" onclick="noShowTransInReg('+res[i].fldRegID+')" title="Archive"><i class="fa fa-times"></i></a></td>';
     					ls+="</tr>";
     				}
     			}
     			$('#registrarQueue').html(ls);
     		});
     	}
-    	showRegQueue();
+    	window.setInterval(showRegQueue,1000);
     </script>
+    <script>
+    	let id= localStorage.regID;
+    	fetch(url+'/tbl_user/fldUserID/'+id).then(res=>res.json()).then(function(res){
+    		document.getElementById('pName').innerHTML=res[0].fldFname+' '+res[0].fldMname+' '+res[0].fldLname;
+    		document.getElementById('pEmail').innerHTML=res[0].fldEmail;
+    		document.getElementById('profPic').src=res[0].fldImg;
+    	});
+    	let logOutReg=()=>{
+    		localStorage.setItem('regID','');
+    		swal({
+    			title: "Logout Successful",
+    			text: "You are not Logged in",
+    			type: "success",
+    			timer: 1000,
+    			html: true
+    		},
+    		function(){
+    			window.location.assign('login.html');
+    		});
+    	}
+    </script>
+
     </html>

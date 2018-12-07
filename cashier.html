@@ -84,104 +84,113 @@
 
 				
 
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-user "></i> <span class="clearfix d-none d-sm-inline-block ">Profile</span></a>
-				</a>
-				<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="userDropdown">
-					<a class="dropdown-item" onclick="logOutAccount()">Log Out</a>
-					<a class="dropdown-item" href="#">My account</a>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-user "></i> <span class="clearfix d-none d-sm-inline-block ">Profile</span></a>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="userDropdown">
+						<a class="dropdown-item" onclick="logOutAccount()">Log Out</a>
+						<a class="dropdown-item" href="#">My account</a>
+					</div>
+				</li>
+
+			</ul>
+			<!--/Navbar links-->
+		</nav>
+		<!-- /.Navbar -->
+
+	</header>
+	<!--Main Navigation-->
+
+	<!--Main layout-->
+	<main>
+
+		<div class="container-fluid">
+
+			<!-- Sample Queue List -->
+			<!--Section: Overlay cards-->
+			<section class="mb-5">
+				<div class="row">
+					<div class="col-md-11">
+						<h3 id="" class="font-weight-bold dark-grey-text mb-4"><i class="fa fa-xbox"></i> <strong>Queue Numbers In line</strong>
+						</div>
+						<div class="col-md-1">
+							<label class="bs-switch">
+								<input type="checkbox" id="status">
+								<span class="slider round"></span>
+							</label>
+						</div>
+					</div>
+					<hr>	
+
+
+					<div class="row" id="queuelist">
+					</div>
+
+				</section>
+				<!--Section: Overlay cards-->
+				<!-- /Sample Queue List -->
+			</div>
+		</main>
+		<!-- /Main Layout -->
+
+		<!-- Sample Modal Done -->
+		<!-- Button trigger modal-->
+
+
+		<!--Modal: modalConfirmDelete-->
+		<div class="modal fade" id="modalID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-md modal-notify modal-success" role="document">
+			<!--Content-->
+			<div class="modal-content text-center">
+				<!--Header-->
+				<div class="modal-header d-flex justify-content-center">
+					<p class="heading">Transaction Details</p>
 				</div>
-			</li>
 
-		</ul>
-		<!--/Navbar links-->
-	</nav>
-	<!-- /.Navbar -->
+				<!--Body-->
+				<div class="modal-body">
 
-</header>
-<!--Main Navigation-->
+					<i class="fa fa-check fa-4x animated rotateIn"></i>
+					<hr>
+					<div class="table-responsive">
+						<table class="table">
+							<!--Table head-->
+							<thead >
+								<tr>
+									<th>Student No</th>
+									<th>Queue No</th>
+									<th>Office</th>
+									<th>Transaction Type</th>
+									<th>Date</th>
 
-<!--Main layout-->
-<main>
+								</tr>
+							</thead>
+							<!--Table head-->
 
-	<div class="container-fluid">
-		
-		<!-- Sample Queue List -->
-		<!--Section: Overlay cards-->
-		<section class="mb-5">
+							<!--Table body-->
+							<tbody id="transDet">
+							</tbody>
+							<!--Table body-->
 
-			<h3 id="" class="font-weight-bold dark-grey-text mb-4"><i class="fa fa-xbox"></i> <strong>Queue Numbers In line</strong> <span class="badge badge-pill green float-right">Online</span></h3>
-			<hr>	
-			
+						</table>
+					</div>
 
-			<div class="row" id="queuelist">
+
+				</div>
+
+				<!--Footer-->
+				<div class="modal-footer flex-center">
+					<a href="" class="btn  btn-outline-success" onclick="doneTrans()">Done</a>
+					<a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal" onclick="noShowTrans()">No Show</a>
+				</div>
 			</div>
-
-		</section>
-		<!--Section: Overlay cards-->
-		<!-- /Sample Queue List -->
-	</div>
-</main>
-<!-- /Main Layout -->
-
-<!-- Sample Modal Done -->
-<!-- Button trigger modal-->
-
-
-<!--Modal: modalConfirmDelete-->
-<div class="modal fade" id="modalID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-md modal-notify modal-success" role="document">
-	<!--Content-->
-	<div class="modal-content text-center">
-		<!--Header-->
-		<div class="modal-header d-flex justify-content-center">
-			<p class="heading">Transaction Details</p>
-		</div>
-
-		<!--Body-->
-		<div class="modal-body">
-
-			<i class="fa fa-check fa-4x animated rotateIn"></i>
-			<hr>
-			<div class="table-responsive">
-				<table class="table">
-					<!--Table head-->
-					<thead >
-						<tr>
-							<th>Student No</th>
-							<th>Queue No</th>
-							<th>Office</th>
-							<th>Transaction Type</th>
-							<th>Date</th>
-
-						</tr>
-					</thead>
-					<!--Table head-->
-
-					<!--Table body-->
-					<tbody id="transDet">
-					</tbody>
-					<!--Table body-->
-
-				</table>
-			</div>
-			
-
-		</div>
-
-		<!--Footer-->
-		<div class="modal-footer flex-center">
-			<a href="" class="btn  btn-outline-success" onclick="doneTrans()">Done</a>
-			<a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal" onclick="noShowTrans()">No Show</a>
+			<!--/.Content-->
 		</div>
 	</div>
-	<!--/.Content-->
-</div>
-</div>
-<!--Modal: modalConfirmDelete-->
-<!-- /Sample Modal Done -->
+	<!--Modal: modalConfirmDelete-->
+	<!-- /Sample Modal Done -->
 </body>
 
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>

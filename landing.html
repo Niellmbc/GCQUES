@@ -23,32 +23,25 @@
 	<main class="mt-0">
 
 		<div class="container-fluid">
-			<section class="section mb-1">
-				
-			</section>
 			<div class="row">
-				<div class="col-md-8">
-					<h1>Finance Department</h1>
-				</div>
-				<div class="col-md-4" style="margin-left:-32px;">	
+				<div class="col-md-9"></div>
+				<div class="col-md-3 offset-md-9 mt-3 flex-center" style="margin-left:-32px;">	
 					<nav class="breadcrumb btn-outline-teal flex-center">
-						<h4 class="breadcrumb-item flex-center-center" id="time" style="font-size: 35px;padding:-10px -10px -10px -10px"></h4>
+						<h4 class="breadcrumb-item flex-center-center" id="time"></h4>
 					</nav>
-
 				</div>
 			</div>
 			
 
 			<div class="row mt-0" >
 				<div class="col-md-8">
-					<div class="col-md-12">	
-						<marquee><h1 class="red-text flex-center">Now Serving!!!</h1></marquee>
-						<div class="row"  id="queueServing">
+					<div class="col-md-12 mt-0">	
+						<div class="row" id="queueServing" style="margin-top:-70px;">
 						</div>
 					</div>	
 				</div>
-				<div class="col-md-4" style="margin-left:-35px">
-					<h1 class="teal-text text-center">Waiting List</h1>
+				<div class="col-md-4">
+					<h3 class="teal-text text-center">Finance Waiting List <span class="badge badge-default" id="cInLine"></span></h3>
 					<div class="card">
 						<ul class="list-group z-depth-1" id="queueServingTrans">
 							
@@ -60,68 +53,6 @@
 	</div>
 
 </main>
-<!--Modal: Login Form-->
-<div class="modal fade " id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog cascading-modal " role="document">
-	<!--Content-->
-	<div class="modal-content">
-
-		<!--Modal cascading tabs-->
-		<div class="modal-c-tabs">
-
-			<!-- Nav tabs -->
-			<ul class="nav md-tabs tabs-2 secondary-color" role="tablist">
-				<li class="nav-item">
-					<a class="nav-link active" data-toggle="tab" href="#panel1" role="tab"><i class="fa fa-user mr-1"></i> Login</a>
-				</li>
-
-			</ul>
-
-			<!-- Tab panels -->
-			<div class="tab-content">
-				<!--Panel 1-->
-				<div class="tab-pane fade in show active" id="panel1" role="tabpanel">
-
-					<!--Body-->
-					<div class="modal-body mb-1">
-						<div class="md-form form-sm">
-							<i class="fa fa-envelope prefix"></i>
-							<input type="text" id="uname" class="form-control form-control">
-							<label for="form11">Username</label>
-						</div>
-
-						<div class="md-form form-sm">
-							<i class="fa fa-lock prefix"></i>
-							<input type="password" id="pass" class="form-control form-control">
-							<label for="form12">Your password</label>
-						</div>
-						<div class="text-center mt-2">
-							<button class="btn btn-info" onclick="loginAccount()">Log in <i class="fa fa-sign-in ml-1"></i></button>
-						</div>
-					</div>
-					<!--Footer-->
-					<div class="modal-footer display-footer">
-						<!-- <div class="options text-center text-md-right mt-1">
-							<p>Not a member? <a href="#" class="blue-text">Sign Up</a></p>
-							<p>Forgot <a href="#" class="blue-text">Password?</a></p>
-						</div> -->
-						<button type="button" class="btn btn-outline-info waves-effects ml-auto" data-dismiss="modal">Close</button>
-					</div>
-
-				</div>
-				<!--/.Panel 1-->
-
-				
-			</div>
-
-		</div>
-	</div>
-	<!--/.Content-->
-</div>
-</div>
-<!--Modal: login form-->
-
 </body>
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/popper.min.js"></script>
@@ -182,6 +113,13 @@ function Starttime(){
 
 }
 window.setInterval(Starttime,500)
+let numOnline;
+let countOnline =()=>{
+	fetch(url+'/onlineInTrans').then(res=>res.json()).then(function(res){
+		numOnline = res[0].totalcount;
+	});
+}
+window.setInterval(countOnline,1000);
 
 let queueServing=()=>{
 	fetch(url+'/queueServing').then(res=>res.json()).then(function(res){
@@ -200,11 +138,10 @@ let queueServing=()=>{
 			ls+='<div class="card card-image" style="background-image: url(assets/img/gcueslogo.png);">';
 			ls+='<div class="text-white flex-center d-flex align-items-center rgba-black-strong py-5 px-4">';
 			ls+='<div>';
-			ls+='<h6 class="orange-text text-center"><i class="fa fa-id-badge"></i><strong  style="font-size:25px;"> CASHIER #'+res[i].fldCashierNo+'</strong></h6>';
-			ls+='<h1 class="card-title pt-4 pb-3 font-weight-bold text-center qnum"><strong>'+res[i].fldQueueNo+'</strong></h1>';
+			ls+='<h6 class="white-text text-center"><strong  style="font-size:30px;"> CASHIER #'+res[i].fldCashierNo+'</strong></h6>';
+			ls+='<h1 class="card-title pt-4 pb-3 font-weight-bold text-center qnum" style="font-size:110px;"><strong>'+res[i].fldQueueNo+'</strong></h1>';
 			ls+='</div>';
 			ls+='</div>';
-
 			ls+='</div>';
 			ls+='</div>';
 		}
@@ -212,14 +149,12 @@ let queueServing=()=>{
 	});
 }
 let queueServingTrans=()=>{
-	fetch(url+'/tbl_transaction').then(res=>res.json()).then(function(res){
+	fetch(url+'/tbl_transaction/fldRemarks/In%20Line/10/'+numOnline).then(res=>res.json()).then(function(res){
 		let ls="";
-		
 		for(let i=0;i<res.length;i++){
 			if(res[i].fldRemarks=='In Line'){
-
-				ls+='<li class="list-group-item d-flex justify-content-between align-items-center">';
-				ls+='<a class="dark-grey-text font-small" style="font-size: 30px;"><i class="fa fa-id-badge dark-grey-text mr-2" aria-hidden="true"></i> Q #: '+res[i].fldQueueNo+' - Cashier:'+res[i].fldCashierNo+'</a>';
+				ls+='<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-info">';
+				ls+='<a class="dark-black-text font-small " style="font-size: 25px;">#'+res[i].fldQueueNo+'- Cashier '+res[i].fldCashierNo+'</a>';
 				ls+='<span class="badge badge-default">Waiting</span>';
 				ls+='</li>';
 			}
@@ -227,7 +162,13 @@ let queueServingTrans=()=>{
 		$('#queueServingTrans').html(ls);
 	});
 }
-
+let countInline=()=>{
+	let inline= "In Line";
+	fetch(url+'/count/tbl_transaction/fldRemarks/'+inline).then(res=>res.json()).then(function(res){
+		document.getElementById('cInLine').innerHTML=res[0].totalcount;
+	});	
+}
+window.setInterval(countInline,1000);
 window.setInterval(queueServingTrans,1000);
 window.setInterval(queueServing,1000);
 
