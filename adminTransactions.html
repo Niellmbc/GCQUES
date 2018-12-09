@@ -11,9 +11,11 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link href="assets/css/mdb.min.css" rel="stylesheet">
 	<link href="assets/css/font-awesome.css" rel="stylesheet">
-
 	<link href="assets/css/stepper.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css">
 </head>
 
 <body class="fixed-sn">
@@ -192,11 +194,13 @@
 <script type="text/javascript" src="js/Chart.min.js"></script>
 <script type="text/javascript" src="js/Chart.bundle.min.js"></script>
 <script type="text/javascript" src="js/cashier.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
 
 <script>
         // SideNav Initialization
         $(".button-collapse").sideNav();
-        $('.datepicker').pickadate();
+        $('.datepicker').pickadate({format : "yyyy-mm-d"});
         var container = document.querySelector('.custom-scrollbar');
         Ps.initialize(container, {
         	wheelSpeed: 2,

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Super Admin</title>
+	<title>Admin Account</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,9 +11,11 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link href="assets/css/mdb.min.css" rel="stylesheet">
 	<link href="assets/css/font-awesome.css" rel="stylesheet">
-
 	<link href="assets/css/stepper.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css">
 </head>
 
 <body class="fixed-sn">
@@ -92,7 +94,6 @@
 			<!--Navbar links-->
 			<ul class="nav navbar-nav nav-flex-icons ml-auto">
 
-				
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="fa fa-user "></i> <span class="clearfix d-none d-sm-inline-block ">Profile</span></a>
@@ -115,7 +116,20 @@
 	<main>
 		
 		<div class="container-fluid">
-		
+			<div class="row" style="margin-right: -100px;">
+				<div class="col-md-4 offset-md-8">
+					<div class="row">
+					<div class="col-md-5">
+						<div class="md-form">
+							<input placeholder="Selected time" type="text" id="closingtime" class="form-control timepicker" >
+							<label for="closingtime">Set Closing Time</label>
+						</div>
+					</div>
+					<div class="col-md-4"><button class="btn btn-rounded btn-outline-primary btn-md" onclick="setClosingTime()">Set</button>
+					</div>
+					</div>
+				</div>
+			</div>
 			<!-- Admin Cards -->
 			<section class="section">
 
@@ -123,14 +137,14 @@
 				<div class="row">
 
 					<!--Grid column-->
-					<div class="col-xl-3 col-md-6 mb-4">
+					<div class="col-xl-4 col-md-6 mb-4">
 
 						<!--Card-->
 						<div class="card card-cascade cascading-admin-card">
 
 							<!--Card Data-->
 							<div class="admin-up">
-								<i class="fa fa-money primary-color"></i>
+								<i class="fa fa-graduation-cap primary-color"></i>
 								<div class="data">
 									<p>Enrolment</p>
 									<h4 id="cEnrollment"></h4>
@@ -155,7 +169,7 @@
 				<!--Grid column-->
 
 				<!--Grid column-->
-				<div class="col-xl-3 col-md-6 mb-4">
+				<div class="col-xl-4 col-md-6 mb-4">
 
 					<!--Card-->
 					<div class="card card-cascade cascading-admin-card">
@@ -179,14 +193,14 @@
 				<!--Grid column-->
 
 				<!--Grid column-->
-				<div class="col-xl-3 col-md-6 mb-4">
+				<div class="col-xl-4 col-md-6 mb-4">
 
 					<!--Card-->
 					<div class="card card-cascade cascading-admin-card">
 
 						<!--Card Data-->
 						<div class="admin-up">
-							<i class="fa fa-pie-chart light-blue lighten-1"></i>
+							<i class="fa fa-money light-blue lighten-1"></i>
 							<div class="data">
 								<p>Bank Accounts</p>
 								<h4 id="cBank"></h4>
@@ -202,14 +216,14 @@
 				<!--Grid column-->
 
 				<!--Grid column-->
-				<div class="col-xl-3 col-md-6 mb-4">
+				<div class="col-xl-6 col-md-6 mb-4">
 
 					<!--Card-->
 					<div class="card card-cascade cascading-admin-card">
 
 						<!--Card Data-->
 						<div class="admin-up">
-							<i class="fa fa-bar-chart red accent-2"></i>
+							<i class="fa fa-file red accent-2"></i>
 							<div class="data">
 								<p>Doc. Request</p>
 								<h4 id="cDreq"></h4>
@@ -232,7 +246,7 @@
 
 						<!--Card Data-->
 						<div class="admin-up">
-							<i class="fa fa-bar-chart red accent-2"></i>
+							<i class="fa fa-folder-open red accent-2"></i>
 							<div class="data">
 								<p>Doc. Releasing</p>
 								<h4 id="cDrel"></h4>
@@ -246,29 +260,7 @@
 
 				</div>
 				<!--Grid column-->
-				<!--Grid column-->
-				<div class="col-xl-6 col-md-6 mb-4">
-
-					<!--Card-->
-					<div class="card card-cascade cascading-admin-card">
-
-						<!--Card Data-->
-						<div class="admin-up">
-							<i class="fa fa-bar-chart red accent-2"></i>
-							<div class="data">
-								<p>Encoding</p>
-								<h4 id="cEncode"></h4>
-							</div>
-						</div>
-						<!--/.Card Data-->
-
-						
-
-					</div>
-					<!--/.Card-->
-
-				</div>
-				<!--Grid column-->
+				
 
 			</div>
 			<!--Grid row-->
@@ -387,12 +379,20 @@
 <script type="text/javascript" src="js/Chart.min.js"></script>
 <script type="text/javascript" src="js/Chart.bundle.min.js"></script>
 <script type="text/javascript" src="js/cashier.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script src="js/voicemo.js"></script>
+<script type="text/javascript" src="js/graphs.js"></script>
+<script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
+
 
 <script>
         // SideNav Initialization
         $(".button-collapse").sideNav();
-
         var container = document.querySelector('.custom-scrollbar');
+        $('#closingtime').pickatime({
+    // 12 or 24 hour
+    twelvehour: true,
+});
         Ps.initialize(container, {
         	wheelSpeed: 2,
         	wheelPropagation: true,
@@ -400,138 +400,24 @@
         });
     </script>
     <script>
-    	var ctx = document.getElementById("monthly").getContext('2d');
-    	var myChart = new Chart(ctx, {
-    		type: 'bar',
-    		data: {
-    			labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    			datasets: [{
-    				label: '# of Votes',
-    				data: [12, 19, 3, 5, 2, 3],
-    				backgroundColor: [
-    				'rgba(255, 99, 132, 0.2)',
-    				'rgba(54, 162, 235, 0.2)',
-    				'rgba(255, 206, 86, 0.2)',
-    				'rgba(75, 192, 192, 0.2)',
-    				'rgba(153, 102, 255, 0.2)',
-    				'rgba(255, 159, 64, 0.2)'
-    				],
-    				borderColor: [
-    				'rgba(255,99,132,1)',
-    				'rgba(54, 162, 235, 1)',
-    				'rgba(255, 206, 86, 1)',
-    				'rgba(75, 192, 192, 1)',
-    				'rgba(153, 102, 255, 1)',
-    				'rgba(255, 159, 64, 1)'
-    				],
-    				borderWidth: 1
-    			}]
-    		},
-    		options: {
-    			scales: {
-    				yAxes: [{
-    					ticks: {
-    						beginAtZero:true
-    					}
-    				}]
-    			}
-    		}
-    	});
-    </script>
-    <script>
-    	var ctx = document.getElementById("weekly").getContext('2d');
-    	var myChart = new Chart(ctx, {
-    		type: 'bar',
-    		data: {
-    			labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    			datasets: [{
-    				label: '# of Votes',
-    				data: [12, 19, 3, 5, 2, 3],
-    				backgroundColor: [
-    				'rgba(255, 99, 132, 0.2)',
-    				'rgba(54, 162, 235, 0.2)',
-    				'rgba(255, 206, 86, 0.2)',
-    				'rgba(75, 192, 192, 0.2)',
-    				'rgba(153, 102, 255, 0.2)',
-    				'rgba(255, 159, 64, 0.2)'
-    				],
-    				borderColor: [
-    				'rgba(255,99,132,1)',
-    				'rgba(54, 162, 235, 1)',
-    				'rgba(255, 206, 86, 1)',
-    				'rgba(75, 192, 192, 1)',
-    				'rgba(153, 102, 255, 1)',
-    				'rgba(255, 159, 64, 1)'
-    				],
-    				borderWidth: 1
-    			}]
-    		},
-    		options: {
-    			scales: {
-    				yAxes: [{
-    					ticks: {
-    						beginAtZero:true
-    					}
-    				}]
-    			}
-    		}
-    	});
-    </script>
-    <script>
-    	var ctx = document.getElementById("daily").getContext('2d');
-    	var myChart = new Chart(ctx, {
-    		type: 'bar',
-    		data: {
-    			labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    			datasets: [{
-    				label: '# of Votes',
-    				data: [12, 19, 3, 5, 2, 3],
-    				backgroundColor: [
-    				'rgba(255, 99, 132, 0.2)',
-    				'rgba(54, 162, 235, 0.2)',
-    				'rgba(255, 206, 86, 0.2)',
-    				'rgba(75, 192, 192, 0.2)',
-    				'rgba(153, 102, 255, 0.2)',
-    				'rgba(255, 159, 64, 0.2)'
-    				],
-    				borderColor: [
-    				'rgba(255,99,132,1)',
-    				'rgba(54, 162, 235, 1)',
-    				'rgba(255, 206, 86, 1)',
-    				'rgba(75, 192, 192, 1)',
-    				'rgba(153, 102, 255, 1)',
-    				'rgba(255, 159, 64, 1)'
-    				],
-    				borderWidth: 1
-    			}]
-    		},
-    		options: {
-    			scales: {
-    				yAxes: [{
-    					ticks: {
-    						beginAtZero:true
-    					}
-    				}]
-    			}
-    		}
-    	});
-    </script>
-    <script>
+    	let dreqInTrans=0;
+    	let dreqInReg=0;
+    	let otherInTrans=0;
+    	let otherInReg=0;
     	let countEnrollment=()=>{
     		fetch(url+'/count/tbl_transaction/fldTransType/Enrolment').then(res=>res.json()).then(function(res){
     			document.getElementById('cEnrollment').innerHTML = res[0].totalcount;
     		});
     	}
-    	countEnrollment();
+    	window.setInterval(countEnrollment,1000);
     	let countBankAccount=()=>{
     		fetch(url+'/count/tbl_transaction/fldTransType/Bank Account').then(res=>res.json()).then(function(res){
     			document.getElementById('cBank').innerHTML = res[0].totalcount;
     		});
     	}
-    	countBankAccount();
+    	window.setInterval(countBankAccount,1000);
     	let countDreq=()=>{
-    		let dreqInTrans=0;
-    		let dreqInReg=0;
+    		
     		fetch(url+'/count/tbl_transaction/fldTransType/Document Request').then(res=>res.json()).then(function(res){
     			dreqInTrans = res[0].totalcount;
 
@@ -539,12 +425,12 @@
     		fetch(url+'/count/tbl_registrar/fldType/Document Request').then(res=>res.json()).then(function(res){
     			dreqInReg = res[0].totalcount;
     		});
-    		document.getElementById('cDreq').innerHTML = parseInt(dreqInReg + dreqInTrans);
+    		document.getElementById('cDreq').innerHTML = parseInt(dreqInReg) + parseInt(dreqInTrans);
+
     	}
-    	countDreq();
+    	window.setInterval(countDreq,1000);
     	let countOther=()=>{
-    		let otherInTrans=0;
-    		let otherInReg=0;
+    		
     		fetch(url+'/count/tbl_transaction/fldTransType/Other Transaction').then(res=>res.json()).then(function(res){
     			otherInTrans = res[0].totalcount;
 
@@ -552,9 +438,9 @@
     		fetch(url+'/count/tbl_registrar/fldType/Other Transaction').then(res=>res.json()).then(function(res){
     			otherInReg = res[0].totalcount;
     		});
-    		document.getElementById('cOther').innerHTML = parseInt(otherInReg + otherInTrans);
+    		document.getElementById('cOther').innerHTML = parseInt(otherInReg) + parseInt(otherInTrans);
     	}
-    	countOther();
+    	window.setInterval(countOther,1000);
     	let countEncoding=()=>{
     		fetch(url+'/count/tbl_registrar/fldType/Encoding').then(res=>res.json()).then(function(res){
     			document.getElementById('cEncode').innerHTML = res[0].totalcount;
@@ -570,10 +456,12 @@
     </script>
     <script>
     	let id= localStorage.adminID;
-fetch(url+'/tbl_user/fldUserID/'+id).then(res=>res.json()).then(function(res){
-	document.getElementById('pName').innerHTML=res[0].fldFname+' '+res[0].fldMname+' '+res[0].fldLname;
-	document.getElementById('pEmail').innerHTML=res[0].fldEmail;
-	document.getElementById('profPic').src=res[0].fldImg;
-});
+    	fetch(url+'/tbl_user/fldUserID/'+id).then(res=>res.json()).then(function(res){
+    		document.getElementById('pName').innerHTML=res[0].fldFname+' '+res[0].fldMname+' '+res[0].fldLname;
+    		document.getElementById('pEmail').innerHTML=res[0].fldEmail;
+    		document.getElementById('profPic').src=res[0].fldImg;
+    	});
+
+    	document.getElementById('closingtime').value= localStorage.closing;
     </script>
     </html>

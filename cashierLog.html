@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Super Admin</title>
+	<title>Cashier Log</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,9 +11,11 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link href="assets/css/mdb.min.css" rel="stylesheet">
 	<link href="assets/css/font-awesome.css" rel="stylesheet">
-
 	<link href="assets/css/stepper.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css">
 </head>
 
 <body class="fixed-sn">
@@ -37,14 +39,13 @@
 						<div>
 							<div class="col-xl-5 col-md-4 mb-3 text-center float-left">
 
-								<img src="assets/img/niel.jpg" class="img-fluid z-depth-1 rounded-circle"
-								alt="Responsive image">
+								<div class="avatar z-depth-1-half mb-4">
+									<img src="" id="profPic" class="img-fluid rounded-circle" alt="First sample avatar image">
+								</div>
 
 							</div>
 							<div class="float-right">
-								
-								<p>Raniel Lambaco</p>
-								<p class="grey-text">leinar1717@gmail.com</p>
+								<p id="pName" style="font-size: 14px;"></p>
 							</div>
 						</div>
 					</div>
@@ -148,6 +149,8 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
 <script type="text/javascript" src="js/queuelist.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
 <script>
         // SideNav Initialization
         $(".button-collapse").sideNav();
@@ -158,5 +161,27 @@
         	wheelPropagation: true,
         	minScrollbarLength: 20
         });
+    </script>
+    <script>
+    	let cashierid = localStorage.cID;
+
+    	fetch(url+'/tbl_cashier/fldCashierID/'+cashierid).then(res=>res.json()).then(function(res){
+    		document.getElementById('pName').innerHTML=res[0].fldFname+' '+res[0].fldMname+' '+res[0].fldLname;
+    		document.getElementById('profPic').src=res[0].fldImg;
+    		document.getElementById('pcids').innerHTML='Cashier #'+res[0].fldCashierID+' Account';
+    		document.getElementById('names').innerHTML=res[0].fldLname+', '+res[0].fldFname+', '+res[0].fldMname;
+    		document.getElementById('rFname').value=res[0].fldFname;
+    		document.getElementById('rLname').value=res[0].fldLname;
+    		document.getElementById('rMname').value=res[0].fldMname;
+    		document.getElementById('rBday').value=res[0].fldBday;
+    		document.getElementById('rUname').value=res[0].fldUsername;
+    		document.getElementById('imgPs').src=res[0].fldImg;
+    		document.getElementById('profPic').src=res[0].fldImg;
+    		document.getElementById('pName').innerHTML=res[0].fldFname+' '+res[0].fldMname+' '+res[0].fldLname;
+    		document.getElementById('pEmail').innerHTML=res[0].fldEmail;		
+    		existingimg = res[0].fldImg;
+    		existingpass = res[0].fldPassword;
+    	});
+    	
     </script>
     </html>

@@ -41,7 +41,7 @@
 					</div>	
 				</div>
 				<div class="col-md-4">
-					<h3 class="teal-text text-center">Registrar Waiting List</h3>
+					<h3 class="teal-text text-center">Registrar Waiting List <span class="badge badge-default" id="cInLine"></span></h3>
 					<div class="card">
 						<ul class="list-group z-depth-1" id="queueServingReg">
 							
@@ -140,9 +140,8 @@ let queueServingReg=()=>{
 	fetch(url+'/tbl_registrar').then(res=>res.json()).then(function(res){
 		let ls="";
 		
-		for(let i=1;i<res.length;i++){
+		for(let i=0;i<res.length;i++){
 			if(res[i].fldRemarks=='In Line'){
-
 				ls+='<li class="list-group-item d-flex justify-content-between align-items-center">';
 				ls+='<a class="dark-grey-text font-small" style="font-size: 30px;">#'+res[i].fldQueueNo+' - '+res[i].fldType+'</a>';
 				ls+='<span class="badge badge-default">Waiting</span>';
@@ -152,6 +151,14 @@ let queueServingReg=()=>{
 		$('#queueServingReg').html(ls);
 	});
 }
+
+let countInline=()=>{
+	let inline= "In Line";
+	fetch(url+'/count/tbl_registrar/fldRemarks/'+inline).then(res=>res.json()).then(function(res){
+		document.getElementById('cInLine').innerHTML=res[0].totalcount;
+	});	
+}
+window.setInterval(countInline,1000);
 window.setInterval(queueServing,1000);
 window.setInterval(queueServingReg,1000);
 </script>

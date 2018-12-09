@@ -93,12 +93,32 @@ let updateAdmin=()=>{
 	if(pass!=cpass){
 		toastr.error('Password Not Match');
 	}else{
+		swal({
+		title: "Account",
+		text: "Updated Successfully",
+		type: "success",
+		timer: 1000,
+		showConfirmButton: false
+	},
+	function(){
+		window.location.assign('adminAccount.html');
+	});
 		c.updateData(id,'tbl_user','fldUserID',data);
 	}
+	
 
 
 }
 let logOutAdmin=()=>{
-	localStorage.setItem('adminID','')
-	window.location.assign('login.html');
+	localStorage.setItem('adminID','');
+    		swal({
+    			title: "Logout Successful",
+    			text: "You are not Logged in",
+    			type: "success",
+    			timer: 1000,
+    			html: true
+    		},
+    		function(){
+    			window.location.assign('login.html');
+    		});
 }

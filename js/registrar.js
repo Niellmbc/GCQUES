@@ -1,4 +1,3 @@
-
 let url="http://NIELLAMBACO/GQUESAPI";
 const MyAdmin = class gques{
 	addData(data,tblname){
@@ -25,7 +24,6 @@ const MyAdmin = class gques{
 }
 
 let c = new MyAdmin();
-
 var base64img = "";
 let existingimg = ""
 let existingpass = "";
@@ -90,9 +88,7 @@ let updateReg=()=>{
 	if(pass!=cpass){
 		toastr.error('Password Not Match');
 	}else{
-		c.updateData(id,'tbl_user','fldUserID',data);
-	}
-	swal({
+		swal({
 		title: "Account",
 		text: "Updated Successfully",
 		type: "success",
@@ -102,9 +98,21 @@ let updateReg=()=>{
 	function(){
 		window.location.assign('registrarAccount.html');
 	});
+		c.updateData(id,'tbl_user','fldUserID',data);
+	}
+	
 
 }
 let logOutReg=()=>{
-	localStorage.setItem('regID','')
-	window.location.assign('login.html');
-}
+    		localStorage.setItem('regID','');
+    		swal({
+    			title: "Logout Successful",
+    			text: "You are not Logged in",
+    			type: "success",
+    			timer: 1000,
+    			html: true
+    		},
+    		function(){
+    			window.location.assign('login.html');
+    		});
+    	}

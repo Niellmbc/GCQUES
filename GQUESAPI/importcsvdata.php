@@ -17,10 +17,8 @@ if(!empty($_FILES["file"]["name"])&& in_array($_FILES['file']['type'],$csvMimes)
         $lname = mysqli_real_escape_string($connect, $row[1]);  
         $fname = mysqli_real_escape_string($connect, $row[2]);  
         $mname = mysqli_real_escape_string($connect, $row[3]);  
-        $username = mysqli_real_escape_string($connect, $row[4]); 
-        $password = mysqli_real_escape_string($connect, $row[5]);  
-        $remarks = mysqli_real_escape_string($connect, $row[6]); 
-        $query = "INSERT INTO tbl_student(fldStudentID,fldStudentNo,fldLname,fldFname,fldMname,fldUsername,fldPassword,fldRemarks) VALUES ('','$studentno', '$lname', '$fname', '$mname', '$username', '$password', '$remarks')";  
+        $remarks = mysqli_real_escape_string($connect, $row[4]); 
+        $query = "INSERT INTO tbl_student(fldStudentID,fldStudentNo,fldLname,fldFname,fldMname,fldRemarks) VALUES ('','$studentno', '$lname', '$fname', '$mname', '$remarks')";  
         mysqli_query($connect, $query);  
     }  
 }  

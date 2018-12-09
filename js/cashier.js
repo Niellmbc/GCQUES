@@ -15,12 +15,16 @@ let getOnlineCashiers =()=>{
 		for(let i=0;i<res.length;i++){
 			getOnlineCashier[i]=res[i].fldCashierID;
 		}
+		console.log(getOnlineCashier);
 	});
 }
 window.setInterval(getOnlineCashiers,1000);
 let getlastcashierSaTrans =()=>{
 	fetch(url+'/tbl_transaction?ORDERBY=fldTransID%20DESC').then(res=>res.json()).then(function(res){
-		lastcashiersatrans = res[0].fldCashierNo;
+		if(res.length==0){
+		}else{
+			lastcashiersatrans = res[0].fldCashierNo;
+		}
 	});
 	
 }
@@ -180,15 +184,20 @@ const MyCashier = class gques{
 			method:"POST",
 			body:JSON.stringify([data])
 		}).then(function(res){
-			toastr.success('Update Successfully!');
 			studentList();
 			getCashier();
 		});
 		
 	}
+	deletetable(tblname){
+		fetch(url+"/clearTable/"+tblname).then(function (res){
+		});
+	}
 }
 
+
 let c = new MyCashier();
+
 let newCashier=()=>{
 	let data = {
 		a:document.getElementById('cID').value,
@@ -215,9 +224,13 @@ let getCashierID = (id)=>{
 		document.getElementById('cFnames').value=res[0].fldFname;
 		document.getElementById('cMnames').value=res[0].fldMname;
 		document.getElementById('cBdays').value=res[0].fldBday;
-		document.getElementById('cStatus').value=res[0].fldStatus;
+		if(res[0].fldStatus=='Online'){
+			document.getElementById('cStatus').checked =true;
+		}else if(res[0].fldStatus=='Offline'){
+			document.getElementById('cStatus').checked =false;
+		}
 		document.getElementById('cUname').value=res[0].fldUsername;
-		document.getElementById('cPass').value=res[0].fldPassword;
+		// document.getElementById('cPass').value=res[0].fldPassword;
 	});
 }
 let getStudentID = (studid)=>{
@@ -231,6 +244,25 @@ let getStudentID = (studid)=>{
 
 	});
 }
+let updateStatus = ()=>{
+	let id=localStorage.cashierID;
+	let status="";
+	if(document.getElementById('cStatus').checked==true){
+		status = "Online";
+	}else{
+		status = "Offline";
+	}
+	let data={
+		fldStatus:status
+	}
+	if(status=="Online"){
+		toastr.success('Cashier is Now Online');
+	}else if(status=="Offline"){
+		toastr.error('Cashier is Now Offline');
+	}
+	c.updateData(id,'tbl_cashier','fldCashierID',data);
+
+}
 let updateCashier=()=>{
 	let id=localStorage.cashierID;
 	let data ={
@@ -239,10 +271,11 @@ let updateCashier=()=>{
 		fldFname:document.getElementById('cFnames').value,
 		fldMname:document.getElementById('cMnames').value,
 		fldBday:document.getElementById('cBdays').value,
-		fldStatus:document.getElementById('cStatus').value,
+		// fldStatus:document.getElementById('cStatus').value,
 		fldUsername:document.getElementById('cUname').value,
 		fldPassword:document.getElementById('cPass').value
 	}
+	toastr.success('Cashier Details Updated');
 	c.updateData(id,'tbl_cashier','fldCashierID',data);
 }
 let updateStudents=()=>{
@@ -255,6 +288,7 @@ let updateStudents=()=>{
 		fldUsername:document.getElementById('sUname').value,
 		fldPassword:document.getElementById('sPass').value
 	}
+	toastr.success('Student Details Updated');
 	c.updateData(id,'tbl_student','fldStudentID',data);
 }
 
@@ -271,30 +305,19 @@ let checkCashier = ()=>{
 			}else{
 				if(getOnlineCashier[getOnlineCashier.length-1] == lastcashiersatrans){
 					return getOnlineCashier[0];
+				}else if(getOnlineCashier.length <3 ){
+					if(getOnlineCashier.length-1<=a){
+						a=0;
+						return getOnlineCashier[a];
+					}else{
+						a++;
+						return getOnlineCashier[a];
+					}
 				}
 			}
 		}
 	}
-	
 }
-// let checkCashier = ()=>{
-// 	if(totalTransaction >= 16){
-// 		return LeastTransOfCashier;
-// 	}else{
-// 		if(totalTransaction==0){
-// 			return getOnlineCashier[0];
-// 		}else{
-// 			for(let i=0;i<getOnlineCashier.length-1;i++){
-// 				if(getOnlineCashier[i]==lastcashiersatrans){
-// 					return getOnlineCashier[i+1];
-// 				}else{
-// 					return getOnlineCashier[0];
-// 				}
-// 			}
-// 		}
-// 	}
-
-// }
 function checkTime(i) {
     if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
     return i;
@@ -303,7 +326,7 @@ function gotoReg(){
 	window.location.assign('register.html');
 }
 let refreshRegister = ()=>{
-window.location.assign('register.html');
+	window.location.assign('register.html');
 }
 let newTrans=()=>{
 	lastqueueInTransFin++; 
@@ -367,7 +390,7 @@ let newTrans=()=>{
 		office:document.getElementById('rOffice1').value,
 		type:document.getElementById('rTrans1').value,
 		date:today+" "+time,
-		day:dd1+" "+monthName+", "+yyyy,
+		day:yyyy+"-"+mm+"-"+dd1,
 		arrival:timearrival,
 		remarks:'In Line'
 	}
@@ -377,19 +400,52 @@ let newTrans=()=>{
 		office:document.getElementById('rOffice1').value,
 		type:document.getElementById('rTrans1').value,
 		date:today+" "+time,
-		day:dd1+" "+monthName+", "+yyyy,
+		day:yyyy+"-"+mm+"-"+dd1,
 		remarks:'In Line'
 	}
 	if(document.getElementById('rOffice1').value=='Finance'){
-		c.addData(dataTrans,'tbl_transaction');
-		toastr.success('Your Queue #: <h4>'+lastqueueInTransFin+'</h4><br>'+'Please Procceed to <h4>Cashier #:'+goToC+'</h4>');
-		window.setTimeout(function(){
-		window.location.assign('register.html');
-		},3000);
-
+		if(getOnlineCashier.length==0){
+			swal({
+				title: "Invalid",
+				text: "No Cashier Available At the Moment",
+				type: "error",
+				timer: 5000,
+				html: true
+			},
+			function(){
+				window.location.assign('register.html');
+			});
+		}else{
+			c.addData(dataTrans,'tbl_transaction');
+			toastr.success('Your Queue #: <h4>'+lastqueueInTransFin+'</h4><br>'+'Please Procceed to <h4>Cashier #:'+goToC+'</h4>');
+			window.setTimeout(function(){
+				swal({
+					title: "Next Transaction",
+					text: "Please Wait....",
+					type: "success",
+					timer: 1000,
+					html: true
+				},
+				function(){
+					window.location.assign('register.html');
+				});
+			},3000);
+		}
 	}else if(document.getElementById('rOffice1').value=='Registrar'){
 		c.addData(dataReg,'tbl_registrar');
 		toastr.success('Your Queue #: <h2>'+lastqueueInReg+'</h2><br>'+'Please Procceed to Registrar');
+		window.setTimeout(function(){
+			swal({
+				title: "Next Transaction",
+				text: "Please Wait....",
+				type: "success",
+				timer: 1000,
+				html: true
+			},
+			function(){
+				window.location.assign('register.html');
+			});
+		},3000);
 
 	}
 	// console.log(goToC);
@@ -403,11 +459,30 @@ let logOutAccount =()=>{
 	}
 	let id = localStorage.cID;
 	c.updateData(id,'tbl_cashier','fldCashierNo',status);
-	window.location.assign('login.html');
+	localStorage.setItem('cID','');
+	swal({
+		title: "Logout Successful",
+		text: "You are not Logged in",
+		type: "success",
+		timer: 1000,
+		html: true
+	},
+	function(){
+		window.location.assign('login.html');
+	});
 }
 let logOutAdmin=()=>{
-	localStorage.setItem('adminID','')
-	window.location.assign('login.html');
+	localStorage.setItem('adminID','');
+	swal({
+		title: "Logout Successful",
+		text: "You are not Logged in",
+		type: "success",
+		timer: 1000,
+		html: true
+	},
+	function(){
+		window.location.assign('login.html');
+	});
 }
 let archiveCashier = (id)=>{
 	let cRem = {
@@ -422,40 +497,63 @@ let archiveStudent = (id)=>{
 	c.updateData(id,'tbl_student','fldStudentID',cRem);
 }
 
-/*
-let arr = [];
-let cashierOnline = [];
-
-pullCasher = () =>{
-	cashierOnline = [1, 2, 4, 5];	
+let setClosingTime = ()=>{
+	let closing = document.getElementById('closingtime').value;
+	localStorage.setItem('closing',closing);
+	swal({
+		title: "Closing Time",
+		text: "Successfully Set",
+		type: "success",
+		timer: 1000,
+		html: true
+	},
+	function(){
+		window.location.assign('admin.html');
+	});
 }
-
-pushStack = () =>{
-	if(noOftransaction == 0){
-		babatongCashier = cashierOnline[0]
-	}else{
-		if(transaction <= cashierOnline.length){
-			for(let i = 0; i < cashierOnline.length;i++){
-				for(let j = 0; j < i; j++){
-					if((lastcashier+j) == cashierOnline[i]){
-						return cashierOnline[i];
-					}				
-				}
-
-			}
-
-		} else {
-			for(let i = 0; i < cashierOnline.length; i++){
-				for(let j = 0; k)
-			}
+let endDay = ()=>{
+	let closing = localStorage.closing;
+	let hatiin = closing.split(":");
+	let minuto = hatiin[1].split("");
+	let minuto1= minuto[0]+minuto[1];
+	let period = minuto[2]+minuto[3];
+	let oras = hatiin[0].split("");
+	let h2 = oras[1];
+	let t = new Date();
+	let h1 = t.getHours();
+	let m1 = t.getMinutes();
+	let s1 = t.getSeconds();
+	let fm = "";
+	m1 = checkTime(m1);
+	s1 = checkTime(s1);
+	if (h1 > 12) {
+		h1 = h1-12;
+		if(h1 == 0){
+			h1 = 1;
 		}
+		fm = "PM"; 
+	} else { 
+		fm = "AM"; 
 	}
+	// console.log(h1+":"+m1+":"+s1+" "+fm);
+	if(h1 == h2 && m1==minuto1 && s1=="00" && fm==period){
+		confirm('Are you Sure You want to clear Transaction?');
+		responsiveVoice.speak("Your Day has Ended, See you tomorrow!!");
+		window.setTimeout(function(){
+			swal({
+				title: "Compiling Data Today",
+				text: "Please Wait....",
+				type: "success",
+				timer: 5000,
+				html: true
+			},
+			function(){
+				c.deletetable('tbl_transaction');
+				c.deletetable('tbl_registrar');
+			});
+		},2000);
 
-
+	}
+	console.log(h1+":"+m1+":"+s1+" "+fm);
 }
-
-pullTransact = () =>{
-	fetch(LAHAT NG TRANSACTION == limitby=cashierOnline.length-1&DESC){
-		return
-	}
-}*/
+window.setInterval(endDay,1000);

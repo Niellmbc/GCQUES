@@ -62,3 +62,6 @@ body {
     .qnum{
         font-size: 65px;
     }
+    .switch label input[type=checkbox]:checked+.lever:after {
+            background-color: green;
+        }

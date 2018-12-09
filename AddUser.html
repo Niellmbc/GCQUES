@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-	<title>Super Admin</title>
+	<title>Add Accounts</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -12,9 +12,11 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link href="assets/css/mdb.min.css" rel="stylesheet">
 	<link href="assets/css/font-awesome.css" rel="stylesheet">
-
 	<link href="assets/css/stepper.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css">
 	<style>
 	table.dataTable thead>tr>td.sorting,
 	table.dataTable thead>tr>td.sorting_asc,
@@ -362,6 +364,12 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header text-center">
+				<div class="switch">
+					<label>
+						<input type="checkbox" id="cStatus" onchange="updateStatus();">
+						<span class="lever"></span> 
+					</label>
+				</div>
 				<h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Cashier Details</h4>
 				<button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -392,10 +400,10 @@
 					<input type="date" id="cBdays" class="form-control" placeholder="Select Date">
 					<label data-error="wrong" data-success="right" for="inputDate"></label>
 				</div>
-				<div class="md-form mb-5">
+			<!-- 	<div class="md-form mb-5">
 					<input type="text" id="cStatus" class="form-control">
 					<label data-error="wrong" data-success="right" for="inputDate"></label>
-				</div>
+				</div> -->
 				<div class="md-form mb-5">
 					<input type="text" id="cUname" class="form-control" value=" "> 
 					<label data-error="wrong" data-success="right" for="inputDate">Username</label>
@@ -468,6 +476,8 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
 <script type="text/javascript" src="js/cashier.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
 <script>
         // SideNav Initialization
         $(".button-collapse").sideNav();
