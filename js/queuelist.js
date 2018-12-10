@@ -15,7 +15,7 @@ let getOnlineCashiers =()=>{
 		for(let i=0;i<res.length;i++){
 			getOnlineCashier[i]=res[i].fldCashierID;
 		}
-		console.log(getOnlineCashier);
+		
 		
 	});
 }
@@ -255,14 +255,14 @@ let showLog =()=>{
 		for(let i=0;i<res.length;i++){
 			if(res[i].fldRemarks=='Done' ||res[i].fldRemarks=='No Show'){
 
-			ls+="<tr>";
-			ls+="<td>"+res[i].fldStudentNo+"</td>";
-			ls+="<td>"+res[i].fldQueueNo+"</td>";
-			ls+="<td>"+res[i].fldOffice+"</td>";
-			ls+="<td>"+res[i].fldTransType+"</td>";
-			ls+="<td>"+res[i].fldDate+"</td>";
-			ls+="<td>"+res[i].fldRemarks+"</td>";
-			ls+="</tr>";
+				ls+="<tr>";
+				ls+="<td>"+res[i].fldStudentNo+"</td>";
+				ls+="<td>"+res[i].fldQueueNo+"</td>";
+				ls+="<td>"+res[i].fldOffice+"</td>";
+				ls+="<td>"+res[i].fldTransType+"</td>";
+				ls+="<td>"+res[i].fldDate+"</td>";
+				ls+="<td>"+res[i].fldRemarks+"</td>";
+				ls+="</tr>";
 			}
 		}
 		$('#log').html(ls);
@@ -291,6 +291,8 @@ let checkCashier = ()=>{
 	if(totalTransaction >= 20){
 		return LeastTransOfCashier;
 	}else if(totalTransaction==0){
+		return getOnlineCashier[0];
+	}else if(getOnlineCashier.length==1){
 		return getOnlineCashier[0];
 	}else{
 		for(let i=0;i<getOnlineCashier.length;i++){
@@ -392,17 +394,17 @@ let moveTransInFin=(id)=>{
 		toastr.success('<br>Please Proceed to Cashier: <h2>'+goToC+'</h2>');
 		c.addData(dataTrans,'tbl_transaction');
 		window.setTimeout(function(){
-				swal({
-					title: "Next Transaction",
-					text: "Please Wait....",
-					type: "success",
-					timer: 1000,
-					html: true
-				},
-				function(){
-					window.location.assign('registrar.html');
-				});
-			},2000);
+			swal({
+				title: "Next Transaction",
+				text: "Please Wait....",
+				type: "success",
+				timer: 1000,
+				html: true
+			},
+			function(){
+				window.location.assign('registrar.html');
+			});
+		},2000);
 	});
 	
 	

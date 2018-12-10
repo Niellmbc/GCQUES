@@ -10,12 +10,14 @@ let totalTransaction;
 let getOnlineCashier =[];
 let a=0;
 let lastcashiersatrans;
+let tbl_trans=[];
+let tbl_reg = [];
 let getOnlineCashiers =()=>{
 	fetch(url+'/tbl_cashier/fldStatus/Online').then(res=>res.json()).then(function(res){
 		for(let i=0;i<res.length;i++){
 			getOnlineCashier[i]=res[i].fldCashierID;
 		}
-		console.log(getOnlineCashier);
+		
 	});
 }
 window.setInterval(getOnlineCashiers,1000);
@@ -298,6 +300,8 @@ let checkCashier = ()=>{
 		return LeastTransOfCashier;
 	}else if(totalTransaction==0){
 		return getOnlineCashier[0];
+	}else if(getOnlineCashier.length==1){
+		return getOnlineCashier[0];
 	}else{
 		for(let i=0;i<getOnlineCashier.length;i++){
 			if(getOnlineCashier[i]==lastcashiersatrans){
@@ -511,6 +515,18 @@ let setClosingTime = ()=>{
 		window.location.assign('admin.html');
 	});
 }
+let tableTrans = ()=>{
+	fetch(url+'/tbl_transaction').then(res=>res.json()).then(function(res){
+		tbl_trans =res;
+	});
+}
+window.setInterval(tableTrans,1000);
+let tableReg = ()=>{
+	fetch(url+'/tbl_registrar').then(res=>res.json()).then(function(res){
+		tbl_reg =res;
+	});
+}
+window.setInterval(tableReg,1000);
 let endDay = ()=>{
 	let closing = localStorage.closing;
 	let hatiin = closing.split(":");
@@ -537,23 +553,44 @@ let endDay = ()=>{
 	}
 	// console.log(h1+":"+m1+":"+s1+" "+fm);
 	if(h1 == h2 && m1==minuto1 && s1=="00" && fm==period){
-		confirm('Are you Sure You want to clear Transaction?');
-		responsiveVoice.speak("Your Day has Ended, See you tomorrow!!");
-		window.setTimeout(function(){
-			swal({
-				title: "Compiling Data Today",
-				text: "Please Wait....",
-				type: "success",
-				timer: 5000,
-				html: true
-			},
-			function(){
-				c.deletetable('tbl_transaction');
-				c.deletetable('tbl_registrar');
-			});
-		},2000);
+		for(let i=0;i<tbl_trans.length;i++){
+			for(let j=0;j<tbl_reg.length;j++){
+				if(tbl_trans[i].fldRemarks=='In Line' || tbl_reg[j].fldRemarks=='In Line'){
+					swal({
+						title: "Transaction Info",
+						text: "Theres still a pending Transaction <br> Please Adjust the Closing Time",
+						type: "error",
+						timer: 5000,
+						html: true
+					},
+					function(){
 
+					});
+					break;
+				}else{
+					confirm('Are you Sure You want to clear Transaction?');
+					responsiveVoice.speak("Your Day has Ended, See you tomorrow!!");
+					window.setTimeout(function(){
+						swal({
+							title: "Compiling Data Today",
+							text: "Please Wait....",
+							type: "success",
+							timer: 5000,
+							html: true
+						},
+						function(){
+							c.deletetable('tbl_transaction');
+							c.deletetable('tbl_registrar');
+						});
+					},2000);
+					break;
+				}
+			}
+		}
+		
 	}
 	console.log(h1+":"+m1+":"+s1+" "+fm);
+	console.log(tbl_trans);
+	console.log(tbl_reg);
 }
 window.setInterval(endDay,1000);

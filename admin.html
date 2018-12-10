@@ -448,7 +448,7 @@
     	}
     	countEncoding();
     	let countDrel=()=>{
-    		fetch(url+'/count/tbl_registrar/fldType/Document Releasing').then(res=>res.json()).then(function(res){
+    		fetch(url+'/count/tbl_registrar/fldType/Document Realising').then(res=>res.json()).then(function(res){
     			document.getElementById('cDrel').innerHTML = res[0].totalcount;
     		});
     	}
