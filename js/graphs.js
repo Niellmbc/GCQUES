@@ -223,7 +223,7 @@ options: {
 }
 });
 var ctx1= document.getElementById("weekly").getContext('2d');
-var myChart = new Chart(ctx1, {
+var myChart1 = new Chart(ctx1, {
   type: 'bar',
   data: {
      labels: week,
@@ -318,7 +318,7 @@ options: {
 });
 
 var ctx2= document.getElementById("daily").getContext('2d');
-var myChart = new Chart(ctx2, {
+var myChart2 = new Chart(ctx2, {
   type: 'bar',
   data: {
      labels: daily,
@@ -413,4 +413,8 @@ options: {
 });
 
 
-
+setTimeout(function() {
+ myChart.update();
+myChart1.update();
+myChart2.update();
+ },1000);

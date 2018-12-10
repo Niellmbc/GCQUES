@@ -115,35 +115,7 @@
 	<!--Main layout-->
 	<main>
 		<div class="container-fluid">
-			<!--Grid row-->
-			<div class="row">
-
-				<!--Grid column-->
-				<div class="col-md-6 mb-4">
-
-					<div class="md-form">
-						<!--The "from" Date Picker -->
-						<input placeholder="Selected starting date" type="text" id="startingDate" class="form-control datepicker" onchange="range()">
-						<label for="startingDate">Start</label>
-					</div>
-
-				</div>
-				<!--Grid column-->
-
-				<!--Grid column-->
-				<div class="col-md-6 mb-4">
-
-					<div class="md-form">
-						<!--The "to" Date Picker -->
-						<input placeholder="Selected ending date" type="text" id="endingDate" class="form-control datepicker" onchange="range()">
-						<label for="endingDate">End</label>
-					</div>
-
-				</div>
-				<!--Grid column-->
-
-			</div>
-			<!--Grid row-->
+			<h3 id="todaydate" class="grey-text text-center"></h3>
 			<table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<thead>
 					<tr>
@@ -167,23 +139,26 @@
 
 				</tbody>
 			</table>
-		</div>
-	</main>
-	<!-- /Main Layout -->
+			<center>
+				<button class="btn btn-outline-primary "><a href="printlogtoday.html"><i class="fa fa-print"></i> Print Report</button>
+				</center>
+			</div>
+		</main>
+		<!-- /Main Layout -->
 
-</body>
+	</body>
 
-<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="js/popper.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/mdb.min.js"></script>
-<script type="text/javascript" src="js/Chart.min.js"></script>
-<script type="text/javascript" src="js/Chart.bundle.min.js"></script>
-<script type="text/javascript" src="js/cashier.js"></script>
-<script type="text/javascript" src="js/wow.min.js"></script>
-<script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/mdb.min.js"></script>
+	<script type="text/javascript" src="js/Chart.min.js"></script>
+	<script type="text/javascript" src="js/Chart.bundle.min.js"></script>
+	<script type="text/javascript" src="js/cashier.js"></script>
+	<script type="text/javascript" src="js/wow.min.js"></script>
+	<script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
 
-<script>
+	<script>
         // SideNav Initialization
         $(".button-collapse").sideNav();
         $('.datepicker').pickadate({format : "yyyy-mm-d"});
@@ -196,59 +171,69 @@
         
     </script>
     <script>
-    	fetch(url+'/tbl_log').then(res=>res.json()).then(function(res){
-    		let ls ="";
-    		for(let i=0;i<res.length;i++){
-    			ls+='<tr>';
-    			ls+='<td>'+res[i].fldStudentNo+'</td>';
-    			ls+='<td>'+res[i].fldCashierNo+'</td>';
-    			ls+='<td>'+res[i].fldQueueNo+'</td>';
-    			ls+='<td>'+res[i].fldOffice+'</td>';
-    			ls+='<td>'+res[i].fldTransType+'</td>';
-    			ls+='<td>'+res[i].fldDate+'</td>';
-    			if(res[i].fldRemarks=='Done'){
-    				ls+='<td><span class="badge badge-success">'+res[i].fldRemarks+'</span></td>';
-    			}else{
-    				ls+='<td><span class="badge badge-danger">'+res[i].fldRemarks+'</span></td>';
-    			}
-    			
-    			ls+='</tr>';
-    		}
-    		$('#logs').html(ls);
-    	});
-    </script>
-    <script>
-    	let id= localStorage.adminID;
-    	fetch(url+'/tbl_user/fldUserID/'+id).then(res=>res.json()).then(function(res){
-    		document.getElementById('pName').innerHTML=res[0].fldFname+' '+res[0].fldMname+' '+res[0].fldLname;
-    		document.getElementById('pEmail').innerHTML=res[0].fldEmail;
-    		document.getElementById('profPic').src=res[0].fldImg;
-    	});
+    	var month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    	var today = new Date();
+    	var dd = today.getDate();
+    	var dd1 = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var monthName = month[today.getMonth()];
+	var yyyy = today.getFullYear();
+	var date = monthName+" "+dd1+", "+yyyy;
+	document.getElementById('todaydate').innerHTML=date;
+	let datetoday = yyyy+"-"+mm+"-"+dd1;
+	fetch(url+'/tbl_log/fldDay/'+datetoday).then(res=>res.json()).then(function(res){
+		let ls ="";
+		for(let i=0;i<res.length;i++){
+			ls+='<tr>';
+			ls+='<td>'+res[i].fldStudentNo+'</td>';
+			ls+='<td>'+res[i].fldCashierNo+'</td>';
+			ls+='<td>'+res[i].fldQueueNo+'</td>';
+			ls+='<td>'+res[i].fldOffice+'</td>';
+			ls+='<td>'+res[i].fldTransType+'</td>';
+			ls+='<td>'+res[i].fldDate+'</td>';
+			if(res[i].fldRemarks=='Done'){
+				ls+='<td><span class="badge badge-success">'+res[i].fldRemarks+'</span></td>';
+			}else{
+				ls+='<td><span class="badge badge-danger">'+res[i].fldRemarks+'</span></td>';
+			}
 
-    	let range =()=>{
-    		let startingDate = document.getElementById('startingDate').value;
-    		let endingDate = document.getElementById('endingDate').value;
-    		console.log(startingDate+'<br>'+endingDate);
-    		fetch(url+'/range/tbl_log/fldDay/'+startingDate+'/'+endingDate).then(res=>res.json()).then(function(res){
-    			let ls ="";
-    			for(let i=0;i<res.length;i++){
-    				ls+='<tr>';
-    				ls+='<td>'+res[i].fldStudentNo+'</td>';
-    				ls+='<td>'+res[i].fldCashierNo+'</td>';
-    				ls+='<td>'+res[i].fldQueueNo+'</td>';
-    				ls+='<td>'+res[i].fldOffice+'</td>';
-    				ls+='<td>'+res[i].fldTransType+'</td>';
-    				ls+='<td>'+res[i].fldDate+'</td>';
-    				if(res[i].fldRemarks=='Done'){
-    					ls+='<td><span class="badge badge-success">'+res[i].fldRemarks+'</span></td>';
-    				}else{
-    					ls+='<td><span class="badge badge-danger">'+res[i].fldRemarks+'</span></td>';
-    				}
-    				
-    				ls+='</tr>';
-    			}
-    			$('#logs').html(ls);
-    		});
-    	}
+			ls+='</tr>';
+		}
+		$('#logs').html(ls);
+	});
+</script>
+<script>
+	let id= localStorage.adminID;
+	fetch(url+'/tbl_user/fldUserID/'+id).then(res=>res.json()).then(function(res){
+		document.getElementById('pName').innerHTML=res[0].fldFname+' '+res[0].fldMname+' '+res[0].fldLname;
+		document.getElementById('pEmail').innerHTML=res[0].fldEmail;
+		document.getElementById('profPic').src=res[0].fldImg;
+	});
+
+    	// let range =()=>{
+    	// 	let startingDate = document.getElementById('startingDate').value;
+    	// 	let endingDate = document.getElementById('endingDate').value;
+    	// 	console.log(startingDate+'<br>'+endingDate);
+    	// 	fetch(url+'/range/tbl_log/fldDay/'+startingDate+'/'+endingDate).then(res=>res.json()).then(function(res){
+    	// 		let ls ="";
+    	// 		for(let i=0;i<res.length;i++){
+    	// 			ls+='<tr>';
+    	// 			ls+='<td>'+res[i].fldStudentNo+'</td>';
+    	// 			ls+='<td>'+res[i].fldCashierNo+'</td>';
+    	// 			ls+='<td>'+res[i].fldQueueNo+'</td>';
+    	// 			ls+='<td>'+res[i].fldOffice+'</td>';
+    	// 			ls+='<td>'+res[i].fldTransType+'</td>';
+    	// 			ls+='<td>'+res[i].fldDate+'</td>';
+    	// 			if(res[i].fldRemarks=='Done'){
+    	// 				ls+='<td><span class="badge badge-success">'+res[i].fldRemarks+'</span></td>';
+    	// 			}else{
+    	// 				ls+='<td><span class="badge badge-danger">'+res[i].fldRemarks+'</span></td>';
+    	// 			}
+
+    	// 			ls+='</tr>';
+    	// 		}
+    	// 		$('#logs').html(ls);
+    	// 	});
+    	// }
     </script>
     </html>

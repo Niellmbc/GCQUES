@@ -13,8 +13,6 @@
 	doc.setFont('Calibri');
     doc.setFontType("bold");
     doc.setFontSize(300);
-	
-    doc.save('Finance Logs.pdf');
-
+    doc.save('Graphs.pdf');
     });
 

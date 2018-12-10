@@ -181,6 +181,9 @@
 
 				</tbody>
 			</table>
+			<center>
+				<button class="btn btn-outline-primary "><a href="printlogwithtype.html"><i class="fa fa-print"></i> Print Report</button>
+				</center>
 		</div>
 	</main>
 	<!-- /Main Layout -->
@@ -266,7 +269,9 @@
     		let startingDate = document.getElementById('startingDate').value;
     		let endingDate = document.getElementById('endingDate').value;
     		let transType = document.getElementById('type').value;
-    		
+    		localStorage.setItem('startingDate',startingDate);
+    		localStorage.setItem('endingDate',endingDate);
+    		localStorage.setItem('transType',transType);
     		fetch(url+'/transwithDate/'+transType+'/'+startingDate+'/'+endingDate).then(res=>res.json()).then(function(res){
     			let ls ="";
     			for(let i=0;i<res.length;i++){
