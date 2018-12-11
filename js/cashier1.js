@@ -582,102 +582,17 @@ let archiveStudent = (id)=>{
 	studentList();
 }
 
-let setClosingTime = ()=>{
-	let closing = document.getElementById('closingtime').value;
-	localStorage.setItem('closing',closing);
-	swal({
-		title: "Closing Time",
-		text: "Successfully Set",
-		type: "success",
-		timer: 1000,
-		html: true
-	},
-	function(){
-		window.location.assign('admin.html');
-	});
-}
-let tableTrans = ()=>{
-	fetch(url+'/tbl_transaction').then(res=>res.json()).then(function(res){
-		tbl_trans =res;
-	});
-}
-window.setInterval(tableTrans,1000);
-let tableReg = ()=>{
-	fetch(url+'/tbl_registrar').then(res=>res.json()).then(function(res){
-		tbl_reg =res;
-	});
-}
-window.setInterval(tableReg,1000);
-
-let offlineAll =()=>{
-	let data = {
-		fldStatus:"Offline"
-	}
-	c.updateDataNW('tbl_cashier',data);
-}
-
-let endDay = ()=>{
-	let closing = localStorage.closing;
-	let hatiin = closing.split(":");
-	let minuto = hatiin[1].split("");
-	let minuto1= minuto[0]+minuto[1];
-	let period = minuto[2]+minuto[3];
-	let oras = hatiin[0].split("");
-	let h2 = oras[1];
-	let t = new Date();
-	let h1 = t.getHours();
-	let m1 = t.getMinutes();
-	let s1 = t.getSeconds();
-	let fm = "";
-	m1 = checkTime(m1);
-	s1 = checkTime(s1);
-	if (h1 > 12) {
-		h1 = h1-12;
-		if(h1 == 0){
-			h1 = 1;
-		}
-		fm = "PM"; 
-	} else { 
-		fm = "AM"; 
-	}
-	// console.log(h1+":"+m1+":"+s1+" "+fm);
-	if(h1 == h2 && m1==minuto1 && s1=="00" && fm==period){
-		for(let i=0;i<tbl_trans.length;i++){
-			for(let j=0;j<tbl_reg.length;j++){
-				if(tbl_trans[i].fldRemarks=='In Line' || tbl_reg[j].fldRemarks=='In Line'){
-					swal({
-						title: "Transaction Info",
-						text: "Theres still a pending Transaction <br> Please Adjust the Closing Time",
-						type: "error",
-						timer: 5000,
-						html: true
-					},
-					function(){
-						offlineAll();
-					});
-					
-				}else{
-					confirm('Are you Sure You want to clear Transaction?');
-					responsiveVoice.speak("Your Day has Ended, See you tomorrow!!");
-					window.setTimeout(function(){
-						swal({
-							title: "Compiling Data Today",
-							text: "Please Wait....",
-							type: "success",
-							timer: 5000,
-							html: true
-						},
-						function(){
-							c.deletetable('tbl_transaction');
-							c.deletetable('tbl_registrar');
-							offlineAll();
-						});
-					},2000);
-				}
-				break;
-			}
-			break;
-		}	
+let checkAvailability = ()=>{
+	if(getOnlineCashier==0){
+		document.getElementById('rStudentID').disabled=true;
+		document.getElementById('rOffice').disabled=true;
+		document.getElementById('rTrans').disabled=true;
+		document.getElementById('rTypeStud').disabled=true;
+	}else{
+		document.getElementById('rStudentID').disabled=false;
+		document.getElementById('rOffice').disabled=false;
+		document.getElementById('rTrans').disabled=false;
+		document.getElementById('rTypeStud').disabled=false;
 	}
 }
-window.setInterval(endDay,1000);
+window.setInterval(checkAvailability,1000);

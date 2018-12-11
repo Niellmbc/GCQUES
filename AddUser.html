@@ -17,6 +17,8 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/dataTable.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/datatables.css">
 	<style>
 	table.dataTable thead>tr>td.sorting,
 	table.dataTable thead>tr>td.sorting_asc,
@@ -192,15 +194,6 @@
 				<div class="row">
 					<!-- First column -->
 					<div class="col-md-12">
-						<div class="row mb-1">
-
-							<div class="col-md-5 offset-md-7">
-								<section class="section float-right mb-3">
-									<!-- Search form -->
-									<input class="form-control" type="text" placeholder="Search" aria-label="Search">
-								</section>
-							</div>
-						</div>
 						<div class="row">
 							<div class="col-md-12 mb-1">
 								<!-- Tabs -->
@@ -236,7 +229,7 @@
 											</div>
 										</form>
 										<div class="table-responsive">
-											<table class="table" id="dtMaterialDesignExample" class="table table-striped" cellspacing="0" width="100%">
+											<table id="dtMaterialDesignExample" class="table table-striped" cellspacing="0" width="100%">
 												<thead>
 													<tr>
 														<th>Student No.</th>
@@ -321,7 +314,7 @@
 											class="fa fa-plus-square ml-1"></i></a>
 										</div>
 										<div class="table-responsive">
-											<table class="table">
+											<table id="dtMaterialDesignExample1" class="table table-striped" cellspacing="0" >
 												<!--Table head-->
 												<thead >
 													<tr>
@@ -478,26 +471,27 @@
 <script type="text/javascript" src="js/cashier.js"></script>
 <script type="text/javascript" src="js/wow.min.js"></script>
 <script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="js/dataTables.js"></script>
 <script>
         // SideNav Initialization
         $(".button-collapse").sideNav();
-        $(document).ready(function () {
-        	$('#dtMaterialDesignExample').DataTable();
-        	$('#dtMaterialDesignExample_wrapper').find('label').each(function () {
-        		$(this).parent().append($(this).children());
-        	});
-        	$('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
-        		$('input').attr("placeholder", "Search");
-        		$('input').removeClass('form-control-sm');
-        	});
-        	$('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
-        	$('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
-        	$('#dtMaterialDesignExample_wrapper select').removeClass(
-        		'custom-select custom-select-sm form-control form-control-sm');
-        	$('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
-        	$('#dtMaterialDesignExample_wrapper .mdb-select').materialSelect();
-        	$('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
-        });
+        // $(document).ready(function () {
+        // 	$('#dtMaterialDesignExample').DataTable();
+        // 	$('#dtMaterialDesignExample_wrapper').find('label').each(function () {
+        // 		$(this).parent().append($(this).children());
+        // 	});
+        // 	$('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
+        // 		$('input').attr("placeholder", "Search");
+        // 		$('input').removeClass('form-control-sm');
+        // 	});
+        // 	$('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
+        // 	$('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
+        // 	$('#dtMaterialDesignExample_wrapper select').removeClass(
+        // 		'custom-select custom-select-sm form-control form-control-sm');
+        // 	$('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
+        // 	$('#dtMaterialDesignExample_wrapper .mdb-select').materialSelect();
+        // 	$('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
+        // });
         var container = document.querySelector('.custom-scrollbar');
         Ps.initialize(container, {
         	wheelSpeed: 2,
