@@ -1,5 +1,5 @@
 
-let url="http://NIELLAMBACO/GQUESAPI";
+let url="http://gordoncollegeccs-ssite.net/raniel/GQUESAPI";
 let lastqueue;
 let lastqueueInReg;
 let lastqueueInTransFin;
@@ -12,15 +12,15 @@ let a=0;
 let lastcashiersatrans;
 let tbl_trans=[];
 let tbl_reg = [];
+
 let getOnlineCashiers =()=>{
 	fetch(url+'/tbl_cashier/fldStatus/Online').then(res=>res.json()).then(function(res){
 		for(let i=0;i<res.length;i++){
 			getOnlineCashier[i]=res[i].fldCashierID;
 		}
-		
 	});
 }
-window.setInterval(getOnlineCashiers,1000);
+getOnlineCashiers();
 let getlastcashierSaTrans =()=>{
 	fetch(url+'/tbl_transaction?ORDERBY=fldTransID%20DESC').then(res=>res.json()).then(function(res){
 		if(res.length==0){
@@ -30,121 +30,8 @@ let getlastcashierSaTrans =()=>{
 	});
 	
 }
+getlastcashierSaTrans();
 
-window.setInterval(getlastcashierSaTrans,1000);
-let getCashier = ()=>{
-	fetch(url+'/tbl_cashier').then(res=>res.json()).then(function(res){
-		let ls="";
-		for(let i=0;i<res.length;i++){
-			if(res[i].fldRemarks=='Available'){
-
-				ls+="<tr>";
-				ls+="<td>"+res[i].fldLname+', '+res[i].fldFname+', '+res[i].fldMname+"</td>";
-				ls+="<td>"+res[i].fldCashierID+"</td>";
-				ls+="<td>"+res[i].fldUsername+"</td>";
-				ls+='<td><a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResult" onclick="getCashierID('+res[i].fldCashierID+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveCashier('+res[i].fldCashierID+')"><i class="fa fa-archive"></i></a></td>';
-				if(res[i].fldStatus=='Offline'){
-					ls+='<td><span class="badge badge-pill red">'+res[i].fldStatus+'</span></td>';
-				}else{
-					ls+='<td><span class="badge badge-pill green">'+res[i].fldStatus+'</span></td>';
-				}
-			} 
-		}
-		$('#cashierlist').html(ls);
-	});
-}
-// let getCashier = ()=>{
-// 	fetch(url+'/tbl_cashier/fldRemarks/Available').then(res=>res.json()).then(function(res){
-// 		$('#dtMaterialDesignExample1').DataTable({
-// 			"scrollY": "490px",
-// 			"scrollCollapse": true,
-// 			'sort':true,
-// 			retrieve: true,
-// 			searching: true,
-// 			data: res,
-// 			columns:[
-// 			{'data':'fldLname'},
-// 			{'data':'fldCashierID'},
-// 			{'data':'fldUsername'},
-// 			{
-// 				'data':'fldCashierID',
-// 				'render': function(id){
-// 					return '<a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResult" onclick="getCashierID('+id+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveCashier('+id+')"><i class="fa fa-archive"></i></a>'
-// 				}
-// 			},
-// 			{
-// 				'data':'fldStatus',
-// 				'render':function(stats){
-// 					var color="";
-// 					var badge;
-// 					if (stats == "Offline") {
-// 						color = 'text-danger';
-// 						badge='badge badge-danger'
-// 					}else if(stats == "Online"){
-// 						color = 'text-success';
-// 						badge='badge badge-success'
-// 					}
-
-// 					return "<span class='"+badge+" "+color+"'>"+stats+"</span>";
-// 				}
-
-// 			}
-// 			]
-// 		});
-// 		$('.dataTables_length').addClass('bs-select');
-// 	});
-// }
-
-// let studentList=()=>{
-// 	fetch(url+'/tbl_student').then(res=>res.json()).then(function(res){
-// 		let ls="";
-// 		for(let i=0;i<res.length;i++){
-// 			if(res[i].fldRemarks=='Available'){
-
-// 				ls+="<tr>";
-// 				ls+="<td>"+res[i].fldStudentNo+"</td>";
-// 				ls+="<td>"+res[i].fldLname+"</td>";
-// 				ls+="<td>"+res[i].fldFname+"</td>";
-// 				ls+="<td>"+res[i].fldMname+"</td>";
-// 				ls+="<td>"+res[i].fldDateAdded+"</td>";
-// 				ls+='<td><a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResultStud" onclick="getStudentID('+res[i].fldStudentNo+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveStudent('+res[i].fldStudentID+')"><i class="fa fa-archive"></i></a></td>';
-// 			}
-// 		} 
-// 		$('#studentList').html(ls);
-
-// 	});
-// }
-// studentList();
-let studentList=()=>{
-	fetch(url+'/tbl_student/fldRemarks/Available').then(res=>res.json()).then(function(res){
-		$('#dtMaterialDesignExample').DataTable({
-			"scrollY": "490px",
-			"scrollCollapse": true,
-			'sort':true,
-			retrieve: true,
-			searching: true,
-			data: res,
-			columns:[
-			{'data':'fldStudentNo'},
-			{'data':'fldLname'},
-			{'data':'fldFname'},
-			{'data':'fldMname'},
-			{'data':'fldDateAdded'},
-			
-			{
-				'data':'fldStudentNo',
-				'render': function(id){
-					return '<a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResultStud" onclick="getStudentID('+id+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveStudent('+id+')"><i class="fa fa-archive"></i></a>'
-				}
-			}
-			]
-		});
-		$('.dataTables_length').addClass('bs-select');
-	});
-}
-
-studentList();
-getCashier();
 let getLastqueue=()=>{
 	fetch(url+'/tbl_transaction?ORDERBY=fldTransID DESC').then(res=>res.json()).then(function(res){
 		
@@ -174,7 +61,7 @@ let getLastqueue=()=>{
 
 	});
 }
-window.setInterval(getLastqueue,1000);
+getLastqueue();
 let getLastqInTransFin = () =>{
 	fetch(url+'/lastqInTransFin').then(res=>res.json()).then(function(res){
 		if(res.length == 0){
@@ -184,7 +71,7 @@ let getLastqInTransFin = () =>{
 		}
 	});
 }
-window.setInterval(getLastqInTransFin,1000);
+getLastqInTransFin();
 let getLastqueueInReg=()=>{
 	fetch(url+'/tbl_registrar?ORDERBY=fldRegID DESC').then(res=>res.json()).then(function(res){
 		if(res.length==0){
@@ -194,21 +81,8 @@ let getLastqueueInReg=()=>{
 		}
 	});
 }
-window.setInterval(getLastqueueInReg,1000);
-let getLastCashier=()=>{
-	fetch(url+'/tbl_cashier?ORDERBY=fldCashierID DESC').then(res=>res.json()).then(function(res){
-		let lastcashierInDB;
-		if(res==0){
-			lastcashierInDB=1;
-		}else{	
-			lastcashierInDB = res[0].fldCashierID;
-			lastcashierInDB++
-		}
-		document.getElementById('cID').value=lastcashierInDB;
-		
-	});
-}
-getLastCashier();
+getLastqueueInReg();
+
 
 let countCashiers= ()=>{
 	fetch(url+'/tbl_cashier/fldCashierID').then(res=>res.json()).then(function(res){
@@ -216,7 +90,7 @@ let countCashiers= ()=>{
 
 	});
 }
-window.setInterval(countCashiers,1000);
+countCashiers();
 let numberOfTransOfCashier=()=>{
 	fetch(url+'/tbl_transaction/fldCashierNo/fldCashierNo/trans').then(res=>res.json()).then(function(res){
 		
@@ -228,17 +102,48 @@ let numberOfTransOfCashier=()=>{
 		}
 	});
 }
-window.setInterval(numberOfTransOfCashier,1000);
+numberOfTransOfCashier();
 let totalTrans = () =>{
 	fetch(url+'/countTrans').then(res=>res.json()).then(function(res){
 		totalTransaction = parseInt(res[0].totaltrans);
 	});
 	
 }
-window.setInterval(totalTrans,1000);
-
+totalTrans();
+let studentList=()=>{
+	fetch(url+'/tbl_student/fldRemarks/Available').then(res=>res.json()).then(function(res){
+		$('#dtMaterialDesignExample').DataTable({
+			"scrollY": "490px",
+			"scrollCollapse": true,
+			'sort':true,
+			retrieve: true,
+			searching: true,
+			data: res,
+			columns:[
+			{'data':'fldStudentNo'},
+			{'data':'fldLname'},
+			{'data':'fldFname'},
+			{'data':'fldMname'},
+			{'data':'fldDateAdded'},
+			
+			{
+				'data':'fldStudentNo',
+				'render': function(id){
+					return '<a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResultStud" onclick="getStudentID('+id+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveStudent('+id+')"><i class="fa fa-archive"></i></a>'
+				}
+			}
+			]
+		});
+		$('.dataTables_length').addClass('bs-select');
+	});
+}
+studentList();
 
 const MyCashier = class gques{
+	sender(){
+		fetch(url+'/pusher.php').then(function(res){
+		});
+	}
 	addData(data,tblname){
 		fetch(url+"/insert/"+tblname,{
 			method:"POST",
@@ -274,6 +179,7 @@ const MyCashier = class gques{
 		fetch(url+"/clearTable/"+tblname).then(function (res){
 		});
 	}
+	
 }
 
 
@@ -342,6 +248,7 @@ let updateStatus = ()=>{
 		toastr.error('Cashier is Now Offline');
 	}
 	c.updateData(id,'tbl_cashier','fldCashierID',data);
+	c.sender();
 
 }
 let updateCashier=()=>{
@@ -358,6 +265,7 @@ let updateCashier=()=>{
 	}
 	toastr.success('Cashier Details Updated');
 	c.updateData(id,'tbl_cashier','fldCashierID',data);
+	c.sender();
 }
 let updateStudents=()=>{
 	let id=localStorage.studentID;
@@ -371,6 +279,7 @@ let updateStudents=()=>{
 	}
 	toastr.success('Student Details Updated');
 	c.updateData(id,'tbl_student','fldStudentID',data);
+	c.sender();
 }
 
 
@@ -496,8 +405,8 @@ let newTrans=()=>{
 				html: true
 			},
 			function(){
-				window.location.assign('register.html');
 			});
+			
 		}else{
 			c.addData(dataTrans,'tbl_transaction');
 			toastr.success('Your Queue #: <h4>'+lastqueueInTransFin+'</h4><br>'+'Please Procceed to <h4>Cashier #:'+goToC+'</h4>');
@@ -510,10 +419,12 @@ let newTrans=()=>{
 					html: true
 				},
 				function(){
-					window.location.assign('register.html');
+					window.location.assign("register.html");
 				});
 			},3000);
+			c.sender();
 		}
+		
 	}else if(document.getElementById('rOffice1').value=='Registrar'){
 		c.addData(dataReg,'tbl_registrar');
 		toastr.success('Your Queue #: <h2>'+lastqueueInReg+'</h2><br>'+'Please Procceed to Registrar');
@@ -526,10 +437,10 @@ let newTrans=()=>{
 				html: true
 			},
 			function(){
-				window.location.assign('register.html');
+				window.location.assign("register.html");	
 			});
 		},3000);
-
+		c.sender();
 	}
 	// console.log(goToC);
 	// console.log(goToC);
@@ -565,6 +476,7 @@ let logOutAdmin=()=>{
 	},
 	function(){
 		window.location.assign('login.html');
+		c.sender();
 	});
 }
 let archiveCashier = (id)=>{
@@ -573,6 +485,7 @@ let archiveCashier = (id)=>{
 	}
 	c.updateData(id,'tbl_cashier','fldCashierNo',cRem);
 	getCashier();
+	c.sender();
 }
 let archiveStudent = (id)=>{
 	let cRem = {
@@ -580,19 +493,22 @@ let archiveStudent = (id)=>{
 	}
 	c.updateData(id,'tbl_student','fldStudentID',cRem);
 	studentList();
+	c.sender();
 }
 
-let checkAvailability = ()=>{
-	if(getOnlineCashier==0){
-		document.getElementById('rStudentID').disabled=true;
-		document.getElementById('rOffice').disabled=true;
-		document.getElementById('rTrans').disabled=true;
-		document.getElementById('rTypeStud').disabled=true;
-	}else{
-		document.getElementById('rStudentID').disabled=false;
-		document.getElementById('rOffice').disabled=false;
-		document.getElementById('rTrans').disabled=false;
-		document.getElementById('rTypeStud').disabled=false;
+	let checkAvailability = ()=>{
+		if(getOnlineCashier.length<0){
+			document.getElementById('rStudentID').disabled=true;
+			document.getElementById('rOffice').disabled=true;
+			document.getElementById('rTrans').disabled=true;
+			document.getElementById('rTypeStud').disabled=true;
+		}else{
+			document.getElementById('rStudentID').disabled=false;
+			document.getElementById('rOffice').disabled=false;
+			document.getElementById('rTrans').disabled=false;
+			document.getElementById('rTypeStud').disabled=false;
+		}
 	}
-}
-window.setInterval(checkAvailability,1000);
+	checkAvailability();
+
+// 

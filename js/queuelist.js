@@ -1,5 +1,5 @@
 
-let url="http://NIELLAMBACO/GQUESAPI";
+let url="http://gordoncollegeccs-ssite.net/raniel/GQUESAPI";
 let lastqueue;
 let lastqueueInReg;
 let LeastTransOfCashier;
@@ -10,24 +10,22 @@ let totalTransaction;
 let getOnlineCashier =[];
 let a=0;
 let lastcashiersatrans;
+
 let getOnlineCashiers =()=>{
 	fetch(url+'/tbl_cashier/fldStatus/Online').then(res=>res.json()).then(function(res){
 		for(let i=0;i<res.length;i++){
 			getOnlineCashier[i]=res[i].fldCashierID;
 		}
-		
-		
 	});
 }
-window.setInterval(getOnlineCashiers,1000);
+getOnlineCashiers();
 let getlastcashierSaTrans =()=>{
 	fetch(url+'/tbl_transaction?ORDERBY=fldTransID%20DESC').then(res=>res.json()).then(function(res){
 		lastcashiersatrans = res[0].fldCashierNo;
 	});
 	
 }
-
-window.setInterval(getlastcashierSaTrans,1000);
+getlastcashierSaTrans();
 let getLastqueue=()=>{
 	fetch(url+'/tbl_transaction?ORDERBY=fldTransID DESC').then(res=>res.json()).then(function(res){
 		if(res.length==0){
@@ -117,12 +115,17 @@ totalTrans();
 
 
 const MyCashier = class gques{
+	sender(){
+		fetch(url+'/pusher.php').then(res=>res.json()).then(function(res){
+		});
+	}
 	addData(data,tblname){
 		fetch(url+"/insert/"+tblname,{
 			method:"POST",
 			body:JSON.stringify([data])
 		}).then(function(response){
 			console.log(response);
+
 		});
 	}
 	selectTable(tbl){
@@ -135,9 +138,11 @@ const MyCashier = class gques{
 			method:"POST",
 			body:JSON.stringify([data])
 		}).then(function(res){
+			console.log(res);
 		});
 		
 	}
+	
 }
 
 let c = new MyCashier();
@@ -158,7 +163,7 @@ let updateAccount=()=>{
 		pass:document.getElementById('cPassword').value
 	}
 	c.updateData(cID,'tbl_cashier','fldCashierID',data);
-	
+	c.sender();
 }
 
 let QueueList=()=>{
@@ -182,7 +187,7 @@ let QueueList=()=>{
 		$('#queuelist').html(ls);
 	});
 }
-window.setInterval(QueueList,1000);
+QueueList();
 let showTrans=(id)=>{
 	localStorage.setItem('TransID',id);
 	fetch(url+'/tbl_transaction/fldTransID/'+id).then(res=>res.json()).then(function(res){
@@ -202,7 +207,6 @@ let showTrans=(id)=>{
 }
 let doneTrans=()=>{
 	let transID = localStorage.TransID;
-	
 	fetch(url+'/tbl_transaction/fldTransID/'+transID).then(res=>res.json()).then(function(res){
 		let data={
 			fldRemarks:'Done'
@@ -218,12 +222,11 @@ let doneTrans=()=>{
 			fldRemarks:'Done'
 		}
 		console.log(log);
-		
-
 		c.updateData(transID,'tbl_transaction','fldTransID',data);
 		c.addData(log,'tbl_log');
+		toastr.success('Done Transaction');
+		c.sender();
 	});
-	
 }
 let noShowTrans=()=>{
 	let transID = localStorage.TransID;
@@ -242,10 +245,9 @@ let noShowTrans=()=>{
 			fldRemarks:'No Show'
 		}
 		console.log(log);
-		
-
 		c.updateData(transID,'tbl_transaction','fldTransID',data);
 		c.addData(log,'tbl_log');	
+		c.sender();
 	});
 }
 let showLog =()=>{
@@ -393,6 +395,7 @@ let moveTransInFin=(id)=>{
 		}
 		toastr.success('<br>Please Proceed to Cashier: <h2>'+goToC+'</h2>');
 		c.addData(dataTrans,'tbl_transaction');
+		c.sender();
 		window.setTimeout(function(){
 			swal({
 				title: "Next Transaction",
@@ -403,6 +406,7 @@ let moveTransInFin=(id)=>{
 			},
 			function(){
 				window.location.assign('registrar.html');
+				c.sender();
 			});
 		},2000);
 	});
@@ -424,10 +428,16 @@ let doneTransInReg=(id)=>{
 			fldDay:res[0].fldDay,
 			fldRemarks:'Done'
 		}
-		console.log(log);
+		// console.log(log);
+		if(checkCashier()==undefined){
+			toastr.warning('There is no Online Cashier At the Moment');
+		}else{
+
 		c.updateData(id,'tbl_registrar','fldRegID',data);
 		// c.addData(log,'tbl_log');
 		moveTransInFin(id);
+		c.sender();
+		}
 	});
 }
 let noShowTransInReg=(id)=>{
@@ -448,6 +458,9 @@ let noShowTransInReg=(id)=>{
 		confirm('Are you sure?');
 		c.updateData(id,'tbl_registrar','fldRegID',data);
 		c.addData(log,'tbl_log');
+		c.sender();
+		window.location.assign('registrar.html');
+
 	});
 
 }
@@ -467,6 +480,7 @@ let logOutAccount =()=>{
 	},
 	function(){
 		window.location.assign('login.html');
+		c.sender();
 	});
 }
 

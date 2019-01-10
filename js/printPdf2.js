@@ -1,3 +1,5 @@
+let printThis=()=>{
+
        var doc = new jsPDF('a4');
 
 	doc.internal.scaleFactor = 7;
@@ -15,4 +17,8 @@
     doc.setFontSize(300);
     doc.save('Graphs.pdf');
     });
+}
+setTimeout(()=>{
+	printThis();
+},5000);
 

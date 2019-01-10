@@ -16,7 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css"> -->
 </head>
 
 <body class="fixed-sn">
@@ -207,10 +207,12 @@
 </body>
 
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 <script type="text/javascript" src="js/popper.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
 <script type="text/javascript" src="js/queuelist.js"></script>
+<!-- <script type="text/javascript" src="js/receiver.js"></script> -->
 <script type="text/javascript" src="js/wow.min.js"></script>
 <script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
 
@@ -244,7 +246,7 @@
     			$('#registrarQueue').html(ls);
     		});
     	}
-    	window.setInterval(showRegQueue,1000);
+    	showRegQueue();
     </script>
     <script>
     	let id= localStorage.regID;
@@ -264,8 +266,31 @@
     		},
     		function(){
     			window.location.assign('login.html');
+    			c.sender();
     		});
     	}
+    		Pusher.logToConsole = true;
+
+    	var pusher = new Pusher('5fb69c9d534cd55d78e7', {
+    		cluster: 'ap1',
+    		forceTLS: true
+    	});
+
+    	var channel = pusher.subscribe('my-channel');
+    	channel.bind('my-event', function(data) {
+    		getOnlineCashiers();
+    		getlastcashierSaTrans();
+    		getLastqueue();
+    		getLastqueueInReg();
+    		getLastCashier();
+    		countCashiers();
+    		lastcashierinput();
+    		numberOfTransOfCashier();
+    		totalTrans();
+    		QueueList();
+    		showLog();
+    		showLogReg();
+    	});
     </script>
 
     </html>

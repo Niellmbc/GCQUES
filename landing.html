@@ -55,11 +55,11 @@
 </main>
 </body>
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 <script type="text/javascript" src="js/popper.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
-<script src="js/cashier.js"></script>
-
+<script src="js/queuelist.js"></script>
 <script>
         // SideNav Initialization
         $(".button-collapse").sideNav();
@@ -119,9 +119,9 @@ let countOnline =()=>{
 		numOnline = res[0].totalcount;
 	});
 }
-window.setInterval(countOnline,1000);
+countOnline();
 
-let queueServing=()=>{
+let queueServing1=()=>{
 	fetch(url+'/queueServing').then(res=>res.json()).then(function(res){
 		let ls="";
 		let a= res.length;
@@ -168,9 +168,31 @@ let countInline=()=>{
 		document.getElementById('cInLine').innerHTML=res[0].totalcount;
 	});	
 }
-window.setInterval(countInline,1000);
-window.setInterval(queueServingTrans,1000);
-window.setInterval(queueServing,1000);
 
+setTimeout(function(){
+queueServing1();
+queueServingTrans();
+countInline();
+},2000);
+</script>
+<!-- <script type="text/javascript" src="js/receiver.js"></script> -->
+<script>
+	Pusher.logToConsole = true;
+
+var pusher = new Pusher('5fb69c9d534cd55d78e7', {
+	cluster: 'ap1',
+	forceTLS: true
+});
+
+var channel = pusher.subscribe('my-channel');
+channel.bind('my-event', function(data) {
+	QueueList() ;
+	countInline();
+	countOnline();
+	showLog();
+	showLogReg();
+	queueServing1();
+	queueServingTrans();
+});
 </script>
 </html>

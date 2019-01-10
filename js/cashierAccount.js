@@ -1,4 +1,4 @@
-let url="http://NIELLAMBACO/GQUESAPI";
+let url="http://gordoncollegeccs-ssite.net/raniel/GQUESAPI";
 const MyAdmin = class gques{
 	addData(data,tblname){
 		fetch(url+"/insert/"+tblname,{

@@ -1,12 +1,17 @@
 
-let url="http://NIELLAMBACO/GQUESAPI";
+let url="http://gordoncollegeccs-ssite.net/raniel/GQUESAPI";
 const MyAdmin = class gques{
+	sender(){
+		fetch(url+'/pusher.php').then(res=>res.json()).then(function(res){
+		});
+	}
 	addData(data,tblname){
 		fetch(url+"/insert/"+tblname,{
 			method:"POST",
 			body:JSON.stringify([data])
 		}).then(function(response){
 			console.log(response);
+			
 		});
 	}
 	selectTable(tbl){
@@ -22,12 +27,17 @@ const MyAdmin = class gques{
 			toastr.success('Update Successfully!');
 			studentList();
 			getCashier();
+			
 		});
 		
 	}
+	
 }
 
 let c = new MyAdmin();
+let send =()=>{
+	c.sender();
+}
 
 var base64img = "";
 let existingimg = ""
@@ -65,7 +75,6 @@ function readFile() {
 try {
 	document.getElementById("profileP").addEventListener("change", readFile);
 } catch (err) {
-
 }
 let updateAdmin=()=>{
 
@@ -102,6 +111,7 @@ let updateAdmin=()=>{
 	},
 	function(){
 		window.location.assign('adminAccount.html');
+		c.sender();
 	});
 		c.updateData(id,'tbl_user','fldUserID',data);
 	}
@@ -120,5 +130,6 @@ let logOutAdmin=()=>{
     		},
     		function(){
     			window.location.assign('login.html');
+
     		});
 }

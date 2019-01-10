@@ -122,7 +122,9 @@
 <script type="text/javascript" src="js/popper.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
+<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 <script src="js/cashier.js"></script>
+<script type="text/javascript" src="js/receiver.js"></script>
 <script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
 <script>
         // SideNav Initialization
@@ -143,8 +145,6 @@
     	let tbl_user = ()=>{
     		fetch(url+'/tbl_user').then(res=>res.json()).then(function(res){
     			tables.user = res;
-    			
-
     		});	
     	}
     	tbl_user();
@@ -175,6 +175,7 @@
                             },
                             function(){
                                window.location.assign('admin.html');
+                               c.sender();
                             });
     				}else if(tables.user[i].fldRole=='Registrar'){
     					localStorage.setItem('regID',tables.user[i].fldUserID)
@@ -187,6 +188,7 @@
                             },
                             function(){
                                window.location.assign('registrar.html');
+                               c.sender();
                             });
     					
 
@@ -219,6 +221,7 @@
                             },
                             function(){
                              	window.location.assign('cashier.html');
+                                c.sender();
                             });
     					
     				

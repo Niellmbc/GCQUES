@@ -16,7 +16,7 @@
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
   <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css"> -->
 
   
 </head>
@@ -245,22 +245,22 @@
 <!-- /Fluid Modal Right Info -->
 </body>
 
-<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 <script type="text/javascript" src="js/popper.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
 <script type="text/javascript" src="js/Chart.min.js"></script>
 <script type="text/javascript" src="js/Chart.bundle.min.js"></script>
 <script type="text/javascript" src="js/cashier1.js"></script>
+<!-- <script type="text/javascript" src="js/receiver.js"></script> -->
 <script type="text/javascript" src="js/wow.min.js"></script>
 <script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
 
 <script>
         // SideNav Initialization
         $(".button-collapse").sideNav();
-        $(document).ready(function () {
-         $('.stepper').mdbStepper();
-       })
+        
                 // Data Picker Initialization
                 $('.datepicker').pickadate();
 
@@ -276,7 +276,7 @@
                 let students =[];
                 fetch(url+'/tbl_student').then(res=>res.json()).then(function(res){
                   students = res;
-                  console.log(students);
+                  
                 });
                 let data ={
                   // email:"",
@@ -376,5 +376,28 @@
                   }
                 }
               }
+            </script>
+            <script>
+              Pusher.logToConsole = true;
+
+              var pusher = new Pusher('5fb69c9d534cd55d78e7', {
+                cluster: 'ap1',
+                forceTLS: true
+              });
+
+              var channel = pusher.subscribe('my-channel');
+              channel.bind('my-event', function(data) {
+                getOnlineCashiers();
+                getlastcashierSaTrans();
+                getLastqueue();
+                getLastqInTransFin();
+                getLastqueueInReg();
+                countCashiers();
+                numberOfTransOfCashier();
+                totalTrans();
+                checkAvailability();
+                studentList();
+                getCashier();
+              });
             </script>
             </html>

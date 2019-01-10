@@ -1,11 +1,16 @@
-let url="http://NIELLAMBACO/GQUESAPI";
+let url="http://gordoncollegeccs-ssite.net/raniel/GQUESAPI";
 const MyAdmin = class gques{
+	sender(){
+		fetch(url+'/pusher.php').then(res=>res.json()).then(function(res){
+		});
+	}
 	addData(data,tblname){
 		fetch(url+"/insert/"+tblname,{
 			method:"POST",
 			body:JSON.stringify([data])
 		}).then(function(response){
 			console.log(response);
+
 		});
 	}
 	selectTable(tbl){
@@ -99,6 +104,7 @@ let updateReg=()=>{
 		window.location.assign('registrarAccount.html');
 	});
 		c.updateData(id,'tbl_user','fldUserID',data);
+		c.sender();
 	}
 	
 
@@ -114,5 +120,6 @@ let logOutReg=()=>{
     		},
     		function(){
     			window.location.assign('login.html');
+    			c.sender();
     		});
     	}

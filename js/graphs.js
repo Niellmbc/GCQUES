@@ -1,4 +1,4 @@
-	
+
 let month = [];
 let dreq=[];
 let dreqcount=[];
@@ -34,100 +34,148 @@ let enrol2=[];
 let enrolcount2=[];
 let drel2=[];
 let drelcount2=[];
+let monthname=()=>{
 fetch(url+'/div/MONTHNAME/MONTH').then(res=>res.json()).then(function(res){
     for(let i=0;i<res.length;i++){
         month.push(res[i].MONTH);
     }
 });
+}
+let reqMonth=()=>{
 fetch(url+'/graph/Document Request/MONTH').then(res=>res.json()).then(function(res){
     dreq.push(res[0].fldTransType);
     dreqcount.push(res[0].COUNT);
 
 });
+}
+let otherMonth=()=>{   
 fetch(url+'/graph/Other Transaction/MONTH').then(res=>res.json()).then(function(res){
     other.push(res[0].fldTransType);
     othercount.push(res[0].COUNT);
 
 });
+}
+let bankMonth=()=>{   
 fetch(url+'/graph/Bank Account/MONTH').then(res=>res.json()).then(function(res){
     bank.push(res[0].fldTransType);
     bankcount.push(res[0].COUNT);
 
 });
+}
+let enMonth=()=>{   
 fetch(url+'/graph/Enrolment/MONTH').then(res=>res.json()).then(function(res){
     enrol.push(res[0].fldTransType);
     enrolcount.push(res[0].COUNT);
 
 });
+}
+let relMonth=()=>{   
 fetch(url+'/graph/Document Realising/MONTH').then(res=>res.json()).then(function(res){
     drel.push(res[0].fldTransType);
     drelcount.push(res[0].COUNT);
 
 });
-
+}
+let weekname=()=>{   
 fetch(url+'/div/WEEK/WEEK').then(res=>res.json()).then(function(res){
     for(let i=0;i<res.length;i++){
         week.push(res[i].WEEK);
     }
 });
+}
+let reqWeek=()=>{   
 fetch(url+'/graph/Document Request/WEEK').then(res=>res.json()).then(function(res){
     dreq1.push(res[0].fldTransType);
     dreqcount1.push(res[0].COUNT);
 
 });
+}
+let otherWeek=()=>{   
 fetch(url+'/graph/Other Transaction/WEEK').then(res=>res.json()).then(function(res){
     other1.push(res[0].fldTransType);
     othercount1.push(res[0].COUNT);
 
 });
+}
+let bankWeek=()=>{
 fetch(url+'/graph/Bank Account/WEEK').then(res=>res.json()).then(function(res){
     bank1.push(res[0].fldTransType);
     bankcount1.push(res[0].COUNT);
 
 });
+}
+let enWeek=()=>{   
 fetch(url+'/graph/Enrolment/WEEK').then(res=>res.json()).then(function(res){
     enrol1.push(res[0].fldTransType);
     enrolcount1.push(res[0].COUNT);
 
 });
+}
+let relWeek=()=>{   
 fetch(url+'/graph/Document Realising/WEEK').then(res=>res.json()).then(function(res){
     drel1.push(res[0].fldTransType);
     drelcount1.push(res[0].COUNT);
-
 });
+}
 
 
-
+let dayname=()=>{   
 fetch(url+'/div/DAYNAME/DAY').then(res=>res.json()).then(function(res){
     for(let i=0;i<res.length;i++){
         daily.push(res[i].DAY);
     }
 });
+}
+let reqDay=()=>{
+
 fetch(url+'/graph/Document Request/DAY').then(res=>res.json()).then(function(res){
     dreq2.push(res[0].fldTransType);
     dreqcount2.push(res[0].COUNT);
-
 });
+}
 fetch(url+'/graph/Other Transaction/DAY').then(res=>res.json()).then(function(res){
     other2.push(res[0].fldTransType);
     othercount2.push(res[0].COUNT);
 
 });
+let bankDay=()=>{
+
 fetch(url+'/graph/Bank Account/DAY').then(res=>res.json()).then(function(res){
     bank2.push(res[0].fldTransType);
     bankcount2.push(res[0].COUNT);
 
 });
+}
+let enDay=()=>{   
 fetch(url+'/graph/Enrolment/DAY').then(res=>res.json()).then(function(res){
     enrol2.push(res[0].fldTransType);
     enrolcount2.push(res[0].COUNT);
 
 });
+}
+let relDay =()=>{
 fetch(url+'/graph/Document Realising/DAY').then(res=>res.json()).then(function(res){
     drel2.push(res[0].fldTransType);
     drelcount2.push(res[0].COUNT);
-
 });
+}
+relDay();
+enDay();
+bankDay();
+reqDay();
+dayname();
+
+relWeek();
+enWeek();
+bankWeek();
+reqWeek();
+weekname();
+
+relMonth();
+enMonth();
+bankMonth();
+reqMonth();
+monthname();
 var ctx = document.getElementById("monthly").getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'bar',
@@ -412,9 +460,8 @@ options: {
 }
 });
 
-
 setTimeout(function() {
  myChart.update();
 myChart1.update();
 myChart2.update();
- },1000);
+ },3000);

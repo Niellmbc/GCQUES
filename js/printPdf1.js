@@ -1,3 +1,5 @@
+let printThis= ()=>{
+
        var doc = new jsPDF('a4');
 
 	doc.internal.scaleFactor = 7;
@@ -16,4 +18,8 @@
 	let type = localStorage.transType;
     doc.save(type+'.pdf');
     });
+}
+setTimeout(()=>{
+printThis();
+},5000)
 

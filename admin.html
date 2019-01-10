@@ -372,16 +372,17 @@
 
 </body>
 
-<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 <script type="text/javascript" src="js/popper.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
 <script type="text/javascript" src="js/Chart.min.js"></script>
 <script type="text/javascript" src="js/Chart.bundle.min.js"></script>
 <script type="text/javascript" src="js/cashier.js"></script>
-<script type="text/javascript" src="js/wow.min.js"></script>
-<script src="js/voicemo.js"></script>
 <script type="text/javascript" src="js/graphs.js"></script>
+<!-- <script src="js/receiver.js"></script> -->
+<script type="text/javascript" src="js/wow.min.js"></script>
 <script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
 
 
@@ -404,23 +405,27 @@
     	let dreqInReg=0;
     	let otherInTrans=0;
     	let otherInReg=0;
+    	let enrolInTrans=0;
+    	let enrolInReg=0;
     	let countEnrollment=()=>{
     		fetch(url+'/count/tbl_transaction/fldTransType/Enrolment').then(res=>res.json()).then(function(res){
-    			document.getElementById('cEnrollment').innerHTML = res[0].totalcount;
+    			enrolInTrans=res[0].totalcount;
     		});
+    		fetch(url+'/count/tbl_registrar/fldType/Enrolment').then(res=>res.json()).then(function(res){
+    			enrolInReg=res[0].totalcount;
+    		});
+    		document.getElementById('cEnrollment').innerHTML= parseInt(enrolInTrans) + parseInt(enrolInReg);
     	}
-    	window.setInterval(countEnrollment,1000);
+    	countEnrollment();
     	let countBankAccount=()=>{
     		fetch(url+'/count/tbl_transaction/fldTransType/Bank Account').then(res=>res.json()).then(function(res){
     			document.getElementById('cBank').innerHTML = res[0].totalcount;
     		});
     	}
-    	window.setInterval(countBankAccount,1000);
-    	let countDreq=()=>{
-    		
+    	countBankAccount();
+    	let countDreq=()=>{    		
     		fetch(url+'/count/tbl_transaction/fldTransType/Document Request').then(res=>res.json()).then(function(res){
     			dreqInTrans = res[0].totalcount;
-
     		});
     		fetch(url+'/count/tbl_registrar/fldType/Document Request').then(res=>res.json()).then(function(res){
     			dreqInReg = res[0].totalcount;
@@ -428,7 +433,7 @@
     		document.getElementById('cDreq').innerHTML = parseInt(dreqInReg) + parseInt(dreqInTrans);
 
     	}
-    	window.setInterval(countDreq,1000);
+    	countDreq();
     	let countOther=()=>{
     		
     		fetch(url+'/count/tbl_transaction/fldTransType/Other Transaction').then(res=>res.json()).then(function(res){
@@ -440,19 +445,52 @@
     		});
     		document.getElementById('cOther').innerHTML = parseInt(otherInReg) + parseInt(otherInTrans);
     	}
-    	window.setInterval(countOther,1000);
-    	let countEncoding=()=>{
-    		fetch(url+'/count/tbl_registrar/fldType/Encoding').then(res=>res.json()).then(function(res){
-    			document.getElementById('cEncode').innerHTML = res[0].totalcount;
-    		});
-    	}
-    	countEncoding();
+    	countOther();
+    	// let countEncoding=()=>{
+    	// 	fetch(url+'/count/tbl_registrar/fldType/Encoding').then(res=>res.json()).then(function(res){
+    	// 		document.getElementById('cEncode').innerHTML = res[0].totalcount;
+    	// 	});
+    	// }
+    	// countEncoding();
     	let countDrel=()=>{
     		fetch(url+'/count/tbl_registrar/fldType/Document Realising').then(res=>res.json()).then(function(res){
     			document.getElementById('cDrel').innerHTML = res[0].totalcount;
     		});
     	}
     	countDrel();
+    		c.sender();
+    	Pusher.logToConsole = true;
+
+    	var pusher = new Pusher('5fb69c9d534cd55d78e7', {
+    		cluster: 'ap1',
+    		forceTLS: true
+    	});
+
+    	var channel = pusher.subscribe('my-channel');
+    	channel.bind('my-event', function(data) {
+    		countEnrollment();
+    		countBankAccount();
+    		countDreq();
+    		countOther();
+    		countDrel();
+    		relDay();
+    		enDay();
+    		bankDay();
+    		reqDay();
+    		dayname();
+
+    		relWeek();
+    		enWeek();
+    		bankWeek();
+    		reqWeek();
+    		weekname();
+
+    		relMonth();
+    		enMonth();
+    		bankMonth();
+    		reqMonth();
+    		monthname();
+    	});
     </script>
     <script>
     	let id= localStorage.adminID;
@@ -464,4 +502,5 @@
 
     	document.getElementById('closingtime').value= localStorage.closing;
     </script>
+
     </html>
