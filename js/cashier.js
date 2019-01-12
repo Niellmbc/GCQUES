@@ -15,13 +15,11 @@ let getCashier = ()=>{
 	fetch(url+'/tbl_cashier/fldRemarks/Available').then(res=>res.json()).then(function(res){
 		let ls="";
 		for(let i=0;i<res.length;i++){
-			
-
 				ls+="<tr>";
 				ls+="<td>"+res[i].fldLname+', '+res[i].fldFname+', '+res[i].fldMname+"</td>";
 				ls+="<td>"+res[i].fldCashierID+"</td>";
 				ls+="<td>"+res[i].fldUsername+"</td>";
-				ls+='<td><a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResult" onclick="getCashierID('+res[i].fldCashierID+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveCashier('+res[i].fldCashierID+')"><i class="fa fa-archive"></i></a></td>';
+				ls+='<td><a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResult" onclick="getCashierID('+res[i].fldCashierID+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveCashier('+res[i].fldCashierNo+')"><i class="fa fa-archive"></i></a></td>';
 				if(res[i].fldStatus=='Offline'){
 					ls+='<td><span class="badge badge-pill red">'+res[i].fldStatus+'</span></td>';
 				}else{
@@ -111,7 +109,7 @@ let studentList=()=>{
 			{'data':'fldDateAdded'},
 			
 			{
-				'data':'fldStudentNo',
+				'data':'fldStudentID',
 				'render': function(id){
 					return '<a class="blue-text" data-placement="top" data-toggle="modal" data-target="#seeResultStud" onclick="getStudentID('+id+')"><i class="fa fa-user"></i></a><a class="red-text" data-toggle="tooltip" data-placement="top" title="Archive" onclick="archiveStudent('+id+')"><i class="fa fa-archive"></i></a>'
 				}
@@ -222,7 +220,7 @@ let getCashierID = (id)=>{
 }
 let getStudentID = (studid)=>{
 	localStorage.setItem('studentID',studid);
-	fetch(url+'/tbl_student/fldStudentNo/'+studid).then(res=>res.json()).then(function(res){
+	fetch(url+'/tbl_student/fldStudentID/'+studid).then(res=>res.json()).then(function(res){
 		document.getElementById('sIDs').value=res[0].fldStudentNo;
 		document.getElementById('sLnames').value=res[0].fldLname;
 		document.getElementById('sFnames').value=res[0].fldFname;
@@ -319,16 +317,16 @@ let archiveCashier = (id)=>{
 		fldRemarks:'Not Available'
 	}
 	c.updateData(id,'tbl_cashier','fldCashierNo',cRem);
+	toastr.warning('Cashier Archived');
 	c.sender();
-	toastr.warning('Cashier is not Available');
 }
 let archiveStudent = (id)=>{
 	let cRem = {
 		fldRemarks:'Not Available'
 	}
-	// c.updateData(id,'tbl_student','fldStudentID',cRem);
-	// c.sender();
-	// toastr.warning('Student is not Available');
+	c.updateData(id,'tbl_student','fldStudentID',cRem);
+	toastr.warning('Student Archived');
+	c.sender();
 	console.log(id);
 }
 
@@ -373,6 +371,7 @@ function checkTime(i) {
 }
 
 let endDay = ()=>{
+
 	let closing = localStorage.closing;
 	let hatiin = closing.split(":");
 	let minuto = hatiin[1].split("");
@@ -410,11 +409,12 @@ let endDay = ()=>{
 					},
 					function(){
 						offlineAll();
+						c.sender();
 					});
 					
 				}else{
 					confirm('Are you Sure You want to clear Transaction?');
-					responsiveVoice.speak("Your Day has Ended, See you tomorrow!!");
+					// responsiveVoice.speak("Your Day has Ended, See you tomorrow!!");
 					window.setTimeout(function(){
 						swal({
 							title: "Compiling Data Today",
@@ -427,6 +427,8 @@ let endDay = ()=>{
 							c.deletetable('tbl_transaction');
 							c.deletetable('tbl_registrar');
 							offlineAll();
+							window.location.assign('admin.html');
+							c.sender();
 						});
 					},2000);
 				}
@@ -436,5 +438,6 @@ let endDay = ()=>{
 		}	
 	}
 }
+endDay();
 window.setInterval(endDay,1000);
 

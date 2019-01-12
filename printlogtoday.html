@@ -119,6 +119,9 @@
 			var dd = today.getDate();
 			var dd1 = today.getDate();
 	var mm = today.getMonth()+1; //January is 0!
+	if(mm <10){
+		mm= "0"+mm;
+	}
 	var monthName = month[today.getMonth()];
 	var yyyy = today.getFullYear();
 	var today = new Date();

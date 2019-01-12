@@ -75,7 +75,7 @@ getLastqInTransFin();
 let getLastqueueInReg=()=>{
 	fetch(url+'/tbl_registrar?ORDERBY=fldRegID DESC').then(res=>res.json()).then(function(res){
 		if(res.length==0){
-			lastqueueInReg =1;
+			lastqueueInReg =0;
 		}else{
 			lastqueueInReg = res[0].fldQueueNo;	
 		}

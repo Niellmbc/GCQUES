@@ -15,7 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css"> -->
 </head>
 
 <body class="fixed-sn">
@@ -148,15 +148,15 @@
 
 	</body>
 
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 	<script type="text/javascript" src="js/popper.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/mdb.min.js"></script>
 	<script type="text/javascript" src="js/Chart.min.js"></script>
 	<script type="text/javascript" src="js/Chart.bundle.min.js"></script>
-	<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 	<script type="text/javascript" src="js/cashier.js"></script>
-	<script type="text/javascript" src="js/receiver.js"></script>
+	<!-- <script type="text/javascript" src="js/receiver.js"></script> -->
 	<script type="text/javascript" src="js/wow.min.js"></script>
 	<script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
 
@@ -178,31 +178,38 @@
     	var dd = today.getDate();
     	var dd1 = today.getDate();
 	var mm = today.getMonth()+1; //January is 0!
+	if(mm <10){
+		mm= "0"+mm;
+	}
 	var monthName = month[today.getMonth()];
 	var yyyy = today.getFullYear();
 	var date = monthName+" "+dd1+", "+yyyy;
 	document.getElementById('todaydate').innerHTML=date;
 	let datetoday = yyyy+"-"+mm+"-"+dd1;
-	fetch(url+'/tbl_log/fldDay/'+datetoday).then(res=>res.json()).then(function(res){
-		let ls ="";
-		for(let i=0;i<res.length;i++){
-			ls+='<tr>';
-			ls+='<td>'+res[i].fldStudentNo+'</td>';
-			ls+='<td>'+res[i].fldCashierNo+'</td>';
-			ls+='<td>'+res[i].fldQueueNo+'</td>';
-			ls+='<td>'+res[i].fldOffice+'</td>';
-			ls+='<td>'+res[i].fldTransType+'</td>';
-			ls+='<td>'+res[i].fldDate+'</td>';
-			if(res[i].fldRemarks=='Done'){
-				ls+='<td><span class="badge badge-success">'+res[i].fldRemarks+'</span></td>';
-			}else{
-				ls+='<td><span class="badge badge-danger">'+res[i].fldRemarks+'</span></td>';
-			}
+	let logs=()=>{
+		fetch(url+'/tbl_log/fldDay/'+datetoday).then(res=>res.json()).then(function(res){
+			console.log(res);
+			let ls ="";
+			for(let i=0;i<res.length;i++){
+				ls+='<tr>';
+				ls+='<td>'+res[i].fldStudentNo+'</td>';
+				ls+='<td>'+res[i].fldCashierNo+'</td>';
+				ls+='<td>'+res[i].fldQueueNo+'</td>';
+				ls+='<td>'+res[i].fldOffice+'</td>';
+				ls+='<td>'+res[i].fldTransType+'</td>';
+				ls+='<td>'+res[i].fldDate+'</td>';
+				if(res[i].fldRemarks=='Done'){
+					ls+='<td><span class="badge badge-success">'+res[i].fldRemarks+'</span></td>';
+				}else{
+					ls+='<td><span class="badge badge-danger">'+res[i].fldRemarks+'</span></td>';
+				}
 
-			ls+='</tr>';
-		}
-		$('#logs').html(ls);
-	});
+				ls+='</tr>';
+			}
+			$('#logs').html(ls);
+		});
+	}
+	logs();
 </script>
 <script>
 	let id= localStorage.adminID;
@@ -237,5 +244,16 @@
     	// 		$('#logs').html(ls);
     	// 	});
     	// }
+    	Pusher.logToConsole = true;
+
+    	var pusher = new Pusher('5fb69c9d534cd55d78e7', {
+    		cluster: 'ap1',
+    		forceTLS: true
+    	});
+
+    	var channel = pusher.subscribe('my-channel');
+    	channel.bind('my-event', function(data) {
+    		logs();
+    	});
     </script>
     </html>

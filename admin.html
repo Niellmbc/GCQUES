@@ -15,7 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="assets/css/sweetalert-master/dist/sweetalert.min.css"> -->
 </head>
 
 <body class="fixed-sn">
@@ -384,6 +384,7 @@
 <!-- <script src="js/receiver.js"></script> -->
 <script type="text/javascript" src="js/wow.min.js"></script>
 <script type="text/javascript" src="js/sweetalert-master/dist/sweetalert.min.js"></script>
+<!-- <script type="text/javascript" src="js/voicemo.js"></script> -->
 
 
 <script>
@@ -458,7 +459,7 @@
     		});
     	}
     	countDrel();
-    		c.sender();
+    	c.sender();
     	Pusher.logToConsole = true;
 
     	var pusher = new Pusher('5fb69c9d534cd55d78e7', {
@@ -473,23 +474,11 @@
     		countDreq();
     		countOther();
     		countDrel();
-    		relDay();
-    		enDay();
-    		bankDay();
-    		reqDay();
-    		dayname();
-
-    		relWeek();
-    		enWeek();
-    		bankWeek();
-    		reqWeek();
-    		weekname();
-
-    		relMonth();
-    		enMonth();
-    		bankMonth();
-    		reqMonth();
-    		monthname();
+    		myChart.update();
+    		myChart1.update();
+    		myChart2.update();
+    		tableTrans();
+    		tableReg();
     	});
     </script>
     <script>

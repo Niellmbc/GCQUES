@@ -28,6 +28,7 @@ var base64img="";
 let existingimg="" ;
 let existingpass="";
 let cashierid = localStorage.cID;
+console.log(cashierid);
 function readFile() {
 	if (this.files && this.files[0]) {
 		var FR = new FileReader();
@@ -92,7 +93,7 @@ let updateMyAccount=()=>{
 	function(){
 		window.location.assign('cashierAccount.html');
 	});
-		c.updateData(cid,'tbl_cashier','fldCashierID',data);
+		c.updateData(cid,'tbl_cashier','fldCashierNo',data);
 	}
 
 

@@ -35,9 +35,6 @@ const MyAdmin = class gques{
 }
 
 let c = new MyAdmin();
-let send =()=>{
-	c.sender();
-}
 
 var base64img = "";
 let existingimg = ""
@@ -111,13 +108,10 @@ let updateAdmin=()=>{
 	},
 	function(){
 		window.location.assign('adminAccount.html');
-		c.sender();
 	});
 		c.updateData(id,'tbl_user','fldUserID',data);
 	}
 	
-
-
 }
 let logOutAdmin=()=>{
 	localStorage.setItem('adminID','');
