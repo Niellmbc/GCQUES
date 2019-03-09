@@ -70,7 +70,7 @@ fetch(url+'/graph/Enrolment/MONTH').then(res=>res.json()).then(function(res){
 });
 }
 let relMonth=()=>{   
-fetch(url+'/graph/Document Realising/MONTH').then(res=>res.json()).then(function(res){
+fetch(url+'/graph/Document Releasing/MONTH').then(res=>res.json()).then(function(res){
     drel.push(res[0].fldTransType);
     drelcount.push(res[0].COUNT);
 
@@ -112,7 +112,7 @@ fetch(url+'/graph/Enrolment/WEEK').then(res=>res.json()).then(function(res){
 });
 }
 let relWeek=()=>{   
-fetch(url+'/graph/Document Realising/WEEK').then(res=>res.json()).then(function(res){
+fetch(url+'/graph/Document Releasing/WEEK').then(res=>res.json()).then(function(res){
     drel1.push(res[0].fldTransType);
     drelcount1.push(res[0].COUNT);
 });
@@ -133,11 +133,7 @@ fetch(url+'/graph/Document Request/DAY').then(res=>res.json()).then(function(res
     dreqcount2.push(res[0].COUNT);
 });
 }
-fetch(url+'/graph/Other Transaction/DAY').then(res=>res.json()).then(function(res){
-    other2.push(res[0].fldTransType);
-    othercount2.push(res[0].COUNT);
 
-});
 let bankDay=()=>{
 
 fetch(url+'/graph/Bank Account/DAY').then(res=>res.json()).then(function(res){
@@ -154,23 +150,35 @@ fetch(url+'/graph/Enrolment/DAY').then(res=>res.json()).then(function(res){
 });
 }
 let relDay =()=>{
-fetch(url+'/graph/Document Realising/DAY').then(res=>res.json()).then(function(res){
+fetch(url+'/graph/Document Releasing/DAY').then(res=>res.json()).then(function(res){
     drel2.push(res[0].fldTransType);
     drelcount2.push(res[0].COUNT);
 });
 }
+
+let otherDay =()=>{
+fetch(url+'/graph/Other Transaction/DAY').then(res=>res.json()).then(function(res){
+    other2.push(res[0].fldTransType);
+    othercount2.push(res[0].COUNT);
+});
+}
+
 relDay();
 enDay();
 bankDay();
 reqDay();
 dayname();
+otherDay();
 
 relWeek();
 enWeek();
 bankWeek();
 reqWeek();
 weekname();
+otherWeek();
 
+
+otherMonth();
 relMonth();
 enMonth();
 bankMonth();

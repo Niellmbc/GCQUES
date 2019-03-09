@@ -338,7 +338,11 @@ let newTrans=()=>{
 	var aorp = "";
 	m = checkTime(m);
 	s = checkTime(s);
-	if (h > 12) {
+
+	if(h==12){
+		h = 12;
+		aorp = "PM";
+	}else if (h > 12) {
 		h = h-12;
 		if(h == 0){
 			h = 1;
@@ -496,19 +500,19 @@ let archiveStudent = (id)=>{
 	c.sender();
 }
 
-	let checkAvailability = ()=>{
-		if(getOnlineCashier.length<0){
-			document.getElementById('rStudentID').disabled=true;
-			document.getElementById('rOffice').disabled=true;
-			document.getElementById('rTrans').disabled=true;
-			document.getElementById('rTypeStud').disabled=true;
-		}else{
-			document.getElementById('rStudentID').disabled=false;
-			document.getElementById('rOffice').disabled=false;
-			document.getElementById('rTrans').disabled=false;
-			document.getElementById('rTypeStud').disabled=false;
-		}
+let checkAvailability = ()=>{
+	if(getOnlineCashier.length<0){
+		document.getElementById('rStudentID').disabled=true;
+		document.getElementById('rOffice').disabled=true;
+		document.getElementById('rTrans').disabled=true;
+		document.getElementById('rTypeStud').disabled=true;
+	}else{
+		document.getElementById('rStudentID').disabled=false;
+		document.getElementById('rOffice').disabled=false;
+		document.getElementById('rTrans').disabled=false;
+		document.getElementById('rTypeStud').disabled=false;
 	}
-	checkAvailability();
+}
+checkAvailability();
 
 // 
